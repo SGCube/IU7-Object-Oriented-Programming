@@ -28,7 +28,12 @@ SOURCES += \
         windows.cpp
 
 HEADERS += \
-        windows.h
+        windows.h \
+    polyh.h \
+    transform.h \
+    move.h \
+    scale.h \
+    rotate.h
 
 FORMS += \
         windows.ui
