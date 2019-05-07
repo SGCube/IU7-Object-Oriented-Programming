@@ -1,4 +1,4 @@
-#ifndef WIDGET_H
+﻿#ifndef WIDGET_H
 #define WIDGET_H
 
 #include <QApplication>
@@ -45,11 +45,11 @@ private slots:
 
     void on_OpenFile_clicked();
     void on_SaveModel_clicked();
-    void on_Scale_clicked();
+    void on_ShiftButton_clicked();
+    void on_TurnButton_clicked();
+    void on_ScaleButton_clicked();
     void on_ProjectP_clicked();
-    void on_Shift_clicked();
     void on_ProjectC_clicked();
-    void on_Turn_clicked();
 
 private:
     Ui::Widget *ui;

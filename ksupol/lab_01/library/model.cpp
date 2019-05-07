@@ -24,7 +24,7 @@ error_type modelFree(modelType& model)
 error_type modelChange(modelType& model, modelType& tmpModel)
 {
     error_type error;
-    if (error == modelFree(model))
+    if ((error = modelFree(model)))
         return error;
     model = tmpModel;
     return OK;

@@ -24,12 +24,6 @@ void Widget::paintEvent(QPaintEvent *event)
     QPainter painter(this);
 
     painter.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
-    painter.drawLine(AXIS_GAP_L, CENTER, AXIS_GAP_R, CENTER);
-    painter.drawLine(CENTER, AXIS_GAP_L, CENTER, AXIS_GAP_R);
-    painter.drawLine(AXIS_GAP_L, AXIS_GAP_R, AXIS_GAP_R, AXIS_GAP_L);
-
-    painter.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::FlatCap));
-    painter.setBrush(QBrush(Qt::white, Qt::SolidPattern));
 
     for (unsigned int i = 0; i < lines.size(); i += 2)
         painter.drawLine(lines[i].x(), lines[i].y(), lines[i + 1].x(), lines[i + 1].y());
@@ -59,7 +53,7 @@ void Widget::on_OpenFile_clicked()
 {
     QString filePath = QFileDialog::\
             getOpenFileName(this, "Open model", "", "Wavefront (*.txt)");
-    if (filePath == NULL)
+    if (filePath.isEmpty())
     {
         display_error("Файл не выбран!");
         return;
@@ -95,7 +89,7 @@ void Widget::on_SaveModel_clicked()
     repaint();
 }
 
-void Widget::on_Shift_clicked()
+void Widget::on_ShiftButton_clicked()
 {
     QString strX = ui->ShiftX->text();
     QString strY = ui->ShiftY->text();
@@ -134,7 +128,7 @@ void Widget::on_Shift_clicked()
     repaint();
 }
 
-void Widget::on_Scale_clicked()
+void Widget::on_ScaleButton_clicked()
 {
     QString str_kx = ui->ScaleX->text();
     QString str_ky = ui->ScaleY->text();
@@ -183,7 +177,7 @@ void Widget::on_Scale_clicked()
     repaint();
 }
 
-void Widget::on_Turn_clicked()
+void Widget::on_TurnButton_clicked()
 {
     QString strX = ui->CenterX->text();
     QString strY = ui->CenterY->text();

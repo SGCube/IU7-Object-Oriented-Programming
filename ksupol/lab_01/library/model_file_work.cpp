@@ -19,7 +19,6 @@ error_type modelLoad(modelType& model, fileWorkType file)
     {
         edgeArrFree(tmpModel.edgeArr);
         nodeArrFree(tmpModel.nodeArr);
-        return error;
     }
 
     return error;

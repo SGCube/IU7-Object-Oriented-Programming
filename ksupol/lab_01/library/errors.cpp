@@ -1,4 +1,4 @@
-#ifndef ERRORS_CPP
+﻿#ifndef ERRORS_CPP
 #define ERRORS_CPP
 
 #include "errors.h"
