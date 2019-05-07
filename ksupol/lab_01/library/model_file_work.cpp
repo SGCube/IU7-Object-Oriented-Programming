@@ -9,13 +9,18 @@ error_type modelLoad(modelType& model, fileWorkType file)
 
     error_type error;
 
-    if ((error = nodesArrLoad(tmpModel.nodeArr, file)))
+    error = edgesArrLoad(tmpModel.edgeArr, file);
+    if (error)
+        return error;
+
+    error = nodesArrLoad(tmpModel.nodeArr, file);
+    if (error)
     {
         edgeArrFree(tmpModel.edgeArr);
         return error;
     }
-
-    if ((error = modelChange(model, tmpModel)))
+    error = modelChange(model, tmpModel);
+    if (error)
     {
         edgeArrFree(tmpModel.edgeArr);
         nodeArrFree(tmpModel.nodeArr);
@@ -28,7 +33,8 @@ error_type modelSave(const modelType model, fileWorkType file)
 {
     error_type error;
 
-    if ((error = edgesArrSave(file, model.edgeArr)))
+    error = edgesArrSave(file, model.edgeArr);
+    if (error)
         return error;
 
     return nodesArrSave(file, model.nodeArr);

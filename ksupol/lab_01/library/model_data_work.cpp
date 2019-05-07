@@ -9,10 +9,13 @@ error_type modelLoadData(modelType& model, const actionDataType data)
     fileWorkType file = fileTypeInit();
 
     error_type error;
-    if ((error = isFileNameEmpty(fileName)))
+
+    error = isFileNameEmpty(fileName);
+    if (error)
         return error;
 
-    if ((error = openFileForRead(file, fileName)))
+    error = openFileForRead(file, fileName);
+    if (error)
         return error;
 
     error = modelLoad(model, file);
@@ -29,11 +32,13 @@ error_type modelSaveData(const modelType model, const actionDataType data)
     fileWorkType file = fileTypeInit();
 
     error_type error;
-    if ((error = isFileNameEmpty(fileName)))
+
+    error = isFileNameEmpty(fileName);
+    if (error)
         return error;
 
-
-    if ((error = openFileForWrite(file, fileName)))
+    error = openFileForWrite(file, fileName);
+    if (error)
         return error;
 
     error = modelSave(model, file);

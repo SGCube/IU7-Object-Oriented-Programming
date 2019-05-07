@@ -36,10 +36,12 @@ error_type nodeLoad(double& nodeX, double& nodeY, double& nodeZ, fileWorkType fi
 {
     error_type error;
 
-    if ((error = getNodeData(nodeX, file.f)))
+    error = getNodeData(nodeX, file.f);
+    if (error)
         return error;
 
-    if ((error = getNodeData(nodeY, file.f)))
+    error = getNodeData(nodeY, file.f);
+    if (error)
         return error;
 
     return getNodeData(nodeZ, file.f);
@@ -49,10 +51,12 @@ error_type nodeSave(FILE* f, const double nodeX, const double nodeY, const doubl
 {
     error_type error;
 
-    if ((error = setNodeData(f, nodeX)))
+    error = setNodeData(f, nodeX);
+    if (error)
         return error;
 
-    if ((error = setNodeData(f, nodeY)))
+    error = setNodeData(f, nodeY);
+    if (error)
         return error;
 
     return setNodeData(f, nodeZ);
@@ -62,7 +66,8 @@ error_type nodesLoad(nodeType* nodes, fileWorkType file, const unsigned int size
 {
     error_type error;
 
-    if ((error = checkNodesExist(nodes)))
+    error = checkNodesExist(nodes);
+    if (error)
         return error;
 
     for (unsigned int i = 0; i < size && error == OK; i++)
@@ -75,7 +80,8 @@ error_type nodesSave(const nodeType* nodes, fileWorkType file, const unsigned in
 {
     error_type error;
 
-    if ((error = checkNodesExist(nodes)))
+    error = checkNodesExist(nodes);
+    if (error)
         return error;
 
     for (unsigned int i = 0; i < size && error == OK; i++)
