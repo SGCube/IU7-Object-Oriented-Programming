@@ -37,7 +37,9 @@ SOURCES += \
     lib/modelwork.cpp \
     lib/modeldatawork.cpp \
     lib/vertextransform.cpp \
-    lib/action.cpp
+    lib/action.cpp \
+    lib/canvas.cpp \
+    lib/canvascoord.cpp
 
 HEADERS += \
     gui/window.h \
@@ -53,7 +55,9 @@ HEADERS += \
     lib/modelwork.h \
     lib/modeldatawork.h \
     lib/vertextransform.h \
-    lib/action.h
+    lib/action.h \
+    lib/canvas.h \
+    lib/canvascoord.h
 
 FORMS += \
     window.ui
