@@ -126,7 +126,7 @@ void Window::on_saveButton_clicked()
 
     ParameterType param;
 	std::string str = filePath.toStdString();	
-	param.fileWorkParameters.fileName = filePath.toStdString().c_str();
+	param.fileWorkParameters.fileName = str.c_str();
 	
 	performAction(ACTION_SAVE, param, false);
 }
