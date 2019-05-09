@@ -119,7 +119,7 @@ void Window::on_loadButton_clicked()
 
 void Window::on_saveButton_clicked()
 {
-	QString filePath = QFileDialog::getOpenFileName(this, "Save model", "",
+	QString filePath = QFileDialog::getSaveFileName(this, "Save model", "",
 													"Model Data (*.txt)");
     if (filePath.isEmpty())
         return;
