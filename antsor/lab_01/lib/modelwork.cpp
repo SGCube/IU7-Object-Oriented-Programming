@@ -63,9 +63,9 @@ ErrorType scaleModel(VertexType* vertices, const unsigned int size,
 
     for (unsigned int i = 0; i < size; i++)
     {
-        vertices[i].x = scale(vertices[i].x, param.kx, param.cx);
-        vertices[i].y = scale(vertices[i].y, param.ky, param.cy);
-        vertices[i].z = scale(vertices[i].z, param.kz, param.cz);
+        vertices[i].x = scale(vertices[i].x, param.kx, param.xc);
+        vertices[i].y = scale(vertices[i].y, param.ky, param.yc);
+        vertices[i].z = scale(vertices[i].z, param.kz, param.zc);
     }
     return OK;
 }
@@ -80,13 +80,13 @@ ErrorType rotateModel(VertexType* vertices, const unsigned int size,
 	switch (param.axis)
     {
         case X:
-            error = turnX(vertices, size, param);
+            error = rotateX(vertices, size, param);
             break;
         case Y:
-            error = turnY(vertices, size, param);
+            error = rotateY(vertices, size, param);
             break;
         case Z:
-            error = turnZ(vertices, size, param);
+            error = rotateZ(vertices, size, param);
             break;
         default:
             error = ERROR_FIELD;

@@ -32,7 +32,7 @@ struct ScaleParamType
 struct RotateParamType
 {
     int angle;
-    double xc, cy, zc;
+    double xc, yc, zc;
     AxisType axis;
 };
 

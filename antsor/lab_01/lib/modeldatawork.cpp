@@ -53,17 +53,17 @@ ErrorType modelSaveData(const ModelType& model, const FileWorkParamType param)
     return error;
 }
 
-ErrorType modelMoveData(const VertexArrayType& vertices, const MoveParamType& param)
+ErrorType modelMoveData(const VertexArrayType& vertices, const MoveParamType param)
 {
 	return moveModel(vertices.vertices, vertices.size, param);
 }
 
-ErrorType modelScaleData(const VertexArrayType& vertices, const ScaleParamType& param)
+ErrorType modelScaleData(const VertexArrayType& vertices, const ScaleParamType param)
 {
 	return scaleModel(vertices.vertices, vertices.size, param);
 }
 
-ErrorType modelRotateData(const VertexArrayType& vertices, const RotateParamType& param)
+ErrorType modelRotateData(const VertexArrayType& vertices, const RotateParamType param)
 {
 	return rotateModel(vertices.vertices, vertices.size, param);
 }

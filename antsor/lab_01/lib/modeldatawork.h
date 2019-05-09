@@ -9,10 +9,10 @@ ErrorType modelLoadData(const ModelType& model, const FileWorkParamType param);
 
 ErrorType modelSaveData(const ModelType& model, const FileWorkParamType param);
 
-ErrorType modelMoveData(const VertexArrayType& vertices, const MoveParamType& param);
+ErrorType modelMoveData(const VertexArrayType& vertices, const MoveParamType param);
 
-ErrorType modelScaleData(const VertexArrayType& vertices, const ScaleParamType& param);
+ErrorType modelScaleData(const VertexArrayType& vertices, const ScaleParamType param);
 
-ErrorType modelRotateData(const VertexArrayType& vertices, const RotateParamType& param);
+ErrorType modelRotateData(const VertexArrayType& vertices, const RotateParamType param);
 
 #endif // MODELDATAWORK_H
