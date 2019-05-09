@@ -36,7 +36,8 @@ SOURCES += \
     lib/modelaction.cpp \
     lib/modelwork.cpp \
     lib/modeldatawork.cpp \
-    lib/vertextransform.cpp
+    lib/vertextransform.cpp \
+    lib/action.cpp
 
 HEADERS += \
     gui/window.h \
@@ -51,7 +52,8 @@ HEADERS += \
     lib/actionparam.h \
     lib/modelwork.h \
     lib/modeldatawork.h \
-    lib/vertextransform.h
+    lib/vertextransform.h \
+    lib/action.h
 
 FORMS += \
     window.ui
