@@ -3,18 +3,19 @@
 
 #include "modelwork.h"
 
-ErrorType loadModel(const ModelType& model, const FileWorkType& param)
+ErrorType loadModel(const ModelType& model, const FileWorkType& file)
 {
 	ErrorType error = OK;
 	ModelType tmpModel = initializeModel();
 	
-	error = loadEdgeArray(tmpModel.edges, param);
-    if ((error = edgesArrLoad(tmpModel.edgeArr, file)))
+	error = loadEdgeArray(tmpModel.edges, file);
+    if (error != OK)
         return error;
 
-    if ((error = nodesArrLoad(tmpModel.nodeArr, file)))
+	error = loadVertexArray(tmpModel.vertices, file);
+    if (error != OK)
     {
-        edgeArrFree(tmpModel.edgeArr);
+        freeEdgeArray(tmpModel.edges);
         return error;
     }
 	
@@ -29,9 +30,12 @@ ErrorType loadModel(const ModelType& model, const FileWorkType& param)
     return error;
 }
 
-ErrorType saveModel(const ModelType& model, const FileWorkType& param)
+ErrorType saveModel(const ModelType& model, const FileWorkType& file)
 {
-	
+	ErrorType error = saveEdgeArray(tmpModel.edges, file);
+    if (error != OK)
+        return error;
+	return saveVertexArray(tmpModel.vertices, file);
 }
 
 ErrorType moveModel(const VertexArrayType& model, const MoveParamType& param)
