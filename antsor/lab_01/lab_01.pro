@@ -24,16 +24,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        windows.cpp
+    main.cpp \
+    gui/window.cpp \
+	lib/error.cpp \
+	lib/filework.cpp \
+    lib/vertex.cpp \
+	lib/vertexarray.cpp \
+    lib/edge.cpp \
+    lib/edgearray.cpp \
 
 HEADERS += \
-        windows.h \
-    polyh.h \
-    transform.h \
-    move.h \
-    scale.h \
-    rotate.h
+    gui/window.h \
+	lib/error.h \
+	lib/filework.h \
+	lib/vertex.h \
+    lib/vertexarray.h \
+    lib/edge.h \
+    lib/edgearray.h \
 
 FORMS += \
-        windows.ui
+    window.ui
