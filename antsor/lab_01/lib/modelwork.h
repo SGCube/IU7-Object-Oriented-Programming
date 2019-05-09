@@ -5,14 +5,17 @@
 #include "model.h"
 #include "actionparam.h"
 
-ErrorType loadModel(const ModelType& model, const FileWorkType& param);
+ErrorType loadModel(const ModelType& model, const FileWorkType& file);
 
-ErrorType saveModel(const ModelType& model, const FileWorkType& param);
+ErrorType saveModel(const ModelType& model, const FileWorkType& file);
 
-ErrorType moveModel(const VertexArrayType& model, const MoveParamType& param);
+ErrorType moveModel(VertexType* vertices, const unsigned int size,
+					const MoveParamType& param);
 
-ErrorType scaleModel(const VertexArrayType& model, const ScaleParamType& param);
+ErrorType scaleModel(VertexType* vertices, const unsigned int size,
+					 const ScaleParamType& param);
 
-ErrorType rotateModel(const VertexArrayType& model, const RotateParamType& param);
+ErrorType rotateModel(VertexType* vertices, const unsigned int size,
+					  const RotateParamType& param);
 
 #endif // MODELWORK_H

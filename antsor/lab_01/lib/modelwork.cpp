@@ -38,19 +38,60 @@ ErrorType saveModel(const ModelType& model, const FileWorkType& file)
 	return saveVertexArray(tmpModel.vertices, file);
 }
 
-ErrorType moveModel(const VertexArrayType& model, const MoveParamType& param)
+ErrorType moveModel(VertexType* vertices, const unsigned int size,
+					const MoveParamType& param)
 {
-	
+	ErrorType error = checkVerticesExist(vertices);
+    if (error != OK)
+        return error;
+
+    for (unsigned int i = 0; i < size; i++)
+    {
+        vertices[i].x = move(vertices[i].x, param.dx);
+        vertices[i].y = move(vertices[i].y, param.dy);
+        vertices[i].z = move(vertices[i].z, param.dz);
+    }
+    return OK;
 }
 
-ErrorType scaleModel(const VertexArrayType& model, const ScaleParamType& param)
+ErrorType scaleModel(VertexType* vertices, const unsigned int size,
+					 const ScaleParamType& param)
 {
-	
+	ErrorType error = checkVerticesExist(vertices);
+    if (error != OK)
+        return error;
+
+    for (unsigned int i = 0; i < size; i++)
+    {
+        vertices[i].x = scale(vertices[i].x, param.kx, param.cx);
+        vertices[i].y = scale(vertices[i].y, param.ky, param.cy);
+        vertices[i].z = scale(vertices[i].z, param.kz, param.cz);
+    }
+    return OK;
 }
 
-ErrorType rotateModel(const VertexArrayType& model, const RotateParamType& param)
+ErrorType rotateModel(VertexType* vertices, const unsigned int size,
+					  const RotateParamType& param)
 {
-	
+	ErrorType error = checkVerticesExist(vertices);
+    if (error != OK)
+        return error;
+
+	switch (param.axis)
+    {
+        case X:
+            error = turnX(vertices, size, param);
+            break;
+        case Y:
+            error = turnY(vertices, size, param);
+            break;
+        case Z:
+            error = turnZ(vertices, size, param);
+            break;
+        default:
+            error = ERROR_FIELD;
+    }
+    return error;
 }
 
 #endif // MODELWORK_CPP
