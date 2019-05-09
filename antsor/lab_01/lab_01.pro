@@ -32,6 +32,10 @@ SOURCES += \
 	lib/vertexarray.cpp \
     lib/edge.cpp \
     lib/edgearray.cpp \
+    lib/model.cpp \
+    lib/modelaction.cpp \
+    lib/modelwork.cpp \
+    lib/modeldatawork.cpp
 
 HEADERS += \
     gui/window.h \
@@ -41,6 +45,11 @@ HEADERS += \
     lib/vertexarray.h \
     lib/edge.h \
     lib/edgearray.h \
+    lib/model.h \
+    lib/modelaction.h \
+    lib/actionparam.h \
+    lib/modelwork.h \
+    lib/modeldatawork.h
 
 FORMS += \
     window.ui
