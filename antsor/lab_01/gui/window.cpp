@@ -36,15 +36,10 @@ void showError(QString str)
 
 Window::Window(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::Window),
-	img(BORDER, BORDER, QImage::Format_RGB32),
-	scene(0, 0, BORDER, BORDER)
+    ui(new Ui::Window)
 {
     ui->setupUi(this);
-	ui->graphicsView->setScene(&scene);
-	
-	draw();
-	scene.addPixmap(QPixmap::fromImage(img));
+	repaint();
 }
 
 Window::~Window()
@@ -61,18 +56,21 @@ void Window::closeEvent(QCloseEvent *event)
 		showError(error);
 }
 
-void Window::draw()
+void Window::paintEvent(QPaintEvent *event)
 {
-    QPainter painter(&img);
+	Q_UNUSED(event);
+	
+    QPainter painter(this);
 	QPen axisPen(Qt::gray);
 	QPen modelPen(Qt::black);
 	
-	img.fill(QColor(255, 255, 255));
+	painter.fillRect(0, 0, BORDER, BORDER, Qt::white);
 	
     painter.setPen(axisPen);
     painter.drawLine(0, CENTER, BORDER, CENTER);
     painter.drawLine(CENTER, 0, CENTER, BORDER);
     painter.drawLine(BORDER, 0, 0, BORDER);
+	
 
     painter.setPen(modelPen);
     for (unsigned int i = 0; i < lines.size(); i += 2)
@@ -80,8 +78,6 @@ void Window::draw()
         painter.drawLine(lines[i].x(), lines[i].y(),
 						 lines[i + 1].x(), lines[i + 1].y());
 	}
-	
-	scene.addPixmap(QPixmap::fromImage(img));
 }
 
 void Window::performAction(const ActionType action, const ParameterType param,
@@ -103,25 +99,25 @@ void Window::performAction(const ActionType action, const ParameterType param,
 			showError(error);
 			return;
 		}
-		draw();
+		repaint();
 	}
 }
 
-void Window::on_loadButton_released()
+void Window::on_loadButton_clicked()
 {
 	QString filePath = QFileDialog::getOpenFileName(this, "Load model", "",
 													"Model Data (*.txt)");
     if (filePath.isEmpty())
         return;
-		
 
     ParameterType param;
-	std::string str = filePath.toStdString();
+	std::string str = filePath.toStdString();	
     param.fileWorkParameters.fileName = str.c_str();
+	
     performAction(ACTION_LOAD, param, true);
 }
 
-void Window::on_saveButton_released()
+void Window::on_saveButton_clicked()
 {
 	QString filePath = QFileDialog::getOpenFileName(this, "Save model", "",
 													"Model Data (*.txt)");
@@ -129,13 +125,33 @@ void Window::on_saveButton_released()
         return;
 
     ParameterType param;
+	std::string str = filePath.toStdString();	
 	param.fileWorkParameters.fileName = filePath.toStdString().c_str();
+	
 	performAction(ACTION_SAVE, param, false);
 }
 
-void Window::on_moveButton_released()
+void Window::on_axisXRadio_released()
 {
-    double dx = ui->dxSpinbox->value();
+    ui->axisYRadio->setChecked(false);
+	ui->axisZRadio->setChecked(false);
+}
+
+void Window::on_axisYRadio_released()
+{
+	ui->axisXRadio->setChecked(false);
+	ui->axisZRadio->setChecked(false);
+}
+
+void Window::on_axisZRadio_released()
+{
+	ui->axisXRadio->setChecked(false);
+	ui->axisYRadio->setChecked(false);
+}
+
+void Window::on_moveButton_clicked()
+{
+	double dx = ui->dxSpinbox->value();
     double dy = ui->dySpinbox->value();
     double dz = ui->dzSpinbox->value();
 
@@ -147,7 +163,7 @@ void Window::on_moveButton_released()
 	performAction(ACTION_MOVE, param, true);
 }
 
-void Window::on_scaleButton_released()
+void Window::on_scaleButton_clicked()
 {
 	/// coeffs
 	
@@ -172,7 +188,7 @@ void Window::on_scaleButton_released()
     performAction(ACTION_SCALE, param, true);
 }
 
-void Window::on_rotateButton_released()
+void Window::on_rotateButton_clicked()
 {
 	double xc = ui->cxSpinbox->value();
     double yc = ui->cySpinbox->value();
@@ -195,24 +211,6 @@ void Window::on_rotateButton_released()
     param.rotateParameters.zc = zc;
 	
     performAction(ACTION_ROTATE, param, true);
-}
-
-void Window::on_axisXRadio_released()
-{
-    ui->axisYRadio->setChecked(false);
-	ui->axisZRadio->setChecked(false);
-}
-
-void Window::on_axisYRadio_released()
-{
-	ui->axisXRadio->setChecked(false);
-	ui->axisZRadio->setChecked(false);
-}
-
-void Window::on_axisZRadio_released()
-{
-	ui->axisXRadio->setChecked(false);
-	ui->axisYRadio->setChecked(false);
 }
 
 #endif // WINDOW_CPP

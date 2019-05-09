@@ -25,19 +25,17 @@ public:
     explicit Window(QWidget *parent = 0);
     ~Window();
 	
+	void performAction(const ActionType action, const ParameterType param,
+					   bool toDraw = true);
+	
 protected:
+	void paintEvent(QPaintEvent *event);
 	void closeEvent(QCloseEvent *event);
 
 private slots:
-	void on_loadButton_released();
+	void on_loadButton_clicked();
 	
-	void on_saveButton_released();
-	
-	void on_moveButton_released();
-	
-	void on_scaleButton_released();
-	
-	void on_rotateButton_released();
+	void on_saveButton_clicked();
 	
 	void on_axisXRadio_released();
 	
@@ -45,14 +43,14 @@ private slots:
 	
 	void on_axisZRadio_released();
 	
+	void on_moveButton_clicked();
+	
+	void on_scaleButton_clicked();
+	
+	void on_rotateButton_clicked();
+	
 private:
     Ui::Window *ui;
-	QImage img;
-	QGraphicsScene scene;
-	
-	void performAction(const ActionType action, const ParameterType param,
-					   bool toDraw = true);
-	void draw();
 };
 
 #endif // WINDOW_H
