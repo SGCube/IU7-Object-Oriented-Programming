@@ -11,7 +11,9 @@ ErrorType loadModel(ModelType& model, const FileWorkType& file)
 	
 	error = loadEdgeArray(tmpModel.edges, file);
     if (error != OK)
+	{
         return error;
+	}
 
 	error = loadVertexArray(tmpModel.vertices, file);
     if (error != OK)
@@ -35,7 +37,9 @@ ErrorType saveModel(const ModelType& model, const FileWorkType& file)
 {
 	ErrorType error = saveEdgeArray(model.edges, file);
     if (error != OK)
+	{
         return error;
+	}
 	return saveVertexArray(model.vertices, file);
 }
 
@@ -75,8 +79,10 @@ ErrorType rotateModel(VertexType* vertices, const unsigned int size,
 					  const RotateParamType& param)
 {
 	ErrorType error = checkVerticesExist(vertices);
-    if (error != OK)
+	if (error != OK)
+	{
         return error;
+	}
 
 	switch (param.axis)
     {

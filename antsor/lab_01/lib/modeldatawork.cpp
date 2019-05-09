@@ -10,8 +10,7 @@ ErrorType modelLoadData(ModelType& model, const FileWorkParamType param)
 {
 	ErrorType error = OK;	
 	
-    const char* fileName = param.fileName;
-    error = checkFileNameIsEmpty(fileName);
+    error = checkFileNameIsEmpty(param.fileName);
     if (error != OK)
         return error;
 
@@ -20,7 +19,7 @@ ErrorType modelLoadData(ModelType& model, const FileWorkParamType param)
     if (error != OK)
         return error;
 
-    error = openFileForRead(file, fileName);
+    error = openFileForRead(file, param.fileName);
 	if (error != OK)
         return error;
 
@@ -34,8 +33,7 @@ ErrorType modelSaveData(const ModelType& model, const FileWorkParamType param)
 {
 	ErrorType error = OK;	
 	
-    const char* fileName = param.fileName;
-    error = checkFileNameIsEmpty(fileName);
+    error = checkFileNameIsEmpty(param.fileName);
     if (error != OK)
         return error;
 
@@ -44,7 +42,7 @@ ErrorType modelSaveData(const ModelType& model, const FileWorkParamType param)
     if (error != OK)
         return error;
 
-    error = openFileForWrite(file, fileName);
+    error = openFileForWrite(file, param.fileName);
 	if (error != OK)
         return error;
 

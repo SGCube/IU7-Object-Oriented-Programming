@@ -27,7 +27,9 @@ ErrorType rotateX(VertexType* vertices, const unsigned int size,
 {
 	ErrorType error = checkVerticesExist(vertices);
     if (error != OK)
+	{
         return error;
+	}
 
 	double radians = degreesToRadians(param.angle);
 	double angleCos = cos(radians), angleSin = sin(radians);
@@ -50,7 +52,9 @@ ErrorType rotateY(VertexType* vertices, const unsigned int size,
 {
 	ErrorType error = checkVerticesExist(vertices);
     if (error != OK)
+	{
         return error;
+	}
 
 	double radians = degreesToRadians(param.angle);
 	double angleCos = cos(radians), angleSin = sin(radians);
@@ -73,7 +77,9 @@ ErrorType rotateZ(VertexType* vertices, const unsigned int size,
 {
 	ErrorType error = checkVerticesExist(vertices);
     if (error != OK)
+	{
         return error;
+	}
 
 	double radians = degreesToRadians(param.angle);
 	double angleCos = cos(radians), angleSin = sin(radians);

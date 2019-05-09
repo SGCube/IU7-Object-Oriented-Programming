@@ -12,7 +12,7 @@ enum AxisType
 // type of parameters for file work
 struct FileWorkParamType
 {
-	char* fileName;
+	const char* fileName;
 };
 
 // type of parameters for model move

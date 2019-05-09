@@ -23,6 +23,18 @@
       <height>720</height>
      </rect>
     </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="transformationAnchor">
+     <enum>QGraphicsView::NoAnchor</enum>
+    </property>
+    <property name="viewportUpdateMode">
+     <enum>QGraphicsView::NoViewportUpdate</enum>
+    </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
@@ -75,6 +87,12 @@
       <height>24</height>
      </rect>
     </property>
+    <property name="minimum">
+     <number>-99999</number>
+    </property>
+    <property name="maximum">
+     <number>99999</number>
+    </property>
    </widget>
    <widget class="QSpinBox" name="dySpinbox">
     <property name="geometry">
@@ -84,6 +102,12 @@
       <width>61</width>
       <height>24</height>
      </rect>
+    </property>
+    <property name="minimum">
+     <number>-99999</number>
+    </property>
+    <property name="maximum">
+     <number>99999</number>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -149,6 +173,12 @@
       <height>24</height>
      </rect>
     </property>
+    <property name="minimum">
+     <number>-99999</number>
+    </property>
+    <property name="maximum">
+     <number>99999</number>
+    </property>
    </widget>
    <widget class="QPushButton" name="saveButton">
     <property name="geometry">
@@ -195,6 +225,12 @@
       <height>24</height>
      </rect>
     </property>
+    <property name="minimum">
+     <number>-99999</number>
+    </property>
+    <property name="maximum">
+     <number>99999</number>
+    </property>
    </widget>
    <widget class="QSpinBox" name="kzSpinbox">
     <property name="geometry">
@@ -204,6 +240,12 @@
       <width>61</width>
       <height>24</height>
      </rect>
+    </property>
+    <property name="minimum">
+     <number>-99999</number>
+    </property>
+    <property name="maximum">
+     <number>99999</number>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
@@ -311,6 +353,12 @@
       <height>24</height>
      </rect>
     </property>
+    <property name="minimum">
+     <number>-99999</number>
+    </property>
+    <property name="maximum">
+     <number>99999</number>
+    </property>
    </widget>
    <widget class="QLabel" name="label_14">
     <property name="geometry">
@@ -338,6 +386,9 @@
       <width>61</width>
       <height>24</height>
      </rect>
+    </property>
+    <property name="maximum">
+     <number>359</number>
     </property>
    </widget>
    <widget class="QLabel" name="label_15">
@@ -510,6 +561,12 @@
       <height>24</height>
      </rect>
     </property>
+    <property name="minimum">
+     <number>-99999</number>
+    </property>
+    <property name="maximum">
+     <number>99999</number>
+    </property>
    </widget>
    <widget class="QSpinBox" name="czSpinbox">
     <property name="geometry">
@@ -520,6 +577,12 @@
       <height>24</height>
      </rect>
     </property>
+    <property name="minimum">
+     <number>-99999</number>
+    </property>
+    <property name="maximum">
+     <number>99999</number>
+    </property>
    </widget>
    <widget class="QSpinBox" name="cySpinbox">
     <property name="geometry">
@@ -529,6 +592,12 @@
       <width>61</width>
       <height>24</height>
      </rect>
+    </property>
+    <property name="minimum">
+     <number>-99999</number>
+    </property>
+    <property name="maximum">
+     <number>99999</number>
     </property>
    </widget>
    <widget class="QLabel" name="label_6">

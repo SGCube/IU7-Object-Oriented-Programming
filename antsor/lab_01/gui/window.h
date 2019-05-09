@@ -26,7 +26,6 @@ public:
     ~Window();
 	
 protected:
-	void paintEvent(QPaintEvent *event);
 	void closeEvent(QCloseEvent *event);
 
 private slots:
@@ -48,9 +47,12 @@ private slots:
 	
 private:
     Ui::Window *ui;
+	QImage img;
 	QGraphicsScene scene;
+	
 	void performAction(const ActionType action, const ParameterType param,
 					   bool toDraw = true);
+	void draw();
 };
 
 #endif // WINDOW_H

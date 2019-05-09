@@ -37,10 +37,14 @@ void showError(QString str)
 Window::Window(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Window),
+	img(BORDER, BORDER, QImage::Format_RGB32),
 	scene(0, 0, BORDER, BORDER)
 {
     ui->setupUi(this);
 	ui->graphicsView->setScene(&scene);
+	
+	draw();
+	scene.addPixmap(QPixmap::fromImage(img));
 }
 
 Window::~Window()
@@ -48,21 +52,29 @@ Window::~Window()
     delete ui;
 }
 
-void Window::paintEvent(QPaintEvent *event)
+void Window::closeEvent(QCloseEvent *event)
 {
-    Q_UNUSED(event);
-	QImage img(BORDER, BORDER, QImage::Format_RGB32);
+	Q_UNUSED(event);
+	ParameterType param;
+	ErrorType error = actionFunc(ACTION_FREE, param);
+	if (error != OK)
+		showError(error);
+}
+
+void Window::draw()
+{
     QPainter painter(&img);
 	QPen axisPen(Qt::gray);
 	QPen modelPen(Qt::black);
-
+	
+	img.fill(QColor(255, 255, 255));
+	
     painter.setPen(axisPen);
     painter.drawLine(0, CENTER, BORDER, CENTER);
     painter.drawLine(CENTER, 0, CENTER, BORDER);
-    painter.drawLine(0, 0, BORDER, BORDER);
+    painter.drawLine(BORDER, 0, 0, BORDER);
 
     painter.setPen(modelPen);
-
     for (unsigned int i = 0; i < lines.size(); i += 2)
 	{
         painter.drawLine(lines[i].x(), lines[i].y(),
@@ -70,14 +82,6 @@ void Window::paintEvent(QPaintEvent *event)
 	}
 	
 	scene.addPixmap(QPixmap::fromImage(img));
-}
-
-void Window::closeEvent(QCloseEvent *event)
-{
-	ParameterType param;
-	ErrorType error = actionFunc(ACTION_FREE, param);
-	if (error != OK)
-		showError(error);
 }
 
 void Window::performAction(const ActionType action, const ParameterType param,
@@ -90,7 +94,7 @@ void Window::performAction(const ActionType action, const ParameterType param,
         return;
     }
 
-	if (!toDraw)
+	if (toDraw)
 	{
 		lines.clear();
 		error = actionFunc(ACTION_DRAW, param);
@@ -99,7 +103,7 @@ void Window::performAction(const ActionType action, const ParameterType param,
 			showError(error);
 			return;
 		}
-		repaint();
+		draw();
 	}
 }
 
@@ -108,109 +112,54 @@ void Window::on_loadButton_released()
 	QString filePath = QFileDialog::getOpenFileName(this, "Load model", "",
 													"Model Data (*.txt)");
     if (filePath.isEmpty())
-    {
-        showError(ERROR_FILE_NAME);
         return;
-    }
+		
 
     ParameterType param;
-    param.fileWorkParameters.fileName = filePath.toLatin1().data();
-    performAction(ACTION_LOAD, param);
+	std::string str = filePath.toStdString();
+    param.fileWorkParameters.fileName = str.c_str();
+    performAction(ACTION_LOAD, param, true);
 }
 
 void Window::on_saveButton_released()
 {
-	QString filePath = QFileDialog::getOpenFileName(this, "Load model", "",
+	QString filePath = QFileDialog::getOpenFileName(this, "Save model", "",
 													"Model Data (*.txt)");
     if (filePath.isEmpty())
-    {
-        showError(ERROR_FILE_NAME);
         return;
-    }
 
     ParameterType param;
-    param.fileWorkParameters.fileName = filePath.toLatin1().data();
+	param.fileWorkParameters.fileName = filePath.toStdString().c_str();
 	performAction(ACTION_SAVE, param, false);
 }
 
 void Window::on_moveButton_released()
 {
-	QString strX = ui->dxSpinbox->text();
-    QString strY = ui->dySpinbox->text();
-    QString strZ = ui->dzSpinbox->text();
-
-    if (strX.isEmpty() || strY.isEmpty() || strZ.isEmpty())
-    {
-        showError("Error input: empty line");
-        return;
-    }
-
-    bool checkX, checkY, checkZ;
-	
-    double dx = strX.toDouble(&checkX);
-    double dy = strY.toDouble(&checkY);
-    double dz = strZ.toDouble(&checkZ);
-	
-    if (!checkX || !checkY || !checkZ)
-    {
-        showError("Error input: wrong data");
-        return;
-    }
+    double dx = ui->dxSpinbox->value();
+    double dy = ui->dySpinbox->value();
+    double dz = ui->dzSpinbox->value();
 
     ParameterType param;
     param.moveParameters.dx = dx;
     param.moveParameters.dy = dy;
     param.moveParameters.dz = dz;
-	performAction(ACTION_MOVE, param);
+	
+	performAction(ACTION_MOVE, param, true);
 }
 
 void Window::on_scaleButton_released()
 {
 	/// coeffs
 	
-	QString strX = ui->kxSpinbox->text();
-    QString strY = ui->kySpinbox->text();
-    QString strZ = ui->kzSpinbox->text();
-
-    if (strX.isEmpty() || strY.isEmpty() || strZ.isEmpty())
-    {
-        showError("Error input: empty line");
-        return;
-    }
-
-    bool checkX, checkY, checkZ;
-	
-    double kx = strX.toDouble(&checkX);
-    double ky = strY.toDouble(&checkY);
-    double kz = strZ.toDouble(&checkZ);
-	
-    if (!checkX || !checkY || !checkZ)
-    {
-        showError("Error input: wrong data");
-        return;
-    }
+	double kx = ui->kxSpinbox->value();
+    double ky = ui->kySpinbox->value();
+    double kz = ui->kzSpinbox->value();
 	
 	/// center coords
 	
-	strX = ui->cxSpinbox->text();
-    strY = ui->cySpinbox->text();
-    strZ = ui->czSpinbox->text();
-
-    if (strX.isEmpty() || strY.isEmpty() || strZ.isEmpty())
-    {
-        showError("Error input: empty line");
-        return;
-    }
-	
-    double xc = strX.toDouble(&checkX);
-    double yc = strY.toDouble(&checkY);
-    double zc = strZ.toDouble(&checkZ);
-	
-    if (!checkX || !checkY || !checkZ)
-    {
-        showError("Error input: wrong data");
-        return;
-    }
+	double xc = ui->cxSpinbox->value();
+    double yc = ui->cySpinbox->value();
+    double zc = ui->czSpinbox->value();
 
     ParameterType param;
 	param.scaleParameters.kx = kx;
@@ -220,34 +169,15 @@ void Window::on_scaleButton_released()
     param.scaleParameters.yc = yc;
     param.scaleParameters.zc = zc;
 	
-    performAction(ACTION_SCALE, param);
+    performAction(ACTION_SCALE, param, true);
 }
 
 void Window::on_rotateButton_released()
 {
-	QString strX = ui->dxSpinbox->text();
-    QString strY = ui->dySpinbox->text();
-    QString strZ = ui->dzSpinbox->text();
-	QString strA = ui->angleSpinbox->text();
-
-    if (strX.isEmpty() || strY.isEmpty() || strZ.isEmpty() || strA.isEmpty())
-    {
-        showError("Error input: empty line");
-        return;
-    }
-
-    bool checkX, checkY, checkZ, checkA;
-	
-    double xc = strX.toDouble(&checkX);
-    double yc = strY.toDouble(&checkY);
-    double zc = strZ.toDouble(&checkZ);
-	int angle = strA.toInt(&checkA);
-	
-    if (!checkX || !checkY || !checkZ || !checkA)
-    {
-        showError("Error input: wrong data");
-        return;
-    }
+	double xc = ui->cxSpinbox->value();
+    double yc = ui->cySpinbox->value();
+    double zc = ui->czSpinbox->value();
+	int angle = ui->angleSpinbox->value();
 	
 	AxisType axis;
     if (ui->axisXRadio->isChecked())
@@ -264,7 +194,7 @@ void Window::on_rotateButton_released()
     param.rotateParameters.yc = yc;
     param.rotateParameters.zc = zc;
 	
-    performAction(ACTION_ROTATE, param);
+    performAction(ACTION_ROTATE, param, true);
 }
 
 void Window::on_axisXRadio_released()

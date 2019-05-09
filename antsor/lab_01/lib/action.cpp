@@ -25,6 +25,7 @@ ErrorType actionFunc(const ActionType action, const ParameterType param)
 			break;
 		case ACTION_DRAW:
 			error = modelDrawAction(model);
+			break;
 		case ACTION_MOVE:
 			error = modelMoveAction(model, param);
 			break;
