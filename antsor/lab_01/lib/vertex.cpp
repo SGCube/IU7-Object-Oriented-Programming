@@ -61,7 +61,7 @@ ErrorType freeVertices(VertexType*& vertices)
 }
 
 // check if vertices exist
-ErrorType checkVerticesExist(const vertexType* vertices)
+ErrorType checkVerticesExist(const VertexType* vertices)
 {
     return vertices ? OK : ERROR_VERTICES_EXIST;
 }

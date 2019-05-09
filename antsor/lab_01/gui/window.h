@@ -2,13 +2,16 @@
 #define WINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsScene>
 #include "../lib/action.h"
 
 extern std::vector<QPoint> lines;
 
-ErrorType drawLine(double x1, double y1, double x2, double y2);
+ErrorType addLine(double x1, double y1, double x2, double y2);
 
 void showError(const ErrorType error);
+
+void showError(QString str);
 
 namespace Ui {
 class Window;
@@ -23,7 +26,7 @@ public:
     ~Window();
 	
 protected:
-	void paintEvent(QCloseEvent *event);
+	void paintEvent(QPaintEvent *event);
 	void closeEvent(QCloseEvent *event);
 
 private slots:
@@ -45,7 +48,7 @@ private slots:
 	
 private:
     Ui::Window *ui;
-	
+	QGraphicsScene scene;
 	void performAction(const ActionType action, const ParameterType param,
 					   bool toDraw = true);
 };

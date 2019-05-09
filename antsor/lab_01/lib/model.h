@@ -19,7 +19,4 @@ ModelType initializeModel();
 // free memory of model
 ErrorType freeModel(ModelType& model);
 
-// modify model data
-ErrorType modifyModel(ModelType& model, ModelType& tmpmodel);
-
 #endif // MODEL_H

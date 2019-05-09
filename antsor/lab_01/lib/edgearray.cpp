@@ -6,7 +6,7 @@
 // initialize edge array
 ErrorType initializeEdgeArray(EdgeArrayType& edgeArray)
 {
-	edgeArray.vertices = nullptr;
+	edgeArray.edges = nullptr;
 	edgeArray.size = 0;
 	return OK;
 }

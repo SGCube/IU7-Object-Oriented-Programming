@@ -30,7 +30,7 @@ ErrorType setArraySize(const unsigned int size, FILE* f);
 
 ErrorType getVertexData(double& data, FILE *f);
 
-ErrorType setVertexData(FILE *f, const double data);
+ErrorType setVertexData(const double data, FILE *f);
 
 ErrorType getEdgeData(unsigned int& data, FILE* f);
 

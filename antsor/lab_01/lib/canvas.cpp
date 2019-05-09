@@ -20,7 +20,7 @@ ErrorType modelDraw(const EdgeType* edges, const VertexType* vertices,
 	ErrorType error = checkVerticesExist(vertices);
 	if (error != OK)
         return error;
-	error = checkEdgesExist(vertices);
+	error = checkEdgesExist(edges);
 	if (error != OK)
 		return error;
 

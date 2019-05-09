@@ -15,7 +15,7 @@
 
 std::vector<QPoint> lines;
 
-ErrorType drawLine(double x1, double y1, double x2, double y2)
+ErrorType addLine(double x1, double y1, double x2, double y2)
 {
     QPoint startPoint(TO_CENTER(x1), TO_CENTER(y1));
 	QPoint endPoint(TO_CENTER(x2), TO_CENTER(y2));
@@ -29,11 +29,18 @@ void showError(const ErrorType error)
     QMessageBox::critical(NULL, "Error", getErrorMsg(error));
 }
 
+void showError(QString str)
+{
+    QMessageBox::critical(NULL, "Error", str);
+}
+
 Window::Window(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::Window)
+    ui(new Ui::Window),
+	scene(0, 0, BORDER, BORDER)
 {
     ui->setupUi(this);
+	ui->graphicsView->setScene(&scene);
 }
 
 Window::~Window()
@@ -44,7 +51,8 @@ Window::~Window()
 void Window::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
-    QPainter painter(ui->graphicsView->scene());
+	QImage img(BORDER, BORDER, QImage::Format_RGB32);
+    QPainter painter(&img);
 	QPen axisPen(Qt::gray);
 	QPen modelPen(Qt::black);
 
@@ -56,14 +64,18 @@ void Window::paintEvent(QPaintEvent *event)
     painter.setPen(modelPen);
 
     for (unsigned int i = 0; i < lines.size(); i += 2)
+	{
         painter.drawLine(lines[i].x(), lines[i].y(),
 						 lines[i + 1].x(), lines[i + 1].y());
+	}
+	
+	scene.addPixmap(QPixmap::fromImage(img));
 }
 
 void Window::closeEvent(QCloseEvent *event)
 {
 	ParameterType param;
-	ErrorType error = actionFinder(actionFree, param);
+	ErrorType error = actionFunc(ACTION_FREE, param);
 	if (error != OK)
 		showError(error);
 }
@@ -189,8 +201,6 @@ void Window::on_scaleButton_released()
         showError("Error input: empty line");
         return;
     }
-
-    bool checkX, checkY, checkZ;
 	
     double xc = strX.toDouble(&checkX);
     double yc = strY.toDouble(&checkY);

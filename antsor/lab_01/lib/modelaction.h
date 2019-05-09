@@ -5,11 +5,11 @@
 #include "model.h"
 #include "actionparam.h"
 
-ErrorType modelLoadAction(const ModelType& model, const ParameterType& param);
+ErrorType modelLoadAction(ModelType& model, const ParameterType& param);
 
 ErrorType modelSaveAction(const ModelType& model, const ParameterType& param);
 
-ErrorType modelFreeAction(const ModelType &model);
+ErrorType modelFreeAction(ModelType &model);
 
 ErrorType modelDrawAction(const ModelType &model);
 

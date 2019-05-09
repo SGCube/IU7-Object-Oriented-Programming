@@ -1,11 +1,12 @@
 #ifndef MODELACTION_CPP
 #define MODELACTION_CPP
 
+#include "model.h"
 #include "modelaction.h"
 #include "modeldatawork.h"
 #include "modelwork.h"
 
-ErrorType modelLoadAction(const ModelType& model, const ParameterType& param)
+ErrorType modelLoadAction(ModelType& model, const ParameterType& param)
 {
 	return modelLoadData(model, param.fileWorkParameters);
 }
@@ -15,9 +16,9 @@ ErrorType modelSaveAction(const ModelType& model, const ParameterType& param)
 	return modelSaveData(model, param.fileWorkParameters);
 }
 
-ErrorType modelFreeAction(const ModelType &model)
+ErrorType modelFreeAction(ModelType &model)
 {
-	return modelFree(model);
+	return freeModel(model);
 }
 
 ErrorType modelDrawAction(const ModelType &model)

@@ -5,7 +5,7 @@
 #include "model.h"
 #include "actionparam.h"
 
-ErrorType loadModel(const ModelType& model, const FileWorkType& file);
+ErrorType loadModel(ModelType& model, const FileWorkType& file);
 
 ErrorType saveModel(const ModelType& model, const FileWorkType& file);
 

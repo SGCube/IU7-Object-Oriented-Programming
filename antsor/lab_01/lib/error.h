@@ -19,7 +19,7 @@ enum ErrorType
 };
 
 // get message of error
-const char* getErrorMsg(const errorType error);
+const char* getErrorMsg(const ErrorType error);
 
 #endif // ERROR_H
 

@@ -5,16 +5,20 @@
 #include "model.h"
 #include "actionparam.h"
 
-ErrorType modelLoadData(const ModelType& model, const FileWorkParamType param);
+ErrorType modelLoadData(ModelType& model, const FileWorkParamType param);
 
 ErrorType modelSaveData(const ModelType& model, const FileWorkParamType param);
 
-ErrorType modelDrawData(const VertexArrayType& vertices, const EdgeArrayType& edges);
+ErrorType modelDrawData(const VertexArrayType& verticesArray,
+						const EdgeArrayType& edgesArray);
 
-ErrorType modelMoveData(const VertexArrayType& vertices, const MoveParamType param);
+ErrorType modelMoveData(const VertexArrayType& verticesArray,
+						const MoveParamType param);
 
-ErrorType modelScaleData(const VertexArrayType& vertices, const ScaleParamType param);
+ErrorType modelScaleData(const VertexArrayType& verticesArray,
+						 const ScaleParamType param);
 
-ErrorType modelRotateData(const VertexArrayType& vertices, const RotateParamType param);
+ErrorType modelRotateData(const VertexArrayType& verticesArray,
+						  const RotateParamType param);
 
 #endif // MODELDATAWORK_H

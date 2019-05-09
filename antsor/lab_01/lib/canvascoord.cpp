@@ -1,7 +1,7 @@
 #ifndef CANVASCOORD_H
 #define CANVASCOORD_H
 
-#define Z_COEEF 0.5
+#define Z_COEFF 0.5
 
 #include "canvascoord.h"
 

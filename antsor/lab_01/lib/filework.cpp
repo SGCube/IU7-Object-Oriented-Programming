@@ -15,9 +15,9 @@ bool checkFileIsEmpty(FILE* f)
     return false;
 }
 
-bool checkFileNameIsEmpty(const char* fileName)
+ErrorType checkFileNameIsEmpty(const char* fileName)
 {
-    return fileName[0] == '\0';
+    return (fileName[0] == '\0') ? ERROR_FILE_NAME : OK;
 }
 
 ErrorType checkFileIsOpened(const FILE* f)
@@ -27,7 +27,7 @@ ErrorType checkFileIsOpened(const FILE* f)
 
 ErrorType checkFileIsCorrect(FILE* f)
 {
-	ErrorType error = checkFileOpened(f);
+	ErrorType error = checkFileIsOpened(f);
     if (error != OK)
         return error;
     return checkFileIsEmpty(f) ? ERROR_FILE_READ : OK;
@@ -64,13 +64,13 @@ ErrorType setArraySize(const unsigned int size, FILE* f)
 ErrorType getVertexData(double& data, FILE *f)
 {
     float tmp;
-    if (fscanf(f, "%f", &tmp) != READ_OK)
+    if (fscanf(f, "%f", &tmp) != 1)
         return ERROR_FILE_READ;
     data = tmp;
     return OK;
 }
 
-ErrorType setVertexData(FILE *f, const double data)
+ErrorType setVertexData(const double data, FILE *f)
 {
     return fprintf(f, "%f ", data) < 1 ? ERROR_FILE_WRITE : OK;
 }

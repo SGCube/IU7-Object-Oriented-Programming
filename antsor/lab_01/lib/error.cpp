@@ -3,7 +3,7 @@
 
 #include "error.h"
 
-const char* getErrorMsg(const errorType error)
+const char* getErrorMsg(const ErrorType error)
 {
     switch (error)
     {

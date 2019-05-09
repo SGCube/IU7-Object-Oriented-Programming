@@ -6,7 +6,7 @@
 #include "filework.h"
 #include "canvas.h"
 
-ErrorType modelLoadData(const ModelType& model, const FileWorkParamType param)
+ErrorType modelLoadData(ModelType& model, const FileWorkParamType param)
 {
 	ErrorType error = OK;	
 	
@@ -54,24 +54,28 @@ ErrorType modelSaveData(const ModelType& model, const FileWorkParamType param)
     return error;
 }
 
-ErrorType modelDrawData(const VertexArrayType& vertices, const EdgeArrayType& edges)
+ErrorType modelDrawData(const VertexArrayType& verticesArray,
+						const EdgeArrayType& edgesArray)
 {
-	return modelDraw(edges, vertices, edges.size);
+	return modelDraw(edgesArray.edges, verticesArray.vertices, edgesArray.size);
 }
 
-ErrorType modelMoveData(const VertexArrayType& vertices, const MoveParamType param)
+ErrorType modelMoveData(const VertexArrayType& verticesArray,
+						const MoveParamType param)
 {
-	return moveModel(vertices.vertices, vertices.size, param);
+	return moveModel(verticesArray.vertices, verticesArray.size, param);
 }
 
-ErrorType modelScaleData(const VertexArrayType& vertices, const ScaleParamType param)
+ErrorType modelScaleData(const VertexArrayType& verticesArray,
+						 const ScaleParamType param)
 {
-	return scaleModel(vertices.vertices, vertices.size, param);
+	return scaleModel(verticesArray.vertices, verticesArray.size, param);
 }
 
-ErrorType modelRotateData(const VertexArrayType& vertices, const RotateParamType param)
+ErrorType modelRotateData(const VertexArrayType& verticesArray,
+						  const RotateParamType param)
 {
-	return rotateModel(vertices.vertices, vertices.size, param);
+	return rotateModel(verticesArray.vertices, verticesArray.size, param);
 }
 
 #endif // MODELDATAWORK_CPP

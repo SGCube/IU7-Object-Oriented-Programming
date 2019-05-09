@@ -2,8 +2,9 @@
 #define MODELWORK_CPP
 
 #include "modelwork.h"
+#include "vertextransform.h"
 
-ErrorType loadModel(const ModelType& model, const FileWorkType& file)
+ErrorType loadModel(ModelType& model, const FileWorkType& file)
 {
 	ErrorType error = OK;
 	ModelType tmpModel = initializeModel();
@@ -32,10 +33,10 @@ ErrorType loadModel(const ModelType& model, const FileWorkType& file)
 
 ErrorType saveModel(const ModelType& model, const FileWorkType& file)
 {
-	ErrorType error = saveEdgeArray(tmpModel.edges, file);
+	ErrorType error = saveEdgeArray(model.edges, file);
     if (error != OK)
         return error;
-	return saveVertexArray(tmpModel.vertices, file);
+	return saveVertexArray(model.vertices, file);
 }
 
 ErrorType moveModel(VertexType* vertices, const unsigned int size,
