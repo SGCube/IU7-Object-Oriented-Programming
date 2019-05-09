@@ -9,6 +9,8 @@ ErrorType modelLoadData(const ModelType& model, const FileWorkParamType param);
 
 ErrorType modelSaveData(const ModelType& model, const FileWorkParamType param);
 
+ErrorType modelDrawData(const VertexArrayType& vertices, const EdgeArrayType& edges);
+
 ErrorType modelMoveData(const VertexArrayType& vertices, const MoveParamType param);
 
 ErrorType modelScaleData(const VertexArrayType& vertices, const ScaleParamType param);

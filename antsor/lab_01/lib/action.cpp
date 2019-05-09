@@ -20,6 +20,11 @@ ErrorType actionFunc(const ActionType action, const ParameterType param)
 		case ACTION_SAVE:
 			error = modelSaveAction(model, param);
 			break;
+		case ACTION_FREE:
+			error = modelFreeAction(model);
+			break;
+		case ACTION_DRAW:
+			error = modelDrawAction(model);
 		case ACTION_MOVE:
 			error = modelMoveAction(model, param);
 			break;

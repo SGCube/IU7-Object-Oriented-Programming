@@ -14,8 +14,8 @@ ErrorType getLineCoord(const VertexType startVertex, const VertexType endVertex)
     return addLine(startX, startY, endX, endY);
 }
 
-ErrorType drawCanvas(const EdgeType* edges, const VertexType* vertices,
-					 const unsigned int edgesSize)
+ErrorType modelDraw(const EdgeType* edges, const VertexType* vertices,
+					const unsigned int edgesSize)
 {
 	ErrorType error = checkVerticesExist(vertices);
 	if (error != OK)

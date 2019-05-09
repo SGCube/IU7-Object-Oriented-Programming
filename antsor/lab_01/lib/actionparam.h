@@ -39,10 +39,10 @@ struct RotateParamType
 // type of parameters
 union ParameterType
 {
-	FileWorkParamType* fileWorkParameters;
-    MoveParamType* moveParameters;
-	ScaleParamType* scaleParameters;
-	RotateParamType* rotateParameters;
+	FileWorkParamType fileWorkParameters;
+    MoveParamType moveParameters;
+	ScaleParamType scaleParameters;
+	RotateParamType rotateParameters;
 };
 
 #endif // MODELPARAM_H

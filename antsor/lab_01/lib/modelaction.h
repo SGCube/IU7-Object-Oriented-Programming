@@ -9,6 +9,10 @@ ErrorType modelLoadAction(const ModelType& model, const ParameterType& param);
 
 ErrorType modelSaveAction(const ModelType& model, const ParameterType& param);
 
+ErrorType modelFreeAction(const ModelType &model);
+
+ErrorType modelDrawAction(const ModelType &model);
+
 ErrorType modelMoveAction(const ModelType& model, const ParameterType& param);
 
 ErrorType modelScaleAction(const ModelType& model, const ParameterType& param);

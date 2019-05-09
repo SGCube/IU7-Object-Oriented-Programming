@@ -7,7 +7,7 @@
 
 ErrorType getLineCoord(const VertexType startVertex, const VertexType endVertex);
 
-ErrorType drawCanvas(const EdgeType* edges, const VertexType* vertices,
+ErrorType modelDraw(const EdgeType* edges, const VertexType* vertices,
 					 const unsigned int edgesSize);
 
 #endif // CANVAS_H

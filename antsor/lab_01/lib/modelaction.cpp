@@ -15,19 +15,29 @@ ErrorType modelSaveAction(const ModelType& model, const ParameterType& param)
 	return modelSaveData(model, param.fileWorkParameters);
 }
 
+ErrorType modelFreeAction(const ModelType &model)
+{
+	return modelFree(model);
+}
+
+ErrorType modelDrawAction(const ModelType &model)
+{
+	return modelDrawData(model.vertices, model.edges);
+}
+
 ErrorType modelMoveAction(const ModelType& model, const ParameterType& param)
 {
-	return moveModel(model.vertices, param.moveParameters);
+	return modelMoveData(model.vertices, param.moveParameters);
 }
 
 ErrorType modelScaleAction(const ModelType& model, const ParameterType& param)
 {
-	return scaleModel(model.vertices, param.scaleParameters);
+	return modelScaleData(model.vertices, param.scaleParameters);
 }
 
 ErrorType modelRotateAction(const ModelType& model, const ParameterType& param)
 {
-	return rotateModel(model.vertices, param.rotateParameters);
+	return modelRotateData(model.vertices, param.rotateParameters);
 }
 
 #endif // MODELACTION_CPP

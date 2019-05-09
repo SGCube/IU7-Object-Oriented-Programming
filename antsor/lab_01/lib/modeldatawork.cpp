@@ -4,6 +4,7 @@
 #include "modeldatawork.h"
 #include "modelwork.h"
 #include "filework.h"
+#include "canvas.h"
 
 ErrorType modelLoadData(const ModelType& model, const FileWorkParamType param)
 {
@@ -51,6 +52,11 @@ ErrorType modelSaveData(const ModelType& model, const FileWorkParamType param)
     fclose(file.f);
 
     return error;
+}
+
+ErrorType modelDrawData(const VertexArrayType& vertices, const EdgeArrayType& edges)
+{
+	return modelDraw(edges, vertices, edges.size);
 }
 
 ErrorType modelMoveData(const VertexArrayType& vertices, const MoveParamType param)
