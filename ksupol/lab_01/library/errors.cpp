@@ -23,7 +23,7 @@ const char *get_message(error_type error)
         return "Неинициализированная модель!";
     else if (error == ErrorEdgesExist)
         return "Неинициализированная вершина!";
-    else if (error == ErrorNodesExist)
+    else if (error == ErrorPointsExist)
         return "Неинициализированная точка пересечения!";
     else if (error == ErrorAction)
         return "Неинициализированное действие!";

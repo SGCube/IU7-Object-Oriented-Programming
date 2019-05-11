@@ -3,53 +3,51 @@
 
 #include "model_transform.h"
 
-error_type modelShift(nodeType *nodes, const shiftDataType shiftData,
-                                                const unsigned int size)
+error_type modelShift(pointType *points, const shiftDataType shiftData,
+                                                size_t size)
 {
-    error_type error;
-
-    if ((error = checkNodesExist(nodes)))
+    error_type error = checkPointsExist(points);
+    if (error)
         return error;
 
     for (unsigned int i = 0; i < size; i++)
     {
-        nodes[i].x = shift(nodes[i].x, shiftData.dx);
-        nodes[i].y = shift(nodes[i].y, shiftData.dy);
-        nodes[i].z = shift(nodes[i].z, shiftData.dz);
+        points[i].x = shift(points[i].x, shiftData.dx);
+        points[i].y = shift(points[i].y, shiftData.dy);
+        points[i].z = shift(points[i].z, shiftData.dz);
     }
 
     return OK;
 }
 
-error_type modelScale(nodeType* nodes, const scaleDataType scaleData,
-                                                const unsigned int size)
+error_type modelScale(pointType* points, const scaleDataType scaleData,
+                                                size_t size)
 {
-    error_type error;
-
-    if ((error = checkNodesExist(nodes)))
+    error_type error = checkPointsExist(points);
+    if (error)
         return error;
 
     for (unsigned int i = 0; i < size; i++)
     {
-        nodes[i].x = scale(nodes[i].x, scaleData.kx, scaleData.cx);
-        nodes[i].y = scale(nodes[i].y, scaleData.ky, scaleData.cy);
-        nodes[i].z = scale(nodes[i].z, scaleData.kz, scaleData.cz);
+        points[i].x = scale(points[i].x, scaleData.kx, scaleData.cx);
+        points[i].y = scale(points[i].y, scaleData.ky, scaleData.cy);
+        points[i].z = scale(points[i].z, scaleData.kz, scaleData.cz);
     }
 
     return OK;
 }
 
-error_type modelTurn(nodeType* nodes, const turnDataType turnData,
-                                            const unsigned int size)
+error_type modelTurn(pointType* points, const turnDataType turnData,
+                                            size_t size)
 {
     error_type error;
 
     if (turnData.axis == X)
-        error = turnX(nodes, turnData, size);
+        error = turnX(points, turnData, size);
     else if (turnData.axis == Y)
-        error = turnY(nodes, turnData, size);
+        error = turnY(points, turnData, size);
     else if (turnData.axis == Z)
-        error = turnZ(nodes, turnData, size);
+        error = turnZ(points, turnData, size);
     else
         error = ErrorField;
     return error;

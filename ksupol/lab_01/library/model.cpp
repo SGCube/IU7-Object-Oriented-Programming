@@ -7,7 +7,7 @@ modelType modelInit()
 {
     modelType model;
     edgeArrInit(model.edgeArr);
-    nodeArrInit(model.nodeArr);
+    pointArrInit(model.pointArr);
 
     return model;
 }
@@ -16,16 +16,14 @@ error_type modelFree(modelType& model)
 {
     if (edgeArrFree(model.edgeArr))
         return ErrorFree;
-    if (nodeArrFree(model.nodeArr))
+    if (pointArrFree(model.pointArr))
         return ErrorFree;
     return OK;
 }
 
 error_type modelChange(modelType& model, modelType& tmpModel)
 {
-    error_type error;
-
-    error = modelFree(model);
+    error_type error = modelFree(model);
     if (error)
         return error;
     model = tmpModel;

@@ -13,20 +13,18 @@ error_type edgeArrInit(edgeArrType& edgeArr)
 
 error_type edgeArrFree(edgeArrType& edgeArr)
 {
-    error_type error;
-
-    error = edgesFree(edgeArr.edges);
+    error_type error = edgesFree(edgeArr.edges);
     if (error)
         return error;
 
-    return (error = edgeArrInit(edgeArr)) ? error : OK;
+    if (error = edgeArrInit(edgeArr))
+        return error;
+    return OK;
 }
 
 error_type edgesArrLoad(edgeArrType& edgeArr, fileWorkType file)
 {
-    error_type error;
-
-    error = isCorrectFile(file.f);
+    error_type error = isCorrectFile(file.f);
     if (error)
         return error;
 
@@ -36,7 +34,10 @@ error_type edgesArrLoad(edgeArrType& edgeArr, fileWorkType file)
 
     error = edgesAllocation(edgeArr.edges, edgeArr.size);
     if (error)
+    {
+        error = edgesFree(edgeArr.edges);
         return error;
+    }
 
     error = edgesLoad(edgeArr.edges, file, edgeArr.size);
     if (error)
@@ -47,9 +48,7 @@ error_type edgesArrLoad(edgeArrType& edgeArr, fileWorkType file)
 
 error_type edgesArrSave(fileWorkType file, const edgeArrType edgeArr)
 {
-    error_type error;
-
-    error = checkFileForOpen(file.f);
+    error_type error = checkFileForOpen(file.f);
     if (error)
         return error;
 

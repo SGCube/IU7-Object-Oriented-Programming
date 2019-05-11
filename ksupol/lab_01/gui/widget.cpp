@@ -29,12 +29,6 @@ void Widget::paintEvent(QPaintEvent *event)
         painter.drawLine(lines[i].x(), lines[i].y(), lines[i + 1].x(), lines[i + 1].y());
 }
 
-void Widget::setLine(QPoint src, QPoint purp)
-{
-    lines.push_back(src);
-    lines.push_back(purp);
-}
-
 error_type drawLine(double x1, double y1, double x2, double y2)
 {
     QPoint src, purp;
@@ -43,8 +37,8 @@ error_type drawLine(double x1, double y1, double x2, double y2)
     purp.setX(TO_CENTER(x2));
     purp.setY(TO_CENTER(y2));
 
-    Widget obj;
-    obj.setLine(src, purp);
+    lines.push_back(src);
+    lines.push_back(purp);
 
     return OK;
 }
@@ -67,7 +61,8 @@ void Widget::on_OpenFile_clicked()
         return;
     }
     lines.clear();
-    if ((error = find_action(draw, data)))
+    error = find_action(draw, data);
+    if (error)
         display_error(error);
     repaint();
 }
@@ -84,7 +79,8 @@ void Widget::on_SaveModel_clicked()
     actionDataType data;
     data.fileName = filePath.toLatin1().data();
     error_type error;
-    if ((error = find_action(save, data)))
+    error = find_action(save, data);
+    if (error)
         display_error(error);
     repaint();
 }
@@ -114,15 +110,15 @@ void Widget::on_ShiftButton_clicked()
     data.param.shiftData.dx = dx;
     data.param.shiftData.dy = dy;
     data.param.shiftData.dz = dz;
-    error_type error;
-    if ((error = find_action(sshift, data)))
+    error_type error = find_action(sshift, data);
+    if (error)
     {
         display_error(error);
         return;
     }
     lines.clear();
-
-    if ((error = find_action(draw, data)))
+    error = find_action(draw, data);
+    if (error)
         display_error(error);
 
     repaint();
@@ -165,14 +161,15 @@ void Widget::on_ScaleButton_clicked()
     data.param.scaleData.cx = cx;
     data.param.scaleData.cy = cy;
     data.param.scaleData.cz = cz;
-    error_type error;
-    if ((error = find_action(sscale, data)))
+    error_type error = find_action(sscale, data);
+    if (error)
     {
         display_error(error);
         return;
     }
     lines.clear();
-    if ((error = find_action(draw, data)))
+    error = find_action(draw, data);
+    if (error)
         display_error(error);
     repaint();
 }
@@ -215,17 +212,16 @@ void Widget::on_TurnButton_clicked()
     data.param.turnData.angle = angle;
     data.param.turnData.axis = axis;
 
-    error_type error;
-
-    if ((error = find_action(turn, data)))
+    error_type error = find_action(turn, data);
+    if (error)
     {
         display_error(error);
         return;
     }
 
     lines.clear();
-
-    if ((error = find_action(draw, data)))
+    error = find_action(draw, data);
+    if (error)
         display_error(error);
 
     repaint();
@@ -255,8 +251,8 @@ void Widget::on_ProjectP_clicked()
     }
 
     lines.clear();
-
-    if ((error = find_action(draw, data)))
+    error = find_action(draw, data);
+    if (error)
         display_error(error);
 
     repaint();
@@ -305,8 +301,8 @@ void Widget::on_ProjectC_clicked()
     }
 
     lines.clear();
-
-    if ((error = find_action(draw, data)))
+    error = find_action(draw, data);
+    if (error)
         display_error(error);
 
     repaint();

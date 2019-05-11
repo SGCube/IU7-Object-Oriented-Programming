@@ -1,15 +1,15 @@
-#ifndef MODEL_H
+﻿#ifndef MODEL_H
 #define MODEL_H
 
 #include "errors.h"
 #include "edge_array.h"
-#include "node_array.h"
+#include "point_array.h"
 
 // структура модели
 struct modelType
 {
     edgeArrType edgeArr;
-    nodeArrType nodeArr;
+    pointArrType pointArr;
 };
 
 // инициализация модели

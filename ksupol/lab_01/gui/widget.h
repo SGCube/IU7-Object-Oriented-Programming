@@ -38,9 +38,6 @@ protected:
     void paintEvent(QPaintEvent *event);
     void closeEvent(QCloseEvent *event);
 
-public slots:
-    void setLine(QPoint src, QPoint purp);
-
 private slots:
 
     void on_OpenFile_clicked();

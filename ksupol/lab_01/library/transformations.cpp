@@ -1,4 +1,4 @@
-#ifndef TRANSFORMATIONS_CPP
+﻿#ifndef TRANSFORMATIONS_CPP
 #define TRANSFORMATIONS_CPP
 
 #include "transformations.h"
@@ -18,25 +18,40 @@ double degToRad(const int angle)
     return angle * M_PI / 180;
 }
 
-double turnFirstCoord(const tmpTurnDataType data)
+//error_type turnPoint(int )
+
+double turnFirstCoord(tmpTurnDataType data)
 {
     return data.c1 + (data.pr1 - data.c1) * cos(data.angle) +
             (data.pr2 - data.c2) * sin(data.angle);
 }
 
-double turnSecondCoord(const tmpTurnDataType data)
+double turnSecondCoord(tmpTurnDataType data)
 {
     return data.c2 - (data.pr1 - data.c1) * sin(data.angle) +
             (data.pr2 - data.c2) * cos(data.angle);
 }
 
-error_type turnX(nodeType* nodes, const turnDataType turnData, const unsigned int amount)
+void turnPoint(double *a, double *b, pointType center, double angle)
 {
-    error_type error;
+    *a = center.x + (*a - center.x) * cos(angle) +
+            (center.y - *b) * sin(angle);
+    *b = center.y - (*a  - center.x) * sin(angle) +
+            (*b - center.y) * cos(angle);
+}
 
-    if ((error = checkNodesExist(nodes)))
+error_type turnX(pointType *points, const turnDataType turnData, const unsigned int amount)
+{
+    error_type error = checkPointsExist(points);
+    if (error)
         return error;
 
+    pointType center = {turnData.cy, turnData.cz, 0};
+
+    for(size_t i = 0; i < amount; i++)
+        turnPoint(&points[i].y, &points[i].z, center, degToRad(turnData.angle));
+
+    /*
     tmpTurnDataType tmpData;
     tmpData.angle = degToRad(turnData.angle);
     tmpData.c1 = turnData.cy;
@@ -44,60 +59,41 @@ error_type turnX(nodeType* nodes, const turnDataType turnData, const unsigned in
 
     for (unsigned int i = 0; i < amount; i++)
     {
-        tmpData.pr1 = nodes[i].y;
-        tmpData.pr2 = nodes[i].z;
+        tmpData.pr1 = points[i].y;
+        tmpData.pr2 = points[i].z;
 
-        nodes[i].y = turnFirstCoord(tmpData);
-        nodes[i].z = turnSecondCoord(tmpData);
+        points[i].y = turnFirstCoord(tmpData);
+        points[i].z = turnSecondCoord(tmpData);
     }
+    */
 
     return OK;
 }
 
-error_type turnY(nodeType* nodes, const turnDataType turnData, const unsigned int amount)
+error_type turnY(pointType* points, const turnDataType turnData, const unsigned int amount)
 {
-    error_type error;
-
-    if ((error = checkNodesExist(nodes)))
+    error_type error = checkPointsExist(points);
+    if (error)
         return error;
 
-    tmpTurnDataType tmpData;
-    tmpData.angle = degToRad(turnData.angle);
-    tmpData.c1 = turnData.cz;
-    tmpData.c2 = turnData.cx;
+    pointType center = {turnData.cx, turnData.cz, 0};
 
-    for (unsigned int i = 0; i < amount; i++)
-    {
-        tmpData.pr1 = nodes[i].z;
-        tmpData.pr2 = nodes[i].x;
-
-        nodes[i].z = turnFirstCoord(tmpData);
-        nodes[i].x = turnSecondCoord(tmpData);
-    }
+    for(size_t i = 0; i < amount; i++)
+        turnPoint(&points[i].y, &points[i].z, center, degToRad(turnData.angle));
 
     return OK;
 }
 
-error_type turnZ(nodeType* nodes, const turnDataType turnData, const unsigned int amount)
+error_type turnZ(pointType* points, const turnDataType turnData, const unsigned int amount)
 {
-    error_type error;
-
-    if ((error = checkNodesExist(nodes)))
+    error_type error = checkPointsExist(points);
+    if (error)
         return error;
 
-    tmpTurnDataType tmpData;
-    tmpData.angle = degToRad(turnData.angle);
-    tmpData.c1 = turnData.cx;
-    tmpData.c2 = turnData.cy;
+    pointType center = {turnData.cx, turnData.cy, 0};
 
-    for (unsigned int i = 0; i < amount; i++)
-    {
-        tmpData.pr1 = nodes[i].x;
-        tmpData.pr2 = nodes[i].y;
-
-        nodes[i].x = turnFirstCoord(tmpData);
-        nodes[i].y = turnSecondCoord(tmpData);
-    }
+    for(size_t i = 0; i < amount; i++)
+        turnPoint(&points[i].y, &points[i].z, center, degToRad(turnData.angle));
 
     return OK;
 }

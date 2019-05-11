@@ -1,31 +1,31 @@
-#ifndef DISPLAY_CPP
+﻿#ifndef DISPLAY_CPP
 #define DISPLAY_CPP
 
 #include "display.h"
+#include "point.h"
+#include "edge.h"
 
-error_type getCoordForDrawLine(const nodeType* nodes, const int src, const int purp)
+error_type getCoordForDrawLine(pointType* points, int src, int purp)
 {
-    error_type error;
-
-    if ((error = checkNodesExist(nodes)))
+    error_type error = checkPointsExist(points);
+    if (error)
         return error;
 
-    const double xSrc = getX(nodes[src].x, nodes[src].z);
-    const double ySrc = getY(nodes[src].y, nodes[src].z);
-    const double xPurp = getX(nodes[purp].x, nodes[purp].z);
-    const double yPurp = getY(nodes[purp].y, nodes[purp].z);
+    const double xSrc = getX(points[src].x, points[src].z);
+    const double ySrc = getY(points[src].y, points[src].z);
+    const double xPurp = getX(points[purp].x, points[purp].z);
+    const double yPurp = getY(points[purp].y, points[purp].z);
 
     error = drawLine(xSrc, ySrc, xPurp, yPurp);
 
     return error;
 }
 
-error_type drawDisplay(const type_edge* edges, const nodeType* nodes,
-                                               const unsigned int size)
+error_type drawDisplay(type_edge *edges, pointType* points,
+                                               size_t size)
 {
-    error_type error;
-
-    if ((error = checkEdgesExist(edges)))
+    error_type error = checkEdgesExist(edges);
+    if (error)
         return error;
 
     int src;
@@ -35,7 +35,7 @@ error_type drawDisplay(const type_edge* edges, const nodeType* nodes,
     {
         src = edges[i].src;
         purp = edges[i].purp;
-        error = getCoordForDrawLine(nodes, src, purp);
+        error = getCoordForDrawLine(points, src, purp);
     }
 
     return error;

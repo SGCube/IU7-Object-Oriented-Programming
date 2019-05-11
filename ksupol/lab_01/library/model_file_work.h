@@ -1,4 +1,4 @@
-#ifndef MODELFILEWORK_H
+﻿#ifndef MODELFILEWORK_H
 #define MODELFILEWORK_H
 
 #include "errors.h"
@@ -8,7 +8,7 @@
 
 error_type modelLoad(modelType& model, fileWorkType file);
 
-error_type modelSave(const modelType model, fileWorkType file);
+error_type modelSave(modelType model, fileWorkType file);
 
 #endif // MODELFILEWORK_H
 

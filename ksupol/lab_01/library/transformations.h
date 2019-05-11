@@ -2,7 +2,7 @@
 #define TRANSFORMATIONS_H
 
 #include "errors.h"
-#include "node.h"
+#include "point.h"
 #include "model_data_work.h"
 
 #include <math.h>
@@ -24,19 +24,21 @@ double scale(const double coord, const double coeff, const double center);
 double degToRad(const int angle);
 
 // поворот первой координаты
-double turnFirstCoord(const tmpTurnDataType data);
+double turnFirstCoord(tmpTurnDataType data);
 
 // поворот второй координаты
-double turnSecondCoord(const tmpTurnDataType data);
+double turnSecondCoord(tmpTurnDataType data);
 
 // повернуть модель по оси X
-error_type turnX(nodeType* nodes, const turnDataType turnData, const unsigned int amount);
+error_type turnX(pointType* points, const turnDataType turnData, const unsigned int amount);
 
 // повернуть модель по оси Y
-error_type turnY(nodeType* nodes, const turnDataType turnData, const unsigned int amount);
+error_type turnY(pointType* points, const turnDataType turnData, const unsigned int amount);
 
 // повернуть модель по оси Z
-error_type turnZ(nodeType* nodes, const turnDataType turnData, const unsigned int amount);
+error_type turnZ(pointType* points, const turnDataType turnData, const unsigned int amount);
+
+void turnPoint(double *a, double *b, pointType center, double angle);
 
 #endif // TRANSFORMATIONS_H
 

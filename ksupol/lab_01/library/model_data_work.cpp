@@ -3,16 +3,15 @@
 
 #include "model_data_work.h"
 
-error_type modelLoadData(modelType& model, const actionDataType data)
+error_type modelLoadData(modelType& model, actionDataType data)
 {
     const char *fileName = data.fileName;
-    fileWorkType file = fileTypeInit();
 
-    error_type error;
-
-    error = isFileNameEmpty(fileName);
+    error_type error = isFileNameEmpty(fileName);
     if (error)
         return error;
+
+    fileWorkType file = fileTypeInit();
 
     error = openFileForRead(file, fileName);
     if (error)
@@ -20,20 +19,17 @@ error_type modelLoadData(modelType& model, const actionDataType data)
 
     error = modelLoad(model, file);
 
-    if (isOpenFile(file.f))
-        fclose(file.f);
+    fclose(file.f);
 
     return error;
 }
 
-error_type modelSaveData(const modelType model, const actionDataType data)
+error_type modelSaveData(modelType model, const actionDataType data)
 {
     const char* fileName = data.fileName;
     fileWorkType file = fileTypeInit();
 
-    error_type error;
-
-    error = isFileNameEmpty(fileName);
+    error_type error = isFileNameEmpty(fileName);
     if (error)
         return error;
 
@@ -49,34 +45,34 @@ error_type modelSaveData(const modelType model, const actionDataType data)
     return error;
 }
 
-error_type modelShiftData(const modelType &model, const actionDataType data)
+error_type modelShiftData(modelType &model, const actionDataType data)
 {
-    return modelShiftParam(model.nodeArr, data.param);
+    return modelShiftParam(model.pointArr, data.param);
 }
 
-error_type modelScaleData(const modelType &model, const actionDataType data)
+error_type modelScaleData(modelType &model, const actionDataType data)
 {
-    return modelScaleParam(model.nodeArr, data.param);
+    return modelScaleParam(model.pointArr, data.param);
 }
 
-error_type modelTurnData(const modelType &model, const actionDataType data)
+error_type modelTurnData(modelType &model, const actionDataType data)
 {
-    return modelTurnParam(model.nodeArr, data.param);
+    return modelTurnParam(model.pointArr, data.param);
 }
 
-error_type modelProjectPData(const modelType &model, const actionDataType data)
+error_type modelProjectPData(modelType &model, const actionDataType data)
 {
-    return modelProjectPParam(model.nodeArr, data.param);
+    return modelProjectPParam(model.pointArr, data.param);
 }
 
-error_type modelProjectCData(const modelType &model, const actionDataType data)
+error_type modelProjectCData(modelType &model, const actionDataType data)
 {
-    return modelProjectCParam(model.nodeArr, data.param);
+    return modelProjectCParam(model.pointArr, data.param);
 }
 
-error_type modelDrawData(const modelType model)
+error_type modelDrawData(modelType model)
 {
-    return modelDrawParam(model.edgeArr, model.nodeArr);
+    return modelDrawParam(model.edgeArr, model.pointArr);
 }
 
 #endif // MODEL_DATA_WORK_CPP

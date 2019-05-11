@@ -7,13 +7,11 @@ error_type modelLoad(modelType& model, fileWorkType file)
 {
     modelType tmpModel = modelInit();
 
-    error_type error;
-
-    error = edgesArrLoad(tmpModel.edgeArr, file);
+    error_type error = edgesArrLoad(tmpModel.edgeArr, file);
     if (error)
         return error;
 
-    error = nodesArrLoad(tmpModel.nodeArr, file);
+    error = pointsArrLoad(tmpModel.pointArr, file);
     if (error)
     {
         edgeArrFree(tmpModel.edgeArr);
@@ -23,21 +21,20 @@ error_type modelLoad(modelType& model, fileWorkType file)
     if (error)
     {
         edgeArrFree(tmpModel.edgeArr);
-        nodeArrFree(tmpModel.nodeArr);
+        pointArrFree(tmpModel.pointArr);
+        return error;
     }
 
     return error;
 }
 
-error_type modelSave(const modelType model, fileWorkType file)
+error_type modelSave(modelType model, fileWorkType file)
 {
-    error_type error;
-
-    error = edgesArrSave(file, model.edgeArr);
+    error_type error = edgesArrSave(file, model.edgeArr);
     if (error)
         return error;
 
-    return nodesArrSave(file, model.nodeArr);
+    return pointsArrSave(file, model.pointArr);
 }
 
 #endif // MODEL_FILE_WORK_CPP

@@ -1,36 +1,36 @@
-#ifndef MODEL_PARAM_WORK_CPP
+﻿#ifndef MODEL_PARAM_WORK_CPP
 #define MODEL_PARAM_WORK_CPP
 
 #include "model_param_work.h"
 
-error_type modelShiftParam(const nodeArrType &nodeArr, const paramType param)
+error_type modelShiftParam(pointArrType &pointArr, const paramType param)
 {
-    return modelShift(nodeArr.nodes, param.shiftData, nodeArr.size);
+    return modelShift(pointArr.points, param.shiftData, pointArr.size);
 }
 
-error_type modelScaleParam(const nodeArrType &nodeArr, const paramType param)
+error_type modelScaleParam(pointArrType &pointArr, const paramType param)
 {
-    return modelScale(nodeArr.nodes, param.scaleData, nodeArr.size);
+    return modelScale(pointArr.points, param.scaleData, pointArr.size);
 }
 
-error_type modelTurnParam(const nodeArrType &nodeArr, const paramType param)
+error_type modelTurnParam(pointArrType &pointArr, const paramType param)
 {
-    return modelTurn(nodeArr.nodes, param.turnData, nodeArr.size);
+    return modelTurn(pointArr.points, param.turnData, pointArr.size);
 }
 
-error_type modelProjectPParam(const nodeArrType &nodeArr, const paramType param)
+error_type modelProjectPParam(pointArrType &pointArr, const paramType param)
 {
-    return modelProjectP(nodeArr.nodes, param.projectPData, nodeArr.size);
+    return modelProjectP(pointArr.points, param.projectPData, pointArr.size);
 }
 
-error_type modelProjectCParam(const nodeArrType &nodeArr, const paramType param)
+error_type modelProjectCParam(pointArrType &pointArr, const paramType param)
 {
-    return modelProjectC(nodeArr.nodes, param.projectCData, nodeArr.size);
+    return modelProjectC(pointArr.points, param.projectCData, pointArr.size);
 }
 
-error_type modelDrawParam(const edgeArrType edgeArr, const nodeArrType nodeArr)
+error_type modelDrawParam(edgeArrType edgeArr, const pointArrType pointArr)
 {
-    return drawDisplay(edgeArr.edges, nodeArr.nodes, edgeArr.size);
+    return drawDisplay(edgeArr.edges, pointArr.points, edgeArr.size);
 }
 
 #endif // MODEL_PARAM_WORK_CPP

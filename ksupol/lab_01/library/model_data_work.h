@@ -67,25 +67,25 @@ struct actionDataType
 error_type modelLoadData(modelType& model, const actionDataType data);
 
 // сохранение модели
-error_type modelSaveData(const modelType model, const actionDataType data);
+error_type modelSaveData(modelType model, const actionDataType data);
 
 // перенос модели
-error_type modelShiftData(const modelType &model, const actionDataType data);
+error_type modelShiftData(modelType &model, const actionDataType data);
 
 // масштабирование модели
-error_type modelScaleData(const modelType &model, const actionDataType data);
+error_type modelScaleData(modelType &model, const actionDataType data);
 
 // поворот модели
-error_type modelTurnData(const modelType &model, const actionDataType data);
+error_type modelTurnData(modelType &model, const actionDataType data);
 
 // параллельное проектирование модели
-error_type modelProjectPData(const modelType &model, const actionDataType data);
+error_type modelProjectPData(modelType &model, const actionDataType data);
 
 // центральное проектирование модели
-error_type modelProjectCData(const modelType &model, const actionDataType data);
+error_type modelProjectCData(modelType &model, const actionDataType data);
 
 // рисование модели на экран
-error_type modelDrawData(const modelType model);
+error_type modelDrawData(modelType model);
 
 #include "model_param_work.h"
 

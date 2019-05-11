@@ -18,17 +18,23 @@ bool isEmptyFile(FILE* f)
 
 bool isOpenFile(const FILE* f)
 {
-    return f ? true : false;
+    if (f)
+        return true;
+    return false;
 }
 
 error_type checkFileForOpen(const FILE* f)
 {
-    return isOpenFile(f) ? OK : ErrorFileOpen;
+    if (isOpenFile(f))
+        return OK;
+    return ErrorFileOpen;
 }
 
 error_type isFileNameEmpty(const char* fileName)
 {
-    return fileName[0] == '\0' ? ErrorFileName : OK;
+    if (fileName[0] == '\0')
+        return ErrorFileName;
+    return OK;
 }
 
 fileWorkType fileTypeInit()
@@ -41,13 +47,17 @@ fileWorkType fileTypeInit()
 error_type openFileForRead(fileWorkType& file, const char* fileName)
 {
     file.f = fopen(fileName, "r");
-    return isOpenFile(file.f) ? OK : ErrorFileOpen;
+    if (isOpenFile(file.f))
+        return OK;
+    return ErrorFileOpen;
 }
 
 error_type openFileForWrite(fileWorkType& file, const char* fileName)
 {
     file.f = fopen(fileName, "w");
-    return isOpenFile(file.f) ? OK : ErrorFileOpen;
+    if (isOpenFile(file.f))
+        return OK;
+    return ErrorFileOpen;
 }
 
 error_type isCorrectFile(FILE* f)
@@ -66,7 +76,7 @@ error_type getSize(unsigned int& size, FILE* f)
     return ErrorFileRead;
 }
 
-error_type setSize(FILE* f, const unsigned int size)
+error_type setSize(FILE* f, size_t size)
 {
     if (fprintf(f, "%u\n\n", size) < WRITE_OK)
         return ErrorFileSave;
@@ -87,7 +97,7 @@ error_type setEdgeData(FILE* f, const unsigned int data)
     return OK;
 }
 
-error_type getNodeData(double& data, FILE *f)
+error_type getPointData(double& data, FILE *f)
 {
     float tmp;
     if (fscanf(f, "%f", &tmp) != READ_OK)
@@ -97,10 +107,12 @@ error_type getNodeData(double& data, FILE *f)
     return OK;
 }
 
-error_type setNodeData(FILE *f, const double data)
+error_type setPointData(FILE *f, const double data)
 {
     float tmp = data;
-    return fprintf(f, "%f ", tmp) < WRITE_OK ? ErrorFileSave : OK;
+    if (fprintf(f, "%f ", tmp) != WRITE_OK)
+        return ErrorFileSave;
+    return OK;
 }
 
 #endif // FILEWORK_CPP

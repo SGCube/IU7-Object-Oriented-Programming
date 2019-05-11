@@ -3,34 +3,34 @@
 
 #include "model_project.h"
 
-error_type modelProjectP(nodeType* nodes, const projectPDataType projectPData,
+error_type modelProjectP(pointType* points, projectPDataType projectPData,
                                                         const unsigned int size)
 {
     error_type error;
 
     if (projectPData.axis == X)
-        error = projectPX(nodes, size);
+        error = projectPX(points, size);
     else if (projectPData.axis == Y)
-        error = projectPY(nodes, size);
+        error = projectPY(points, size);
     else if (projectPData.axis == Z)
-        error = projectPZ(nodes, size);
+        error = projectPZ(points, size);
     else
         error = ErrorField;
 
     return error;
 }
 
-error_type modelProjectC(nodeType* nodes, const projectCDataType projectCData,
+error_type modelProjectC(pointType* points, projectCDataType projectCData,
                                                         const unsigned int size)
 {
     error_type error;
 
     if (projectCData.axis == X)
-        error = projectCX(nodes, size, projectCData.distance);
+        error = projectCX(points, size, projectCData.distance);
     else if (projectCData.axis == Y)
-        error = projectCY(nodes, size, projectCData.distance);
+        error = projectCY(points, size, projectCData.distance);
     else if (projectCData.axis == Z)
-        error = projectCZ(nodes, size, projectCData.distance);
+        error = projectCZ(points, size, projectCData.distance);
     else
         error = ErrorField;
     return error;

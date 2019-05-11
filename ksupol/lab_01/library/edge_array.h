@@ -23,7 +23,7 @@ error_type edgeArrFree(edgeArrType& edgeArr);
 error_type edgesArrLoad(edgeArrType& edgeArr, fileWorkType file);
 
 // сохранение массива ребер
-error_type edgesArrSave(fileWorkType file, const edgeArrType edgeArr);
+error_type edgesArrSave(fileWorkType file, edgeArrType edgeArr);
 
 #endif // EDGE_ARRAY_H
 

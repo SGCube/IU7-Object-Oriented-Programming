@@ -23,7 +23,7 @@ bool isOpenFile(const FILE* f);
 error_type checkFileForOpen(const FILE* f);
 
 // проверка на пустое имя файла
-error_type isFileNameEmpty(const char* fileName);
+error_type isFileNameEmpty(const char *fileName);
 
 // инициализация переменной для файла
 fileWorkType fileTypeInit();
@@ -41,19 +41,19 @@ error_type isCorrectFile(FILE* f);
 error_type getSize(unsigned int& size, FILE* f);
 
 // установка кол-ва вершин и точек пересечений в файл
-error_type setSize(FILE* f, const unsigned int size);
+error_type setSize(FILE* f, size_t size);
 
 // получение вершин из файла
-error_type getEdgeData(unsigned int& data, FILE* f);
+error_type getEdgeData(unsigned int &data, FILE* f);
 
 // установка вершин в файл
-error_type setEdgeData(FILE* f, const unsigned int data);
+error_type setEdgeData(FILE* f, unsigned int data);
 
 // получение точек пересечения из файла
-error_type getNodeData(double &data, FILE *f);
+error_type getPointData(double &data, FILE *f);
 
 // установка точек пересечения в файл
-error_type setNodeData(FILE *f, const double data);
+error_type setPointData(FILE *f, double data);
 
 #endif // FILE_WORK_H
 

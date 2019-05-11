@@ -13,28 +13,28 @@ struct type_edge
 };
 
 // проверка на существование массива ребер
-bool edgesIsExist(const type_edge *edges);
+bool edgesIsExist(type_edge *edges);
 
 // проверка на существование массива ребер
-error_type checkEdgesExist(const type_edge* edges);
+error_type checkEdgesExist(type_edge* edges);
 
 // выделение памяти для массива ребер
-error_type edgesAllocation(type_edge*& edges, const unsigned int size);
+error_type edgesAllocation(type_edge*& edges, unsigned int size);
 
 // освобождение памяти из-под массива ребра
-error_type edgesFree(type_edge*& edges);
+error_type edgesFree(type_edge *&edges);
 
 // чтение вершин из файла
-error_type edgeLoad(unsigned int& edgeSrc, unsigned int& edgePurp, FILE* f);
+error_type edgeLoad(unsigned int &edgeSrc, unsigned int &edgePurp, FILE* f);
 
 // сохранение ребер в файл
-error_type edgeSave(fileWorkType file, const unsigned int edgeSrc, const unsigned int edgePurp);
+error_type edgeSave(fileWorkType file, unsigned int edgeSrc, unsigned int edgePurp);
 
 // чтение ребер из файла
-error_type edgesLoad(type_edge* edges, fileWorkType file, const unsigned int size);
+error_type edgesLoad(type_edge* edges, fileWorkType file, size_t size);
 
 // сохранение ребер в фай
-error_type edgesSave(const type_edge* edges, fileWorkType file, const unsigned int size);
+error_type edgesSave(type_edge* edges, fileWorkType file, size_t size);
 
 #endif // EDGE_H
 

@@ -15,7 +15,6 @@ HEADERS += ui_widget.h \
            library/edge.h \
            library/errors.h \
            library/model.h \
-           library/node.h \
            library/projections.h \
            library/transformations.h \
     gui/display_error.h \
@@ -28,7 +27,8 @@ HEADERS += ui_widget.h \
     library/model_file_work.h \
     library/model_param_work.h \
     library/model_project.h \
-    library/node_array.h
+    library/point.h \
+    library/point_array.h
 FORMS += widget.ui
 SOURCES += main.cpp \
            gui/widget.cpp \
@@ -36,7 +36,6 @@ SOURCES += main.cpp \
            library/edge.cpp \
            library/errors.cpp \
            library/model.cpp \
-           library/node.cpp \
            library/projections.cpp \
            library/transformations.cpp \
     gui/display_error.cpp \
@@ -49,4 +48,5 @@ SOURCES += main.cpp \
     library/model_file_work.cpp \
     library/model_param_work.cpp \
     library/model_project.cpp \
-    library/node_array.cpp
+    library/point.cpp \
+    library/point_array.cpp
