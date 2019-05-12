@@ -9,20 +9,20 @@
 // type of edge
 struct EdgeType
 {
-    unsigned int startVertexNo;
-    unsigned int endVertexNo;
+    size_t startVertexNo;
+    size_t endVertexNo;
 };
 
 // load edge data
-ErrorType loadEdge(unsigned int& edgeStart, unsigned int& edgeEnd,
+ErrorType loadEdge(size_t& edgeStart, size_t& edgeEnd,
 				   FileWorkType file);
 
 // save edge data
-ErrorType saveEdge(unsigned int edgeStart, unsigned int edgeEnd,
+ErrorType saveEdge(size_t edgeStart, size_t edgeEnd,
 				   FileWorkType file);
 
 // allocate memory for edge array
-ErrorType allocateEdges(EdgeType*& edges, const unsigned int size);
+ErrorType allocateEdges(EdgeType*& edges, const size_t size);
 
 // free memory of edge array
 ErrorType freeEdges(EdgeType*& edges);
@@ -31,11 +31,11 @@ ErrorType freeEdges(EdgeType*& edges);
 ErrorType checkEdgesExist(const EdgeType* edges);
 
 // load edge array data
-ErrorType loadEdges(EdgeType* edges, const unsigned int size,
+ErrorType loadEdges(EdgeType* edges, const size_t size,
 					FileWorkType file);
 
 // save edge array data
-ErrorType saveEdges(EdgeType* edges, const unsigned int size,
+ErrorType saveEdges(EdgeType* edges, const size_t size,
 					FileWorkType file);
 
 #endif // EDGE_H

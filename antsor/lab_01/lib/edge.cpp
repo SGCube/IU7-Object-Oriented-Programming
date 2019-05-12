@@ -4,12 +4,10 @@
 #include "edge.h"
 
 // load edge data
-ErrorType loadEdge(unsigned int& edgeStart, unsigned int& edgeEnd,
+ErrorType loadEdge(size_t& edgeStart, size_t& edgeEnd,
 				   FileWorkType file)
 {
-	ErrorType error = OK;
-	
-	error = getEdgeData(edgeStart, file.f);
+	ErrorType error = getEdgeData(edgeStart, file.f);
 	if (error != OK)
 		return error;
 	error = getEdgeData(edgeEnd, file.f);
@@ -20,12 +18,10 @@ ErrorType loadEdge(unsigned int& edgeStart, unsigned int& edgeEnd,
 }
 
 // save edge data
-ErrorType saveEdge(unsigned int edgeStart, unsigned int edgeEnd,
+ErrorType saveEdge(size_t edgeStart, size_t edgeEnd,
 				   FileWorkType file)
 {
-	ErrorType error = OK;
-	
-	error = setEdgeData(edgeStart, file.f);
+	ErrorType error = setEdgeData(edgeStart, file.f);
 	if (error != OK)
 		return error;
 	error = setEdgeData(edgeEnd, file.f);
@@ -36,7 +32,7 @@ ErrorType saveEdge(unsigned int edgeStart, unsigned int edgeEnd,
 }
 
 // allocate memory for edge array
-ErrorType allocateEdges(EdgeType*& edges, const unsigned int size)
+ErrorType allocateEdges(EdgeType*& edges, const size_t size)
 {
 	if (edges && freeEdges(edges))
 		return ERROR_FREE;
@@ -61,29 +57,27 @@ ErrorType checkEdgesExist(const EdgeType* edges)
 }
 
 // load edge array data
-ErrorType loadEdges(EdgeType* edges, const unsigned int size,
+ErrorType loadEdges(EdgeType* edges, const size_t size,
 					FileWorkType file)
 {
-	ErrorType error = OK;
-	error = checkEdgesExist(edges);
+	ErrorType error = checkEdgesExist(edges);
 	if (error != OK)
 		return error;
 	
-	for (unsigned int i = 0; error == OK && i < size; i++)
+	for (size_t i = 0; error == OK && i < size; i++)
 		error = loadEdge(edges[i].startVertexNo, edges[i].endVertexNo, file);
 	return error;
 }
 
 // save edge array data
-ErrorType saveEdges(EdgeType* edges, const unsigned int size,
+ErrorType saveEdges(EdgeType* edges, const size_t size,
 					FileWorkType file)
 {
-	ErrorType error = OK;
-	error = checkEdgesExist(edges);
+	ErrorType error = checkEdgesExist(edges);
 	if (error != OK)
 		return error;
 	
-	for (unsigned int i = 0; error == OK && i < size; i++)
+	for (size_t i = 0; error == OK && i < size; i++)
 		error = saveEdge(edges[i].startVertexNo, edges[i].endVertexNo, file);
 	return error;
 }

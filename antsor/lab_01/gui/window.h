@@ -49,6 +49,10 @@ private slots:
 	
 	void on_rotateButton_clicked();
 	
+	void on_projectButton_clicked();
+	
+	void on_projectBox_currentIndexChanged(int index);
+	
 private:
     Ui::Window *ui;
 };

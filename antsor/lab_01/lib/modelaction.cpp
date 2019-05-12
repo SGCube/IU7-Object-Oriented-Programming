@@ -26,19 +26,29 @@ ErrorType modelDrawAction(const ModelType &model)
 	return modelDrawData(model.vertices, model.edges);
 }
 
-ErrorType modelMoveAction(const ModelType& model, const ParameterType& param)
+ErrorType modelMoveAction(ModelType& model, const ParameterType& param)
 {
 	return modelMoveData(model.vertices, param.moveParameters);
 }
 
-ErrorType modelScaleAction(const ModelType& model, const ParameterType& param)
+ErrorType modelScaleAction(ModelType& model, const ParameterType& param)
 {
 	return modelScaleData(model.vertices, param.scaleParameters);
 }
 
-ErrorType modelRotateAction(const ModelType& model, const ParameterType& param)
+ErrorType modelRotateAction(ModelType& model, const ParameterType& param)
 {
 	return modelRotateData(model.vertices, param.rotateParameters);
+}
+
+ErrorType modelProjParallelAction(ModelType& model, const ParameterType& param)
+{
+	return modelProjParallelData(model.vertices, param.projParallelParameters);
+}
+
+ErrorType modelProjCentralAction(ModelType& model, const ParameterType& param)
+{
+	return modelProjCentralData(model.vertices, param.projCentralParameters);
 }
 
 #endif // MODELACTION_CPP

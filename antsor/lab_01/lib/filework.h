@@ -24,17 +24,17 @@ ErrorType openFileForRead(FileWorkType& file, const char* fileName);
 
 ErrorType openFileForWrite(FileWorkType& file, const char* fileName);
 
-ErrorType getArraySize(unsigned int& size, FILE* f);
+ErrorType getArraySize(size_t& size, FILE* f);
 
-ErrorType setArraySize(const unsigned int size, FILE* f);
+ErrorType setArraySize(const size_t size, FILE* f);
 
 ErrorType getVertexData(double& data, FILE *f);
 
 ErrorType setVertexData(const double data, FILE *f);
 
-ErrorType getEdgeData(unsigned int& data, FILE* f);
+ErrorType getEdgeData(size_t& data, FILE* f);
 
-ErrorType setEdgeData(const unsigned int data, FILE* f);
+ErrorType setEdgeData(const size_t data, FILE* f);
 
 #endif // FILEWORK_H
 

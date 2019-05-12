@@ -15,7 +15,7 @@ enum ErrorType
 	ERROR_EDGES_EXIST,
 	ERROR_VERTICES_EXIST,
 	ERROR_ACTION,
-	ERROR_FIELD
+	ERROR_AXIS
 };
 
 // get message of error

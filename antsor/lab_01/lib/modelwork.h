@@ -9,13 +9,13 @@ ErrorType loadModel(ModelType& model, const FileWorkType& file);
 
 ErrorType saveModel(const ModelType& model, const FileWorkType& file);
 
-ErrorType moveModel(VertexType* vertices, const unsigned int size,
+ErrorType moveModel(VertexType* vertices, const size_t size,
 					const MoveParamType& param);
 
-ErrorType scaleModel(VertexType* vertices, const unsigned int size,
+ErrorType scaleModel(VertexType* vertices, const size_t size,
 					 const ScaleParamType& param);
 
-ErrorType rotateModel(VertexType* vertices, const unsigned int size,
+ErrorType rotateModel(VertexType* vertices, const size_t size,
 					  const RotateParamType& param);
 
 #endif // MODELWORK_H

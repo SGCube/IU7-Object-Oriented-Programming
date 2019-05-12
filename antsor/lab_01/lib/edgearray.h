@@ -9,7 +9,7 @@
 struct EdgeArrayType
 {
     EdgeType* edges;
-    unsigned int size;
+    size_t size;
 };
 
 // initialize edge array

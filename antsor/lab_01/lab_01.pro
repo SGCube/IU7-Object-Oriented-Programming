@@ -39,7 +39,7 @@ SOURCES += \
     lib/vertextransform.cpp \
     lib/action.cpp \
     lib/canvas.cpp \
-    lib/canvascoord.cpp
+    lib/projection.cpp
 
 HEADERS += \
     gui/window.h \
@@ -57,7 +57,7 @@ HEADERS += \
     lib/vertextransform.h \
     lib/action.h \
     lib/canvas.h \
-    lib/canvascoord.h
+    lib/projection.h
 
 FORMS += \
     window.ui

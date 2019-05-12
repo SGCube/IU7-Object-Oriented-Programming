@@ -51,14 +51,14 @@ ErrorType openFileForWrite(FileWorkType& file, const char* fileName)
     return checkFileIsOpened(file.f);
 }
 
-ErrorType getArraySize(unsigned int& size, FILE* f)
+ErrorType getArraySize(size_t& size, FILE* f)
 {
-    return fscanf(f, "%u", &size) == 1 ? OK : ERROR_FILE_READ;
+    return fscanf(f, "%llu", &size) == 1 ? OK : ERROR_FILE_READ;
 }
 
-ErrorType setArraySize(const unsigned int size, FILE* f)
+ErrorType setArraySize(const size_t size, FILE* f)
 {
-    return fprintf(f, "%u\n\n", size) < 1 ? ERROR_FILE_WRITE : OK;
+    return fprintf(f, "%llu\n\n", size) < 1 ? ERROR_FILE_WRITE : OK;
 }
 
 ErrorType getVertexData(double& data, FILE *f)
@@ -75,14 +75,14 @@ ErrorType setVertexData(const double data, FILE *f)
     return fprintf(f, "%f ", data) < 1 ? ERROR_FILE_WRITE : OK;
 }
 
-ErrorType getEdgeData(unsigned int& data, FILE* f)
+ErrorType getEdgeData(size_t& data, FILE* f)
 {
-    return fscanf(f, "%u", &data) == 1 ? OK : ERROR_FILE_READ;
+    return fscanf(f, "%llu", &data) == 1 ? OK : ERROR_FILE_READ;
 }
 
-ErrorType setEdgeData(const unsigned int data, FILE* f)
+ErrorType setEdgeData(const size_t data, FILE* f)
 {
-    return fprintf(f, "%u ", data) < 1 ? ERROR_FILE_WRITE : OK;
+    return fprintf(f, "%llu ", data) < 1 ? ERROR_FILE_WRITE : OK;
 }
 
 #endif // FILEWORK_CPP

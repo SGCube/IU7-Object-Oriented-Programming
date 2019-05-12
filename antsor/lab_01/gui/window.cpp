@@ -73,7 +73,7 @@ void Window::paintEvent(QPaintEvent *event)
 	
 
     painter.setPen(modelPen);
-    for (unsigned int i = 0; i < lines.size(); i += 2)
+    for (size_t i = 0; i < lines.size(); i += 2)
 	{
         painter.drawLine(lines[i].x(), lines[i].y(),
 						 lines[i + 1].x(), lines[i + 1].y());
@@ -211,6 +211,39 @@ void Window::on_rotateButton_clicked()
     param.rotateParameters.zc = zc;
 	
     performAction(ACTION_ROTATE, param, true);
+}
+
+void Window::on_projectButton_clicked()
+{
+	ParameterType param;
+	ActionType action;
+	
+	AxisType axis;
+    if (ui->axisXRadio->isChecked())
+        axis = X;
+    else if (ui->axisYRadio->isChecked())
+        axis = Y;
+    else
+        axis = Z;
+	
+	if (ui->projectBox->currentIndex() == 0)
+	{
+		param.projParallelParameters.axis = axis;
+		action = ACTION_PROJECT_PARALLEL;
+	}
+	else
+	{
+		param.projCentralParameters.axis = axis;
+		param.projCentralParameters.distance = ui->dSpinbox->value();
+		action = ACTION_PROJECT_CENTRAL;
+	}
+	
+	performAction(action, param, true);
+}
+
+void Window::on_projectBox_currentIndexChanged(int index)
+{
+    ui->dSpinbox->setEnabled((index == 1));
 }
 
 #endif // WINDOW_CPP

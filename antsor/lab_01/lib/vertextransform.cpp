@@ -6,6 +6,7 @@
 #include "error.h"
 #include "vertex.h"
 #include "actionparam.h"
+#include "vertextransform.h"
 
 double degreesToRadians(const int angle)
 {
@@ -22,32 +23,19 @@ double scale(const double coord, const double coeff, const double center)
 	return center + coeff * (coord - center);
 }
 
-ErrorType rotateX(VertexType* vertices, const unsigned int size,
-				  const RotateParamType param)
+ErrorType rotateCoord(VertexType &vertex, const VertexType center,
+				   const double angle)
 {
-	ErrorType error = checkVerticesExist(vertices);
-    if (error != OK)
-	{
-        return error;
-	}
-
-	double radians = degreesToRadians(param.angle);
-	double angleCos = cos(radians), angleSin = sin(radians);
-
-	for (unsigned int i = 0; i < size; i++)
-	{
-		double tmpY = vertices[i].y;
-		double tmpZ = vertices[i].z;
-
-		vertices[i].y = param.yc + (tmpY - param.yc) * angleCos +
-				(tmpZ - param.zc) * angleSin;
-		vertices[i].z = param.zc - (tmpY - param.yc) * angleSin +
-				(tmpZ - param.zc) * angleCos;
-	}
+	double coord1 = vertex.x;
+	double coord2 = vertex.y;
+	vertex.x = center.x + (coord1 - center.x) * cos(angle) +
+			(coord2 - center.y) * sin(angle);
+	vertex.y = center.y - (coord1 - center.x) * sin(angle) +
+			(coord2 - center.y) * cos(angle);
 	return OK;
 }
 
-ErrorType rotateY(VertexType* vertices, const unsigned int size,
+ErrorType rotateX(VertexType* vertices, const size_t size,
 				  const RotateParamType param)
 {
 	ErrorType error = checkVerticesExist(vertices);
@@ -57,22 +45,20 @@ ErrorType rotateY(VertexType* vertices, const unsigned int size,
 	}
 
 	double radians = degreesToRadians(param.angle);
-	double angleCos = cos(radians), angleSin = sin(radians);
+	VertexType center = { param.yc, param.zc, 0 };
 
-	for (unsigned int i = 0; i < size; i++)
+	for (size_t i = 0; i < size; i++)
 	{
-		double tmpZ = vertices[i].z;
-		double tmpX = vertices[i].x;
-
-		vertices[i].z = param.zc + (tmpZ - param.zc) * angleCos +
-				(tmpX - param.xc) * angleSin;
-		vertices[i].x = param.xc - (tmpZ - param.zc) * angleSin +
-				(tmpX - param.xc) * angleCos;
+		VertexType vertex = { vertices[i].y, vertices[i].z, 0 };
+		rotateCoord(vertex, center, radians);
+		vertices[i].y = vertex.x;
+		vertices[i].z = vertex.y;
 	}
+	
 	return OK;
 }
 
-ErrorType rotateZ(VertexType* vertices, const unsigned int size,
+ErrorType rotateY(VertexType* vertices, const size_t size,
 				  const RotateParamType param)
 {
 	ErrorType error = checkVerticesExist(vertices);
@@ -82,18 +68,39 @@ ErrorType rotateZ(VertexType* vertices, const unsigned int size,
 	}
 
 	double radians = degreesToRadians(param.angle);
-	double angleCos = cos(radians), angleSin = sin(radians);
+	VertexType center = { param.zc, param.xc, 0 };
 
-	for (unsigned int i = 0; i < size; i++)
+	for (size_t i = 0; i < size; i++)
 	{
-		double tmpX = vertices[i].x;
-		double tmpY = vertices[i].y;
-
-		vertices[i].x = param.xc + (tmpX - param.xc) * angleCos +
-				(tmpY - param.yc) * angleSin;
-		vertices[i].y = param.yc - (tmpX - param.xc) * angleSin +
-				(tmpY - param.yc) * angleCos;
+		VertexType vertex = { vertices[i].z, vertices[i].x, 0 };
+		rotateCoord(vertex, center, radians);
+		vertices[i].z = vertex.x;
+		vertices[i].x = vertex.y;
 	}
+	
+	return OK;
+}
+
+ErrorType rotateZ(VertexType* vertices, const size_t size,
+				  const RotateParamType param)
+{
+	ErrorType error = checkVerticesExist(vertices);
+    if (error != OK)
+	{
+        return error;
+	}
+
+	double radians = degreesToRadians(param.angle);
+	VertexType center = { param.xc, param.yc, 0 };
+
+	for (size_t i = 0; i < size; i++)
+	{
+		VertexType vertex = { vertices[i].x, vertices[i].y, 0 };
+		rotateCoord(vertex, center, radians);
+		vertices[i].x = vertex.x;
+		vertices[i].y = vertex.y;
+	}
+	
 	return OK;
 }
 

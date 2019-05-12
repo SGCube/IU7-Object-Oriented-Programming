@@ -12,13 +12,19 @@ ErrorType modelSaveData(const ModelType& model, const FileWorkParamType param);
 ErrorType modelDrawData(const VertexArrayType& verticesArray,
 						const EdgeArrayType& edgesArray);
 
-ErrorType modelMoveData(const VertexArrayType& verticesArray,
+ErrorType modelMoveData(VertexArrayType& verticesArray,
 						const MoveParamType param);
 
-ErrorType modelScaleData(const VertexArrayType& verticesArray,
+ErrorType modelScaleData(VertexArrayType& verticesArray,
 						 const ScaleParamType param);
 
-ErrorType modelRotateData(const VertexArrayType& verticesArray,
+ErrorType modelRotateData(VertexArrayType& verticesArray,
 						  const RotateParamType param);
+
+ErrorType modelProjParallelData(VertexArrayType& verticesArray,
+								const ProjParallelParamType param);
+
+ErrorType modelProjCentralData(VertexArrayType& verticesArray,
+							   const ProjCentralParamType param);
 
 #endif // MODELDATAWORK_H

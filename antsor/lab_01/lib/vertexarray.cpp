@@ -26,7 +26,10 @@ ErrorType loadVertexArray(VertexArrayType& vertexArray, FileWorkType file)
 	
 	error = allocateVertices(vertexArray.vertices, vertexArray.size);
 	if (error != OK)
+	{
+		freeVertices(vertexArray.vertices);
 		return error;
+	}
 	
 	return loadVertices(vertexArray.vertices, vertexArray.size, file);
 }

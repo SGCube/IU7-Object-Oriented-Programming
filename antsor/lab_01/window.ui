@@ -18,17 +18,17 @@
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>150</y>
+      <y>107</y>
       <width>240</width>
       <height>24</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>14</pointsize>
-      <weight>50</weight>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
       <italic>false</italic>
-      <bold>false</bold>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -42,7 +42,7 @@
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>20</y>
+      <y>13</y>
       <width>240</width>
       <height>32</height>
      </rect>
@@ -60,7 +60,7 @@
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>200</y>
+      <y>157</y>
       <width>61</width>
       <height>24</height>
      </rect>
@@ -76,7 +76,7 @@
     <property name="geometry">
      <rect>
       <x>840</x>
-      <y>200</y>
+      <y>157</y>
       <width>61</width>
       <height>24</height>
      </rect>
@@ -92,7 +92,7 @@
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>180</y>
+      <y>137</y>
       <width>61</width>
       <height>20</height>
      </rect>
@@ -110,7 +110,7 @@
     <property name="geometry">
      <rect>
       <x>840</x>
-      <y>180</y>
+      <y>137</y>
       <width>61</width>
       <height>20</height>
      </rect>
@@ -128,7 +128,7 @@
     <property name="geometry">
      <rect>
       <x>930</x>
-      <y>180</y>
+      <y>137</y>
       <width>61</width>
       <height>20</height>
      </rect>
@@ -146,7 +146,7 @@
     <property name="geometry">
      <rect>
       <x>930</x>
-      <y>200</y>
+      <y>157</y>
       <width>61</width>
       <height>24</height>
      </rect>
@@ -162,7 +162,7 @@
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>60</y>
+      <y>53</y>
       <width>240</width>
       <height>32</height>
      </rect>
@@ -180,7 +180,7 @@
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>230</y>
+      <y>187</y>
       <width>240</width>
       <height>32</height>
      </rect>
@@ -198,7 +198,7 @@
     <property name="geometry">
      <rect>
       <x>840</x>
-      <y>330</y>
+      <y>272</y>
       <width>61</width>
       <height>24</height>
      </rect>
@@ -217,7 +217,7 @@
     <property name="geometry">
      <rect>
       <x>930</x>
-      <y>330</y>
+      <y>272</y>
       <width>61</width>
       <height>24</height>
      </rect>
@@ -236,17 +236,17 @@
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>280</y>
+      <y>226</y>
       <width>240</width>
       <height>24</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>14</pointsize>
-      <weight>50</weight>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
       <italic>false</italic>
-      <bold>false</bold>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -260,7 +260,7 @@
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>310</y>
+      <y>252</y>
       <width>61</width>
       <height>20</height>
      </rect>
@@ -271,14 +271,14 @@
      </font>
     </property>
     <property name="text">
-     <string>X</string>
+     <string>вдоль X</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_12">
     <property name="geometry">
      <rect>
       <x>930</x>
-      <y>310</y>
+      <y>252</y>
       <width>61</width>
       <height>20</height>
      </rect>
@@ -289,14 +289,14 @@
      </font>
     </property>
     <property name="text">
-     <string>Z</string>
+     <string>вдоль Z</string>
     </property>
    </widget>
    <widget class="QPushButton" name="scaleButton">
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>360</y>
+      <y>302</y>
       <width>240</width>
       <height>32</height>
      </rect>
@@ -314,7 +314,7 @@
     <property name="geometry">
      <rect>
       <x>840</x>
-      <y>310</y>
+      <y>252</y>
       <width>61</width>
       <height>20</height>
      </rect>
@@ -325,14 +325,14 @@
      </font>
     </property>
     <property name="text">
-     <string>Y</string>
+     <string>вдоль Y</string>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="kxSpinbox">
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>330</y>
+      <y>272</y>
       <width>61</width>
       <height>24</height>
      </rect>
@@ -351,7 +351,7 @@
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>440</y>
+      <y>371</y>
       <width>171</width>
       <height>20</height>
      </rect>
@@ -369,7 +369,7 @@
     <property name="geometry">
      <rect>
       <x>930</x>
-      <y>437</y>
+      <y>368</y>
       <width>61</width>
       <height>24</height>
      </rect>
@@ -385,17 +385,17 @@
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>410</y>
+      <y>341</y>
       <width>240</width>
       <height>24</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>14</pointsize>
-      <weight>50</weight>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
       <italic>false</italic>
-      <bold>false</bold>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -409,7 +409,7 @@
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>520</y>
+      <y>401</y>
       <width>240</width>
       <height>32</height>
      </rect>
@@ -427,20 +427,7 @@
     <property name="geometry">
      <rect>
       <x>730</x>
-      <y>120</y>
-      <width>281</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="Line" name="line_2">
-    <property name="geometry">
-     <rect>
-      <x>730</x>
-      <y>660</y>
+      <y>90</y>
       <width>281</width>
       <height>16</height>
      </rect>
@@ -452,8 +439,8 @@
    <widget class="QRadioButton" name="axisXRadio">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>490</y>
+      <x>850</x>
+      <y>690</y>
       <width>41</width>
       <height>17</height>
      </rect>
@@ -473,9 +460,9 @@
    <widget class="QLabel" name="label_16">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>460</y>
-      <width>71</width>
+      <x>770</x>
+      <y>687</y>
+      <width>31</width>
       <height>20</height>
      </rect>
     </property>
@@ -485,14 +472,17 @@
      </font>
     </property>
     <property name="text">
-     <string>вокруг оси</string>
+     <string>Ось</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
    <widget class="QRadioButton" name="axisYRadio">
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>490</y>
+      <x>900</x>
+      <y>690</y>
       <width>41</width>
       <height>17</height>
      </rect>
@@ -509,8 +499,8 @@
    <widget class="QRadioButton" name="axisZRadio">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>490</y>
+      <x>950</x>
+      <y>690</y>
       <width>41</width>
       <height>17</height>
      </rect>
@@ -527,8 +517,8 @@
    <widget class="QLabel" name="label_17">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>600</y>
+      <x>800</x>
+      <y>630</y>
       <width>61</width>
       <height>20</height>
      </rect>
@@ -545,8 +535,8 @@
    <widget class="QDoubleSpinBox" name="cxSpinbox">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>620</y>
+      <x>800</x>
+      <y>650</y>
       <width>61</width>
       <height>24</height>
      </rect>
@@ -561,8 +551,8 @@
    <widget class="QDoubleSpinBox" name="czSpinbox">
     <property name="geometry">
      <rect>
-      <x>930</x>
-      <y>620</y>
+      <x>940</x>
+      <y>650</y>
       <width>61</width>
       <height>24</height>
      </rect>
@@ -577,8 +567,8 @@
    <widget class="QDoubleSpinBox" name="cySpinbox">
     <property name="geometry">
      <rect>
-      <x>840</x>
-      <y>620</y>
+      <x>870</x>
+      <y>650</y>
       <width>61</width>
       <height>24</height>
      </rect>
@@ -594,21 +584,21 @@
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>580</y>
+      <y>590</y>
       <width>240</width>
-      <height>24</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>10</pointsize>
-      <weight>50</weight>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
       <italic>false</italic>
-      <bold>false</bold>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
-     <string>Центр масштабирования / поворота</string>
+     <string>Параметры преобразований</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -617,8 +607,8 @@
    <widget class="QLabel" name="label_18">
     <property name="geometry">
      <rect>
-      <x>930</x>
-      <y>600</y>
+      <x>940</x>
+      <y>630</y>
       <width>61</width>
       <height>20</height>
      </rect>
@@ -635,8 +625,8 @@
    <widget class="QLabel" name="label_19">
     <property name="geometry">
      <rect>
-      <x>840</x>
-      <y>600</y>
+      <x>870</x>
+      <y>630</y>
       <width>61</width>
       <height>20</height>
      </rect>
@@ -648,6 +638,150 @@
     </property>
     <property name="text">
      <string>Y</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_20">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>442</y>
+      <width>261</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Проецирование</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="projectButton">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>538</y>
+      <width>240</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Спроецировать</string>
+    </property>
+   </widget>
+   <widget class="Line" name="line_3">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>578</y>
+      <width>281</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="projectBox">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>472</y>
+      <width>241</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <item>
+     <property name="text">
+      <string>Параллельное проецирование</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Центральное проецирование</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>508</y>
+      <width>151</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Положение наблюдателя</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="dSpinbox">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>928</x>
+      <y>503</y>
+      <width>61</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <double>-99999.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>99999.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>0.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>753</x>
+      <y>651</y>
+      <width>41</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Центр</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
   </widget>

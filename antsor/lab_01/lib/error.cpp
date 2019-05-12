@@ -10,29 +10,29 @@ const char* getErrorMsg(const ErrorType error)
         case OK:
             return "OK";
         case ERROR_FILE_OPEN:
-            return "Error file: open";
+            return "Error: File open";
         case ERROR_FILE_READ:
-            return "Error file: read";
+            return "Error: file read";
         case ERROR_FILE_WRITE:
-            return "Error file: write";
+            return "Error: file write";
         case ERROR_FILE_NAME:
-            return "Error file: name is empty";
+            return "Error: filename is empty";
         case ERROR_ALLOCATION:
-            return "Error memory: bad allocation";
+            return "Error: bad memory allocation";
         case ERROR_FREE:
-            return "Error memory: bad free";
+            return "Error: bad memory free";
         case ERROR_MODEL_INIT:
-            return "Error model: not inizialisation";
+            return "Error: model is not inizialised";
         case ERROR_EDGES_EXIST:
-            return "Error edge array: not inizialisation";
+            return "Error: edge array is not inizialised";
         case ERROR_VERTICES_EXIST:
-            return "Error node array: not inizialisation";
+            return "Error: vertex array is not inizialised";
         case ERROR_ACTION:
-            return "Error type of action: not defined";
-        case ERROR_FIELD:
-            return "Error type of field: not defined";
+            return "Error: type of action not defined";
+        case ERROR_AXIS:
+            return "Error: type of axis not defined";
         default:
-            return "Error type of error: not defined";
+            return "Error: not defined";
     }
 }
 

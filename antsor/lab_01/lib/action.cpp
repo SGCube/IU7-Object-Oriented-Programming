@@ -35,6 +35,12 @@ ErrorType actionFunc(const ActionType action, const ParameterType param)
 		case ACTION_ROTATE:
 			error = modelRotateAction(model, param);
 			break;
+		case ACTION_PROJECT_PARALLEL:
+			error = modelProjParallelAction(model, param);
+			break;
+		case ACTION_PROJECT_CENTRAL:
+			error = modelProjCentralAction(model, param);
+			break;
         default:
             error = ERROR_ACTION;
     }

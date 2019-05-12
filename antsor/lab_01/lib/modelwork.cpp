@@ -6,10 +6,8 @@
 
 ErrorType loadModel(ModelType& model, const FileWorkType& file)
 {
-	ErrorType error = OK;
 	ModelType tmpModel = initializeModel();
-	
-	error = loadEdgeArray(tmpModel.edges, file);
+	ErrorType error = loadEdgeArray(tmpModel.edges, file);
     if (error != OK)
 	{
         return error;
@@ -27,10 +25,10 @@ ErrorType loadModel(ModelType& model, const FileWorkType& file)
 	{
 		freeVertexArray(tmpModel.vertices);
 		freeEdgeArray(tmpModel.edges);
+		return error;
 	}
-	else
-		model = tmpModel;
-    return error;
+	model = tmpModel;
+    return OK;
 }
 
 ErrorType saveModel(const ModelType& model, const FileWorkType& file)
@@ -43,14 +41,14 @@ ErrorType saveModel(const ModelType& model, const FileWorkType& file)
 	return saveVertexArray(model.vertices, file);
 }
 
-ErrorType moveModel(VertexType* vertices, const unsigned int size,
+ErrorType moveModel(VertexType* vertices, const size_t size,
 					const MoveParamType& param)
 {
 	ErrorType error = checkVerticesExist(vertices);
     if (error != OK)
         return error;
 
-    for (unsigned int i = 0; i < size; i++)
+    for (size_t i = 0; i < size; i++)
     {
         vertices[i].x = move(vertices[i].x, param.dx);
         vertices[i].y = move(vertices[i].y, param.dy);
@@ -59,14 +57,14 @@ ErrorType moveModel(VertexType* vertices, const unsigned int size,
     return OK;
 }
 
-ErrorType scaleModel(VertexType* vertices, const unsigned int size,
+ErrorType scaleModel(VertexType* vertices, const size_t size,
 					 const ScaleParamType& param)
 {
 	ErrorType error = checkVerticesExist(vertices);
     if (error != OK)
         return error;
 
-    for (unsigned int i = 0; i < size; i++)
+    for (size_t i = 0; i < size; i++)
     {
         vertices[i].x = scale(vertices[i].x, param.kx, param.xc);
         vertices[i].y = scale(vertices[i].y, param.ky, param.yc);
@@ -75,7 +73,7 @@ ErrorType scaleModel(VertexType* vertices, const unsigned int size,
     return OK;
 }
 
-ErrorType rotateModel(VertexType* vertices, const unsigned int size,
+ErrorType rotateModel(VertexType* vertices, const size_t size,
 					  const RotateParamType& param)
 {
 	ErrorType error = checkVerticesExist(vertices);
@@ -96,7 +94,7 @@ ErrorType rotateModel(VertexType* vertices, const unsigned int size,
             error = rotateZ(vertices, size, param);
             break;
         default:
-            error = ERROR_FIELD;
+            error = ERROR_AXIS;
     }
     return error;
 }

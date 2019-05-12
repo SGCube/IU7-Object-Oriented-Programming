@@ -31,7 +31,7 @@ ErrorType saveVertex(const double vertexX, const double vertexY,
 					 const double vertexZ, FileWorkType file);
 
 // allocate memory for vertex array
-ErrorType allocateVertices(VertexType*& vertices, const unsigned int size);
+ErrorType allocateVertices(VertexType*& vertices, const size_t size);
 
 // free memory of vertex array
 ErrorType freeVertices(VertexType*& vertices);
@@ -40,11 +40,11 @@ ErrorType freeVertices(VertexType*& vertices);
 ErrorType checkVerticesExist(const VertexType* vertices);
 
 // load vertex array data
-ErrorType loadVertices(VertexType* vertices, const unsigned int size,
+ErrorType loadVertices(VertexType* vertices, const size_t size,
 					   FileWorkType file);
 
 // save vertex array data
-ErrorType saveVertices(VertexType* vertices, const unsigned int size,
+ErrorType saveVertices(VertexType* vertices, const size_t size,
 					   FileWorkType file);
 
 #endif // VERTEX_H

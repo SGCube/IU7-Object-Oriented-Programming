@@ -8,7 +8,7 @@
 struct VertexArrayType
 {
     VertexType* vertices;
-    unsigned int size;
+    size_t size;
 };
 
 ErrorType initializeVertexArray(VertexArrayType& vertexArray);

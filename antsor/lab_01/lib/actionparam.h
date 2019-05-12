@@ -36,6 +36,19 @@ struct RotateParamType
     AxisType axis;
 };
 
+// type of parameters for parallel projection
+struct ProjParallelParamType
+{
+    AxisType axis;
+};
+
+// type of parameters for central projection
+struct ProjCentralParamType
+{
+    AxisType axis;
+	double distance;
+};
+
 // type of parameters
 union ParameterType
 {
@@ -43,6 +56,8 @@ union ParameterType
     MoveParamType moveParameters;
 	ScaleParamType scaleParameters;
 	RotateParamType rotateParameters;
+	ProjParallelParamType projParallelParameters;
+	ProjCentralParamType projCentralParameters;
 };
 
 #endif // MODELPARAM_H

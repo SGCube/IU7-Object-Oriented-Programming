@@ -29,7 +29,10 @@ ErrorType loadEdgeArray(EdgeArrayType& edgeArray, FileWorkType file)
 	
 	error = allocateEdges(edgeArray.edges, edgeArray.size);
 	if (error != OK)
+	{
+		freeEdges(edgeArray.edges);
 		return error;
+	}
 	
 	return loadEdges(edgeArray.edges, edgeArray.size, file);
 }

@@ -2,8 +2,19 @@
 #define CANVAS_CPP
 
 #include "canvas.h"
-#include "canvascoord.h"
 #include "../gui/window.h"
+
+#define Z_COEFF 0.5
+
+double getCanvasX(const double x, const double z)
+{
+    return x + z * Z_COEFF;
+}
+
+double getCanvasY(const double y, const double z)
+{
+    return -y - z * Z_COEFF;
+}
 
 ErrorType getLineCoord(const VertexType startVertex, const VertexType endVertex)
 {
@@ -15,7 +26,7 @@ ErrorType getLineCoord(const VertexType startVertex, const VertexType endVertex)
 }
 
 ErrorType modelDraw(const EdgeType* edges, const VertexType* vertices,
-					const unsigned int edgesSize)
+					const size_t edgesSize)
 {
 	ErrorType error = checkVerticesExist(vertices);
 	if (error != OK)
@@ -24,7 +35,7 @@ ErrorType modelDraw(const EdgeType* edges, const VertexType* vertices,
 	if (error != OK)
 		return error;
 
-    for (unsigned int i = 0; error == OK && i < edgesSize; i++)
+    for (size_t i = 0; error == OK && i < edgesSize; i++)
 	{
 		int startVertexNo = edges[i].startVertexNo;
 		int endVertexNo = edges[i].endVertexNo;
