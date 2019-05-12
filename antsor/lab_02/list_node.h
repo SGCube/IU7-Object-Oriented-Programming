@@ -14,7 +14,7 @@ public:
     explicit ListNode(const shared_ptr<ListNode<DataType>> node);
     ListNode(const DataType data, const shared_ptr<ListNode<DataType>> next);
 
-    //destructor
+    // destructor
     virtual ~ListNode();
 
     // data access
@@ -26,7 +26,7 @@ public:
     void setNextNode(const shared_ptr<ListNode<DataType>> next);
     shared_ptr<ListNode<DataType>> getNextNode();
 
-    // compare operators
+    // data compare operators
     bool operator==(const ListNode<DataType>& node) const;
     bool operator!=(const ListNode<DataType>& node) const;
     bool operator<(const ListNode<DataType>& node) const;
