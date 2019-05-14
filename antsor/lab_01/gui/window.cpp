@@ -13,8 +13,6 @@
 #define BORDER (CENTER * 2)
 #define TO_CENTER(x) (x + CENTER)
 
-std::vector<QPoint> lines;
-
 ErrorType addLine(double x1, double y1, double x2, double y2)
 {
     QPoint startPoint(TO_CENTER(x1), TO_CENTER(y1));
@@ -39,6 +37,8 @@ Window::Window(QWidget *parent) :
     ui(new Ui::Window)
 {
     ui->setupUi(this);
+	pointsAmount = 0;
+	pointsToDraw = nullptr;
 	repaint();
 }
 
@@ -73,14 +73,14 @@ void Window::paintEvent(QPaintEvent *event)
 	
 
     painter.setPen(modelPen);
-    for (size_t i = 0; i < lines.size(); i += 2)
+    for (size_t i = 0; i < pointsAmount; i += 2)
 	{
-        painter.drawLine(lines[i].x(), lines[i].y(),
-						 lines[i + 1].x(), lines[i + 1].y());
+        painter.drawLine(pointsToDraw[i][0], pointsToDraw[i][1],
+						 pointsToDraw[i + 1][0], pointsToDraw[i + 1][1]);
 	}
 }
 
-void Window::performAction(const ActionType action, const ParameterType param,
+void Window::performAction(const ActionType action, ParameterType param,
 						   bool toDraw)
 {
 	ErrorType error = actionFunc(action, param);
@@ -92,14 +92,20 @@ void Window::performAction(const ActionType action, const ParameterType param,
 
 	if (toDraw)
 	{
-		lines.clear();
-		error = actionFunc(ACTION_DRAW, param);
+		ParameterType paramDraw;
+		paramDraw.drawParameters.pointsToDraw = pointsToDraw;
+		paramDraw.drawParameters.pointsAmount = &pointsAmount;
+		
+		error = actionFunc(ACTION_DRAW, paramDraw);
 		if (error != OK)
 		{
 			showError(error);
 			return;
 		}
 		repaint();
+		if (pointsToDraw)
+			free(pointsToDraw);
+		pointsAmount = 0;
 	}
 }
 

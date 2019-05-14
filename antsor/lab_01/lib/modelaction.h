@@ -11,7 +11,7 @@ ErrorType modelSaveAction(const ModelType& model, const ParameterType& param);
 
 ErrorType modelFreeAction(ModelType &model);
 
-ErrorType modelDrawAction(const ModelType &model);
+ErrorType modelDrawAction(const ModelType &model, ParameterType& param);
 
 ErrorType modelMoveAction(ModelType& model, const ParameterType& param);
 

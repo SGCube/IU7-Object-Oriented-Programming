@@ -34,12 +34,11 @@ SOURCES += \
     lib/edgearray.cpp \
     lib/model.cpp \
     lib/modelaction.cpp \
-    lib/modelwork.cpp \
     lib/modeldatawork.cpp \
     lib/vertextransform.cpp \
     lib/action.cpp \
-    lib/canvas.cpp \
-    lib/projection.cpp
+    lib/verticeswork.cpp \
+    lib/draw.cpp
 
 HEADERS += \
     gui/window.h \
@@ -52,12 +51,11 @@ HEADERS += \
     lib/model.h \
     lib/modelaction.h \
     lib/actionparam.h \
-    lib/modelwork.h \
     lib/modeldatawork.h \
     lib/vertextransform.h \
     lib/action.h \
-    lib/canvas.h \
-    lib/projection.h
+    lib/verticeswork.h \
+    lib/draw.h
 
 FORMS += \
     window.ui

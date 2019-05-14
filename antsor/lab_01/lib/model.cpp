@@ -21,4 +21,38 @@ ErrorType freeModel(ModelType& model)
 	return freeEdgeArray(model.edges);
 }
 
+ErrorType loadModel(ModelType& model, const FileWorkType& file)
+{
+	ModelType tmpModel = initializeModel();
+	ErrorType error = loadEdgeArray(tmpModel.edges, file);
+    if (error == OK)
+	{
+		error = loadVertexArray(tmpModel.vertices, file);
+		if (error != OK)
+			freeEdgeArray(tmpModel.edges);
+	}
+
+	if (error == OK)
+	{
+		error = freeModel(model);
+		if(error == OK)
+			model = tmpModel;
+		else
+			freeModel(tmpModel);
+	}
+
+	return error;
+}
+
+ErrorType saveModel(const ModelType& model, const FileWorkType& file)
+{
+	ErrorType error = saveEdgeArray(model.edges, file);
+    if (error != OK)
+	{
+        return error;
+	}
+	return saveVertexArray(model.vertices, file);
+}
+
+
 #endif // MODEL_H

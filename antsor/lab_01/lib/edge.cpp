@@ -8,13 +8,9 @@ ErrorType loadEdge(size_t& edgeStart, size_t& edgeEnd,
 				   FileWorkType file)
 {
 	ErrorType error = getEdgeData(edgeStart, file.f);
-	if (error != OK)
-		return error;
-	error = getEdgeData(edgeEnd, file.f);
-	if (error != OK)
-		return error;
-	
-	return OK;
+	if (error == OK)
+		error = getEdgeData(edgeEnd, file.f);
+	return error;
 }
 
 // save edge data
@@ -22,13 +18,9 @@ ErrorType saveEdge(size_t edgeStart, size_t edgeEnd,
 				   FileWorkType file)
 {
 	ErrorType error = setEdgeData(edgeStart, file.f);
-	if (error != OK)
-		return error;
-	error = setEdgeData(edgeEnd, file.f);
-	if (error != OK)
-		return error;
-	
-	return OK;
+	if (error == OK)
+		error = setEdgeData(edgeEnd, file.f);
+	return error;
 }
 
 // allocate memory for edge array

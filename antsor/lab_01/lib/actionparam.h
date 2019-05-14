@@ -1,6 +1,8 @@
 #ifndef MODELPARAM_H
 #define MODELPARAM_H
 
+#include "vertexarray.h"
+
 // type of axises
 enum AxisType
 {
@@ -49,6 +51,12 @@ struct ProjCentralParamType
 	double distance;
 };
 
+struct DrawParamType
+{
+	double **pointsToDraw;
+	size_t &pointsAmount;
+};
+
 // type of parameters
 union ParameterType
 {
@@ -58,6 +66,7 @@ union ParameterType
 	RotateParamType rotateParameters;
 	ProjParallelParamType projParallelParameters;
 	ProjCentralParamType projCentralParameters;
+	DrawParamType drawParameters;
 };
 
 #endif // MODELPARAM_H

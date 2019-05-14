@@ -19,6 +19,6 @@ enum ActionType
 };
 
 // execute action
-ErrorType actionFunc(const ActionType action, const ParameterType param);
+ErrorType actionFunc(ActionType action, ParameterType param);
 
 #endif // ACTION_H

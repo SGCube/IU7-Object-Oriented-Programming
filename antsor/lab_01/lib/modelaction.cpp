@@ -4,7 +4,7 @@
 #include "model.h"
 #include "modelaction.h"
 #include "modeldatawork.h"
-#include "modelwork.h"
+#include "verticeswork.h"
 
 ErrorType modelLoadAction(ModelType& model, const ParameterType& param)
 {
@@ -21,9 +21,9 @@ ErrorType modelFreeAction(ModelType &model)
 	return freeModel(model);
 }
 
-ErrorType modelDrawAction(const ModelType &model)
+ErrorType modelDrawAction(const ModelType &model, ParameterType& param)
 {
-	return modelDrawData(model.vertices, model.edges);
+	return modelDrawData(model.vertices, model.edges, param.drawParameters);
 }
 
 ErrorType modelMoveAction(ModelType& model, const ParameterType& param)

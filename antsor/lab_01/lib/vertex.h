@@ -23,12 +23,10 @@ enum VertexFieldType
 };
 
 // load vertex data
-ErrorType loadVertex(double& vertexX, double& vertexY, double& vertexZ,
-					 FileWorkType file);
+ErrorType loadVertex(VertexType& vertex, FileWorkType file);
 
 // save vertex data
-ErrorType saveVertex(const double vertexX, const double vertexY,
-					 const double vertexZ, FileWorkType file);
+ErrorType saveVertex(const VertexType& vertex, FileWorkType file);
 
 // allocate memory for vertex array
 ErrorType allocateVertices(VertexType*& vertices, const size_t size);

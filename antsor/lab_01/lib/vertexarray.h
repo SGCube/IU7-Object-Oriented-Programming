@@ -11,7 +11,7 @@ struct VertexArrayType
     size_t size;
 };
 
-ErrorType initializeVertexArray(VertexArrayType& vertexArray);
+VertexArrayType initializeVertexArray();
 
 ErrorType freeVertexArray(VertexArrayType& vertexArray);
 

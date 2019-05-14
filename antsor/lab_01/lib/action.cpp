@@ -7,7 +7,7 @@
 #include "model.h"
 #include "modelaction.h"
 
-ErrorType actionFunc(const ActionType action, const ParameterType param)
+ErrorType actionFunc(ActionType action, ParameterType param)
 {
 	ErrorType error = OK;
 	static ModelType model = initializeModel();
@@ -24,7 +24,7 @@ ErrorType actionFunc(const ActionType action, const ParameterType param)
 			error = modelFreeAction(model);
 			break;
 		case ACTION_DRAW:
-			error = modelDrawAction(model);
+			error = modelDrawAction(model, param);
 			break;
 		case ACTION_MOVE:
 			error = modelMoveAction(model, param);

@@ -2,10 +2,9 @@
 #define MODELDATAWORK_CPP
 
 #include "modeldatawork.h"
-#include "modelwork.h"
-#include "projection.h"
+#include "verticeswork.h"
 #include "filework.h"
-#include "canvas.h"
+#include "draw.h"
 
 ErrorType modelLoadData(ModelType& model, const FileWorkParamType param)
 {
@@ -23,7 +22,7 @@ ErrorType modelLoadData(ModelType& model, const FileWorkParamType param)
         return error;
 
 	error = loadModel(model, file);
-    fclose(file.f);
+    fclose(file);
 
     return error;
 }
@@ -50,34 +49,46 @@ ErrorType modelSaveData(const ModelType& model, const FileWorkParamType param)
 }
 
 ErrorType modelDrawData(const VertexArrayType& verticesArray,
-						const EdgeArrayType& edgesArray)
+						const EdgeArrayType& edgesArray,
+						DrawParamType& param)
 {
-	return modelDraw(edgesArray.edges, verticesArray.vertices, edgesArray.size);
+	return modelDraw(edgesArray.edges, verticesArray.vertices, edgesArray.size,
+					 param.drawParameters);
 }
 
 ErrorType modelMoveData(VertexArrayType& verticesArray,
 						const MoveParamType param)
 {
-	return moveModel(verticesArray.vertices, verticesArray.size, param);
+	return moveVertices(verticesArray.vertices, verticesArray.size, param);
 }
 
 ErrorType modelScaleData(VertexArrayType& verticesArray,
 						 const ScaleParamType param)
 {
-	return scaleModel(verticesArray.vertices, verticesArray.size, param);
+	return scaleVertices(verticesArray.vertices, verticesArray.size, param);
 }
 
 ErrorType modelRotateData(VertexArrayType& verticesArray,
 						  const RotateParamType param)
 {
-	return rotateModel(verticesArray.vertices, verticesArray.size, param);
+	switch (param.axis)
+	{
+		case X:
+			return rotateX(verticesArray.vertices, verticesArray.size, param);
+		case Y:
+			return rotateY(verticesArray.vertices, verticesArray.size, param);
+		case Z:
+			return rotateZ(verticesArray.vertices, verticesArray.size, param);
+		default:
+			return ERROR_AXIS;
+	}
 }
 
 ErrorType modelProjParallelData(VertexArrayType& verticesArray,
 								const ProjParallelParamType param)
 {
-	return projectParallelModel(verticesArray.vertices, verticesArray.size,
-								param.axis);
+	return projectParallel(verticesArray.vertices, verticesArray.size,
+						   param.axis);
 }
 
 ErrorType modelProjCentralData(VertexArrayType& verticesArray,

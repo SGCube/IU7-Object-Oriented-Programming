@@ -13,7 +13,7 @@ struct EdgeArrayType
 };
 
 // initialize edge array
-ErrorType initializeEdgeArray(EdgeArrayType& edgeArray);
+EdgeArrayType initializeEdgeArray();
 
 // free edge array
 ErrorType freeEdgeArray(EdgeArrayType& edgeArray);

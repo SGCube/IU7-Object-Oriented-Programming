@@ -4,37 +4,29 @@
 #include "vertex.h"
 
 // load vertex data
-ErrorType loadVertex(double& vertexX, double& vertexY, double& vertexZ,
-					 FileWorkType file)
+ErrorType loadVertex(VertexType& vertex, FileWorkType file)
 {
-	ErrorType error = getVertexData(vertexX, file.f);
-	if (error != OK)
-		return error;
-	error = getVertexData(vertexY, file.f);
-	if (error != OK)
-		return error;
-	error = getVertexData(vertexZ, file.f);
-	if (error != OK)
-		return error;
-	
-	return OK;
+	ErrorType error = getVertexData(vertex.x, file.f);
+	if (error == OK)
+	{
+		error = getVertexData(vertex.y, file.f);
+		if (error == OK)
+			error = getVertexData(vertex.z, file.f);
+	}
+	return error;
 }
 
 // save vertex data
-ErrorType saveVertex(const double vertexX, const double vertexY,
-					 const double vertexZ, FileWorkType file)
+ErrorType saveVertex(const VertexType& vertex, FileWorkType file)
 {
-	ErrorType error = setVertexData(vertexX, file.f);
-	if (error != OK)
-		return error;
-	error = setVertexData(vertexY, file.f);
-	if (error != OK)
-		return error;
-	error = setVertexData(vertexZ, file.f);
-	if (error != OK)
-		return error;
-	
-	return OK;
+	ErrorType error = setVertexData(vertex.x, file.f);
+	if (error == OK)
+	{
+		error = setVertexData(vertex.y, file.f);
+		if (error == OK)
+			error = setVertexData(vertex.z, file.f);
+	}
+	return error;
 }
 
 // allocate memory for vertex array
@@ -71,7 +63,7 @@ ErrorType loadVertices(VertexType* vertices, const size_t size,
 		return error;
 	
 	for (size_t i = 0; error == OK && i < size; i++)
-		error = loadVertex(vertices[i].x, vertices[i].y, vertices[i].z, file);
+		error = loadVertex(vertices[i], file);
 	return error;
 }
 
@@ -84,7 +76,7 @@ ErrorType saveVertices(VertexType* vertices, const size_t size,
 		return error;
 
 	for (size_t i = 0; error == OK && i < size; i++)
-		error = saveVertex(vertices[i].x, vertices[i].y, vertices[i].z, file);
+		error = saveVertex(vertices[i], file);
 	return error;
 }
 
