@@ -3,35 +3,49 @@
 
 #include "draw.h"
 
-#define Z_COEFF 0.5
+#define X_COEFF 0.5
 
-double getCanvasX(double x, double z)
+double getCanvasX(double y, double x)
 {
-    return x + z * Z_COEFF;
+    return y - x * X_COEFF;
 }
 
-double getCanvasY(double y, double z)
+double getCanvasY(double z, double x)
 {
-    return -y - z * Z_COEFF;
+    return -z + x * X_COEFF;
 }
 
-ErrorType getVertexCoord(const VertexType vertex, double vertexToDraw[2])
+ErrorType getVertexCoord(const VertexType vertex, double* vertexToDraw)
 {
 	if (!vertexToDraw)
 		return ERROR_ALLOCATION;
-	vertexToDraw[0] = getCanvasX(vertex.x, vertex.z);
-	vertexToDraw[1] = getCanvasY(vertex.y, vertex.z);
+	vertexToDraw[0] = getCanvasX(vertex.y, vertex.x);
+	vertexToDraw[1] = getCanvasY(vertex.z, vertex.x);
     return OK;
 }
 
-ErrorType pointsToDrawAlloc(double** &pointsToDraw, size_t& pointsAmount,
-							size_t newSize)
+ErrorType pointsToDrawAlloc(double** pointsToDraw, size_t* size, size_t newSize)
 {
-	pointsToDraw = new double*[newSize];
-	if (!pointsToDraw)
+	*pointsToDraw = new double[newSize];
+	if (!*pointsToDraw)
 		return ERROR_ALLOCATION;
-	pointsAmount = newSize;
+	*size = newSize;
 	return OK;
+}
+
+ErrorType verticesDrawCoord(const EdgeType* edges, const VertexType* vertices,
+							const size_t edgesSize, double* pointsToDraw)
+{
+	ErrorType error = OK;
+	for (size_t i = 0, j = 0; error == OK && i < edgesSize; i++, j += 4)
+	{
+		int startNo = edges[i].startVertexNo;
+		int endNo = edges[i].endVertexNo;
+		
+        error = getVertexCoord(vertices[startNo], pointsToDraw + j);
+		error = getVertexCoord(vertices[endNo], pointsToDraw + j + 2);
+	}
+    return error;
 }
 
 ErrorType modelDraw(const EdgeType* edges, const VertexType* vertices,
@@ -43,22 +57,11 @@ ErrorType modelDraw(const EdgeType* edges, const VertexType* vertices,
 	if (error != OK)
 		return error;
 	
-	error = pointsToDrawAlloc(param.pointsToDraw, param.pointsAmount,
-							  edgesSize * 2);
-	if (error != OK)
-		return error;
-
-    for (size_t i = 0, j = 0; error == OK && i < edgesSize; i++, j += 2)
-	{
-		int startNo = edges[i].startVertexNo;
-		int endNo = edges[i].endVertexNo;
-		
-		param.pointsToDraw[j] = new double[2];
-		param.pointsToDraw[j + 1] = new double[2];
-		
-        error = getVertexCoord(vertices[startNo], param.pointsToDraw[j]);
-		error = getVertexCoord(vertices[endNo], param.pointsToDraw[j + 1]);
-	}
+	error = pointsToDrawAlloc(param.pointsToDraw, param.size,
+							  edgesSize * 4);
+	if (error == OK)
+		error = verticesDrawCoord(edges, vertices, edgesSize,
+								  *(param.pointsToDraw));
     return error;
 }
 

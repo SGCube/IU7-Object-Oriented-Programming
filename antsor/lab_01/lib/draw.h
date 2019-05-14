@@ -6,16 +6,18 @@
 #include "edgearray.h"
 #include "actionparam.h"
 
-double getCanvasX(const double x, const double z);
+double getCanvasX(const double y, const double x);
 
-double getCanvasY(const double y, const double z);
+double getCanvasY(const double z, const double x);
 
-ErrorType getVertexCoord(const VertexType vertex, double vertexToDraw[2]);
+ErrorType getVertexCoord(const VertexType vertex, double* vertexToDraw);
+
+ErrorType pointsToDrawAlloc(double*** pointsToDraw, size_t* size, size_t newSize);
+
+ErrorType verticesDrawCoord(const EdgeType* edges, const VertexType* vertices,
+							const size_t edgesSize, double* pointsToDraw);
 
 ErrorType modelDraw(const EdgeType* edges, const VertexType* vertices,
 					const size_t edgesSize, DrawParamType& param);
-
-ErrorType pointsToDrawAlloc(double** &pointsToDraw, size_t& pointsAmount,
-							size_t newSize);
 
 #endif // CANVAS_H

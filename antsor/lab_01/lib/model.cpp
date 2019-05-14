@@ -7,8 +7,8 @@
 ModelType initializeModel()
 {
 	ModelType model;
-	initializeVertexArray(model.vertices);
-	initializeEdgeArray(model.edges);
+	model.vertices = initializeVertexArray();
+	model.edges = initializeEdgeArray();
 	return model;
 }
 

@@ -22,7 +22,7 @@ ErrorType modelLoadData(ModelType& model, const FileWorkParamType param)
         return error;
 
 	error = loadModel(model, file);
-    fclose(file);
+    closeFile(file);
 
     return error;
 }
@@ -43,7 +43,7 @@ ErrorType modelSaveData(const ModelType& model, const FileWorkParamType param)
         return error;
 
 	error = saveModel(model, file);
-    fclose(file.f);
+    closeFile(file);
 
     return error;
 }
@@ -53,7 +53,7 @@ ErrorType modelDrawData(const VertexArrayType& verticesArray,
 						DrawParamType& param)
 {
 	return modelDraw(edgesArray.edges, verticesArray.vertices, edgesArray.size,
-					 param.drawParameters);
+					 param);
 }
 
 ErrorType modelMoveData(VertexArrayType& verticesArray,

@@ -8,19 +8,12 @@
 #include <QMessageBox>
 #include <QPainter>
 #include <QCloseEvent>
+#include <QDebug>
 
 #define CENTER 360
 #define BORDER (CENTER * 2)
 #define TO_CENTER(x) (x + CENTER)
 
-ErrorType addLine(double x1, double y1, double x2, double y2)
-{
-    QPoint startPoint(TO_CENTER(x1), TO_CENTER(y1));
-	QPoint endPoint(TO_CENTER(x2), TO_CENTER(y2));
-	lines.push_back(startPoint);
-    lines.push_back(endPoint);
-    return OK;
-}
 
 void showError(const ErrorType error)
 {
@@ -54,6 +47,7 @@ void Window::closeEvent(QCloseEvent *event)
 	ErrorType error = actionFunc(ACTION_FREE, param);
 	if (error != OK)
 		showError(error);
+	free(pointsToDraw);
 }
 
 void Window::paintEvent(QPaintEvent *event)
@@ -73,10 +67,12 @@ void Window::paintEvent(QPaintEvent *event)
 	
 
     painter.setPen(modelPen);
-    for (size_t i = 0; i < pointsAmount; i += 2)
+    for (size_t i = 0; i < pointsAmount; i += 4)
 	{
-        painter.drawLine(pointsToDraw[i][0], pointsToDraw[i][1],
-						 pointsToDraw[i + 1][0], pointsToDraw[i + 1][1]);
+        painter.drawLine(TO_CENTER(pointsToDraw[i]),
+						 TO_CENTER(pointsToDraw[i + 1]),
+						 TO_CENTER(pointsToDraw[i + 2]),
+						 TO_CENTER(pointsToDraw[i + 3]));
 	}
 }
 
@@ -92,9 +88,13 @@ void Window::performAction(const ActionType action, ParameterType param,
 
 	if (toDraw)
 	{
+		if (pointsToDraw)
+			delete [] pointsToDraw;
+		pointsAmount = 0;
+		
 		ParameterType paramDraw;
-		paramDraw.drawParameters.pointsToDraw = pointsToDraw;
-		paramDraw.drawParameters.pointsAmount = &pointsAmount;
+		paramDraw.drawParameters.pointsToDraw = &pointsToDraw;
+		paramDraw.drawParameters.size = &pointsAmount;
 		
 		error = actionFunc(ACTION_DRAW, paramDraw);
 		if (error != OK)
@@ -103,9 +103,6 @@ void Window::performAction(const ActionType action, ParameterType param,
 			return;
 		}
 		repaint();
-		if (pointsToDraw)
-			free(pointsToDraw);
-		pointsAmount = 0;
 	}
 }
 
@@ -230,7 +227,7 @@ void Window::on_projectButton_clicked()
     else if (ui->axisYRadio->isChecked())
         axis = Y;
     else
-        axis = Z;
+		axis = Z;
 	
 	if (ui->projectBox->currentIndex() == 0)
 	{

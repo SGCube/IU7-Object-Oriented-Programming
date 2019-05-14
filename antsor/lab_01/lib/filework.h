@@ -24,6 +24,8 @@ ErrorType openFileForRead(FileWorkType& file, const char* fileName);
 
 ErrorType openFileForWrite(FileWorkType& file, const char* fileName);
 
+ErrorType closeFile(FileWorkType& file);
+
 ErrorType getArraySize(size_t& size, FILE* f);
 
 ErrorType setArraySize(const size_t size, FILE* f);

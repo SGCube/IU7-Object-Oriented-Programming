@@ -51,6 +51,14 @@ ErrorType openFileForWrite(FileWorkType& file, const char* fileName)
     return checkFileIsOpened(file.f);
 }
 
+ErrorType closeFile(FileWorkType& file)
+{
+	ErrorType error = checkFileIsOpened(file.f);
+    if (error == OK)
+		fclose(file.f);
+	return OK;
+}
+
 ErrorType getArraySize(size_t& size, FILE* f)
 {
     return fscanf(f, "%llu", &size) == 1 ? OK : ERROR_FILE_READ;

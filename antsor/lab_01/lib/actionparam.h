@@ -53,12 +53,12 @@ struct ProjCentralParamType
 
 struct DrawParamType
 {
-	double **pointsToDraw;
-	size_t &pointsAmount;
+	double** pointsToDraw;
+	size_t* size;
 };
 
 // type of parameters
-union ParameterType
+struct ParameterType
 {
 	FileWorkParamType fileWorkParameters;
     MoveParamType moveParameters;

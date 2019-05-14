@@ -5,9 +5,6 @@
 #include <QGraphicsScene>
 #include "../lib/action.h"
 
-extern std::vector<QPoint> lines;
-
-ErrorType addLine(double x1, double y1, double x2, double y2);
 
 void showError(const ErrorType error);
 
@@ -55,7 +52,7 @@ private slots:
 	
 private:
     Ui::Window *ui;
-	double **pointsToDraw;
+	double* pointsToDraw;
 	size_t pointsAmount;
 };
 
