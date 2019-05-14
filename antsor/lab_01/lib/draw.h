@@ -6,9 +6,9 @@
 #include "edgearray.h"
 #include "actionparam.h"
 
-double getCanvasX(const double y, const double x);
+double getCanvasX(const double x, const double y);
 
-double getCanvasY(const double z, const double x);
+double getCanvasY(const double z, const double y);
 
 ErrorType getVertexCoord(const VertexType vertex, double* vertexToDraw);
 

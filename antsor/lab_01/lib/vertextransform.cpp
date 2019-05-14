@@ -1,6 +1,8 @@
 #ifndef VERTEXTRANSFORM_CPP
 #define VERTEXTRANSFORM_CPP
 
+#include <math.h>
+
 #include "error.h"
 #include "vertex.h"
 #include "vertextransform.h"

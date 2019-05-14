@@ -3,24 +3,24 @@
 
 #include "draw.h"
 
-#define X_COEFF 0.5
+#define Y_COEFF 0.5
 
-double getCanvasX(double y, double x)
+double getCanvasX(double x, double y)
 {
-    return y - x * X_COEFF;
+    return x + y * Y_COEFF;
 }
 
-double getCanvasY(double z, double x)
+double getCanvasY(double z, double y)
 {
-    return -z + x * X_COEFF;
+    return -z - y * Y_COEFF;
 }
 
 ErrorType getVertexCoord(const VertexType vertex, double* vertexToDraw)
 {
 	if (!vertexToDraw)
 		return ERROR_ALLOCATION;
-	vertexToDraw[0] = getCanvasX(vertex.y, vertex.x);
-	vertexToDraw[1] = getCanvasY(vertex.z, vertex.x);
+	vertexToDraw[0] = getCanvasX(vertex.x, vertex.y);
+	vertexToDraw[1] = getCanvasY(vertex.z, vertex.y);
     return OK;
 }
 

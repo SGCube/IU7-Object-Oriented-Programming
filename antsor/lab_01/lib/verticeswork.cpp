@@ -75,13 +75,13 @@ ErrorType rotateY(VertexType* vertices, const size_t size,
         return error;
 	}
 
-	double radians = -degreesToRadians(param.angle);
+	double radians = degreesToRadians(param.angle);
 	VertexType center = { param.zc, param.xc, 0 };
 
 	for (size_t i = 0; i < size; i++)
 	{
 		VertexType vertex = { vertices[i].z, vertices[i].x, 0 };
-		rotateCoord(vertex, center, radians);
+		rotateCoord(vertex, center, -radians);
 		vertices[i].z = vertex.x;
 		vertices[i].x = vertex.y;
 	}
