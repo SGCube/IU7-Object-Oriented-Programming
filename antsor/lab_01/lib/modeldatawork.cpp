@@ -52,8 +52,7 @@ ErrorType modelDrawData(const VertexArrayType& verticesArray,
 						const EdgeArrayType& edgesArray,
 						DrawParamType& param)
 {
-	return modelDraw(edgesArray.edges, verticesArray.vertices, edgesArray.size,
-					 param);
+	return modelDraw(edgesArray, verticesArray, param);
 }
 
 ErrorType modelMoveData(VertexArrayType& verticesArray,

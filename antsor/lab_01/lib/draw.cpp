@@ -15,12 +15,11 @@ double getCanvasY(double z, double y)
     return -z - y * Y_COEFF;
 }
 
-ErrorType getVertexCoord(const VertexType vertex, double* vertexToDraw)
+ErrorType getVertexCoord(const VertexType vertex, double* xToDraw,
+						 double* yToDraw, int index)
 {
-	if (!vertexToDraw)
-		return ERROR_ALLOCATION;
-	vertexToDraw[0] = getCanvasX(vertex.x, vertex.y);
-	vertexToDraw[1] = getCanvasY(vertex.z, vertex.y);
+	xToDraw[index] = getCanvasX(vertex.x, vertex.y);
+	yToDraw[index] = getCanvasY(vertex.z, vertex.y);
     return OK;
 }
 
@@ -33,35 +32,50 @@ ErrorType pointsToDrawAlloc(double** pointsToDraw, size_t* size, size_t newSize)
 	return OK;
 }
 
+ErrorType pointsToDrawFree(double *pointsToDraw)
+{
+	if (pointsToDraw)
+		delete [] pointsToDraw;
+	return OK;
+}
+
 ErrorType verticesDrawCoord(const EdgeType* edges, const VertexType* vertices,
-							const size_t edgesSize, double* pointsToDraw)
+							size_t size, DrawParamType& param)
 {
 	ErrorType error = OK;
-	for (size_t i = 0, j = 0; error == OK && i < edgesSize; i++, j += 4)
+	for (size_t i = 0, j = 0; error == OK && i < size; i++, j += 2)
 	{
 		int startNo = edges[i].startVertexNo;
 		int endNo = edges[i].endVertexNo;
 		
-        error = getVertexCoord(vertices[startNo], pointsToDraw + j);
-		error = getVertexCoord(vertices[endNo], pointsToDraw + j + 2);
+        error = getVertexCoord(vertices[startNo], *(param.xToDraw),
+							   *(param.yToDraw), j);
+		error = getVertexCoord(vertices[endNo], *(param.xToDraw),
+							   *(param.yToDraw), j + 1);
 	}
     return error;
 }
 
-ErrorType modelDraw(const EdgeType* edges, const VertexType* vertices,
-					const size_t edgesSize, DrawParamType& param)
+ErrorType modelDraw(const EdgeArrayType& edges, const VertexArrayType& vertices,
+					DrawParamType& param)
 {
-	ErrorType error = checkVerticesExist(vertices);
+	ErrorType error = checkVerticesExist(vertices.vertices);
 	if (error == OK)
-		error = checkEdgesExist(edges);
+		error = checkEdgesExist(edges.edges);
 	if (error != OK)
 		return error;
 	
-	error = pointsToDrawAlloc(param.pointsToDraw, param.size,
-							  edgesSize * 4);
+	error = pointsToDrawAlloc(param.xToDraw, param.size, edges.size * 2);
 	if (error == OK)
-		error = verticesDrawCoord(edges, vertices, edgesSize,
-								  *(param.pointsToDraw));
+	{
+		error = pointsToDrawAlloc(param.yToDraw, param.size, edges.size * 2);
+		if (error == OK)
+			error = verticesDrawCoord(edges.edges, vertices.vertices,
+									  edges.size, param);
+		else
+			pointsToDrawFree(*(param.xToDraw));
+	}
+		
     return error;
 }
 

@@ -52,7 +52,8 @@ private slots:
 	
 private:
     Ui::Window *ui;
-	double* pointsToDraw;
+	double* xToDraw;
+	double* yToDraw;
 	size_t pointsAmount;
 };
 

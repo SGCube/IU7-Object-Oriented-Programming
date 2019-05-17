@@ -8,7 +8,6 @@
 #include <QMessageBox>
 #include <QPainter>
 #include <QCloseEvent>
-#include <QDebug>
 
 #define CENTER 360
 #define BORDER (CENTER * 2)
@@ -31,7 +30,8 @@ Window::Window(QWidget *parent) :
 {
     ui->setupUi(this);
 	pointsAmount = 0;
-	pointsToDraw = nullptr;
+	xToDraw = nullptr;
+	yToDraw = nullptr;
 	repaint();
 }
 
@@ -47,7 +47,10 @@ void Window::closeEvent(QCloseEvent *event)
 	ErrorType error = actionFunc(ACTION_FREE, param);
 	if (error != OK)
 		showError(error);
-	free(pointsToDraw);
+	if (xToDraw)
+		delete [] xToDraw;
+	if (yToDraw)
+		delete [] yToDraw;
 }
 
 void Window::paintEvent(QPaintEvent *event)
@@ -67,12 +70,10 @@ void Window::paintEvent(QPaintEvent *event)
 	
 
     painter.setPen(modelPen);
-    for (size_t i = 0; i < pointsAmount; i += 4)
+    for (size_t i = 0; i < pointsAmount; i += 2)
 	{
-        painter.drawLine(TO_CENTER(pointsToDraw[i]),
-						 TO_CENTER(pointsToDraw[i + 1]),
-						 TO_CENTER(pointsToDraw[i + 2]),
-						 TO_CENTER(pointsToDraw[i + 3]));
+        painter.drawLine(TO_CENTER(xToDraw[i]), TO_CENTER(yToDraw[i]),
+						 TO_CENTER(xToDraw[i + 1]), TO_CENTER(yToDraw[i + 1]));
 	}
 }
 
@@ -88,12 +89,15 @@ void Window::performAction(const ActionType action, ParameterType param,
 
 	if (toDraw)
 	{
-		if (pointsToDraw)
-			delete [] pointsToDraw;
+		if (xToDraw)
+			delete [] xToDraw;
+		if (yToDraw)
+			delete [] yToDraw;
 		pointsAmount = 0;
 		
 		ParameterType paramDraw;
-		paramDraw.drawParameters.pointsToDraw = &pointsToDraw;
+		paramDraw.drawParameters.xToDraw = &xToDraw;
+		paramDraw.drawParameters.yToDraw = &yToDraw;
 		paramDraw.drawParameters.size = &pointsAmount;
 		
 		error = actionFunc(ACTION_DRAW, paramDraw);

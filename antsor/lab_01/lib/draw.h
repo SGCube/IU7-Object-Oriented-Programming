@@ -10,14 +10,17 @@ double getCanvasX(const double x, const double y);
 
 double getCanvasY(const double z, const double y);
 
-ErrorType getVertexCoord(const VertexType vertex, double* vertexToDraw);
+ErrorType getVertexCoord(const VertexType vertex, double* xToDraw,
+						 double* yToDraw, int index);
 
-ErrorType pointsToDrawAlloc(double*** pointsToDraw, size_t* size, size_t newSize);
+ErrorType pointsToDrawAlloc(double** pointsToDraw, size_t* size, size_t newSize);
+
+ErrorType pointsToDrawFree(double* pointsToDraw);
 
 ErrorType verticesDrawCoord(const EdgeType* edges, const VertexType* vertices,
-							const size_t edgesSize, double* pointsToDraw);
+							size_t size, DrawParamType& param);
 
-ErrorType modelDraw(const EdgeType* edges, const VertexType* vertices,
-					const size_t edgesSize, DrawParamType& param);
+ErrorType modelDraw(const EdgeArrayType& edges, const VertexArrayType& vertices,
+					DrawParamType& param);
 
 #endif // CANVAS_H

@@ -53,7 +53,8 @@ struct ProjCentralParamType
 
 struct DrawParamType
 {
-	double** pointsToDraw;
+	double** xToDraw;
+	double** yToDraw;
 	size_t* size;
 };
 
