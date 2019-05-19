@@ -1,5 +1,5 @@
 *.o
-**/build*/**
-**/.vscode/**
-**/__pycache__/**
+*.exe
 *.autosave
+**/.vscode/**
+**/build*/**
