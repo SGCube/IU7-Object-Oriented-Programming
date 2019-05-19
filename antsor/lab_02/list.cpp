@@ -75,7 +75,6 @@ List<T>& List<T>::operator=(const List& list)
         this->clear();
         this->extend(list);
     }
-    
     return *this;
 }
 
@@ -89,11 +88,10 @@ List<T>& List<T>::operator=(List&& list)
         this->head = list->head;
         this->tail = list->tail;
         
-        list->sizeList = 0;
+        list->size_ = 0;
         list->head = nullptr;
         list->tail = nullptr;
     }
-    
     return *this;
 }
 
