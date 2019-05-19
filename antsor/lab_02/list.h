@@ -32,8 +32,8 @@ public:
     List<T>& operator=(const List<T>& list);
     List<T>& operator=(List<T>&& list);
 
-    bool operator==(const List<T>& someList) const;
-    bool operator!=(const List<T>& someList) const;
+    bool operator==(const List<T>& list) const;
+    bool operator!=(const List<T>& list) const;
 
     List<T>& append(const T& data);
     List<T>& operator+=(const T& data);
@@ -56,12 +56,15 @@ public:
     ConstListIter<T> begin() const;
     ConstListIter<T> end() const;
 
-protected:
-    std::shared_ptr<ListNode<T>> initNode(const T& data, std::shared_ptr<ListNode<T>> nodePtr);
-
 private:
     std::shared_ptr<ListNode<T>> head;
     std::shared_ptr<ListNode<T>> tail;
+
+    bool List<T>::isEmpty() const;
+    bool List<T>::isEqual(const List<T>& list) const;
+    std::shared_ptr<ListNode<T>> initNode(const T& data, std::shared_ptr<ListNode<T>> nodePtr);
+    void List<T>::addList(const List& ListToAdd);
+
 };
 
 #endif // LIST_H

@@ -23,8 +23,8 @@ public:
     T& getPointer();
 
     // next node access
-    void setNextNode(const shared_ptr<ListNode<T>> next);
-    shared_ptr<ListNode<T>> getNextNode();
+    void setNext(const shared_ptr<ListNode<T>> next);
+    shared_ptr<ListNode<T>> getNext();
 
     // data compare operators
     bool operator==(const ListNode<T>& node) const;

@@ -1,5 +1,5 @@
-#ifndef LISTITER_CPP
-#define LISTITER_CPP
+#ifndef LISTITER_HPP
+#define LISTITER_HPP
 
 #include "list_iter.h"
 
@@ -151,4 +151,4 @@ const T* ConstListIter<T>::operator->() const
     return &this->cur_.lock()->getPointer();
 }
 
-#endif // LISTITER_CPP
+#endif // LISTITER_HPP

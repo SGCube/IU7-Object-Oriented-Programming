@@ -1,5 +1,5 @@
-#ifndef LISTNODE_CPP
-#define LISTNODE_CPP
+#ifndef LISTNODE_HPP
+#define LISTNODE_HPP
 
 #include "list_node.h"
 
@@ -93,4 +93,4 @@ bool ListNode<T>::operator>=(const ListNode<T>& node) const
     return this->data_ >= node->data;
 }
 
-#endif // LISTNODE_CPP
+#endif // LISTNODE_HPP
