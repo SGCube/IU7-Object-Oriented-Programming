@@ -22,37 +22,45 @@ class List : public ListBase
 {
     friend class ListIter<T>;
 public:
+    // constructors
     List();
     explicit List(const List<T>& list);
     List(List<T>&& list);
     List(const size_t size, ...);
     List(std::initializer_list<T>& list);
+    // destructor
     virtual ~List();
 
+    // equation operators
     List<T>& operator=(const List<T>& list);
     List<T>& operator=(List<T>&& list);
 
+    // compare operators
     bool operator==(const List<T>& list) const;
     bool operator!=(const List<T>& list) const;
 
+    // append / list + data
     List<T>& append(const T& data);
     List<T>& operator+=(const T& data);
     List<T> operator+(const T& data) const;
 
+    // insert / data + list
     List<T& insert(const T& data, const ListIterator<T>& iter);
     friend List<T> operator+(const T& data, const List<T>& list);
 
+    // extend / list + list
     List<T>& extend(const List<T>& list);
     List<T>& operator+=(const List<T>& list);
     List<T> operator+(const List<T>& list) const;
 
+    // element remove / clear
     const T pop();
     const T remove(const ListIterator<T>& iter);
     List<T>& clear();
 
+    // iterator set
     ListIter<T> begin();
     ListIter<T> end();
-
     ConstListIter<T> begin() const;
     ConstListIter<T> end() const;
 

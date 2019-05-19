@@ -4,6 +4,8 @@
 #include "error.hpp"
 #include "list.h"
 
+//////////////////////////////////////////////////////////////////////////////
+
 ListBase::ListBase() :
     size_(0) {}
 
@@ -15,6 +17,8 @@ size_t ListBase::size() const
 }
 
 //////////////////////////////////////////////////////////////////////////////
+
+/// constructors
 
 template <typename T>
 List<T>::List() :
@@ -65,8 +69,12 @@ List<T>::List(std::initializer_list<T>& list)
         this->append(data);
 }
 
+/// destructor
+
 template <typename T>
 List<T>::~List() {}
+
+/// equation
 
 template <typename T>
 List<T>& List<T>::operator=(const List& list)
@@ -96,6 +104,8 @@ List<T>& List<T>::operator=(List&& list)
     return *this;
 }
 
+/// append / list + data
+
 template <typename T>
 List<T>& List<T>::append(const T& data)
 {
@@ -123,13 +133,7 @@ List<T>& operator+(const List<T>& list, const T& data)
     return newList;
 }
 
-template <typename T>
-List<T>& operator+(const T& data, const List<T>& list)
-{
-    List<T> newList(list);
-    newList.insert(data);
-    return newList;
-}
+/// insert / data + list
 
 template <typename T>
 List<T>& List<T>::insert(const T& data, const ListIter<T>& iter)
@@ -167,6 +171,16 @@ List<T>& List<T>::insert(const T& data, const ListIter<T>& iter)
 }
 
 template <typename T>
+List<T>& operator+(const T& data, const List<T>& list)
+{
+    List<T> newList(list);
+    newList.insert(data);
+    return newList;
+}
+
+/// extend / list + list
+
+template <typename T>
 List<T>& List<T>::extend(const List& list)
 {
     if (list.isEmpty())
@@ -183,6 +197,16 @@ List<T>& List<T>::extend(const List& list)
     
     return *this;
 }
+
+
+template <typename T>
+List<T>& List<T>::operator+=(const List& list)
+{
+    this->extend(list);
+    return *this;
+}
+
+/// element remove
 
 template <typename T>
 const T List<T>::remove(const ListIter<T>& iter)
@@ -220,6 +244,8 @@ const T List<T>::remove(const ListIter<T>& iter)
     return data;
 }
 
+/// element remove from tail
+
 template <typename T>
 const T List<T>::pop()
 {
@@ -231,6 +257,8 @@ const T List<T>::pop()
     return remove(iter);
 }
 
+/// list clear
+
 template <typename T>
 List<T>& List<T>::clear()
 {
@@ -240,12 +268,7 @@ List<T>& List<T>::clear()
     return *this;
 }
 
-template <typename T>
-List<T>& List<T>::operator+=(const List& list)
-{
-    this->extend(list);
-    return *this;
-}
+/// compare lists
 
 template <typename T>
 bool List<T>::operator==(const List& list) const
@@ -258,6 +281,8 @@ bool List<T>::operator!=(const List& list) const
 {
     return !isEqual(list);
 }
+
+/// iterator set
 
 template <typename T>
 ListIter<T> List<T>::begin()
