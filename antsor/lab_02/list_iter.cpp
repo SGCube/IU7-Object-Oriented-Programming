@@ -5,150 +5,150 @@
 
 // BaseIter     //////////////////////////////////////////////////////
 
-template <typename DataType>
-BaseIter<DataType>::BaseIter()
+template <typename T>
+BaseIter<T>::BaseIter()
 {
-    cur_.lock() = nullptr;
+    this->cur_.lock() = nullptr;
 }
 
-template <typename DataType>
-BaseIter<DataType>::BaseIter(const BaseIter <DataType>& iter) :
+template <typename T>
+BaseIter<T>::BaseIter(const BaseIter <T>& iter) :
     cur_(iter.cur_) {}
 
-template <typename DataType>
-BaseIter<DataType>::BaseIter(const shared_ptr<ListNode<DataType>> node) :
+template <typename T>
+BaseIter<T>::BaseIter(const shared_ptr<ListNode<T>> node) :
     cur_(node) {}
 
-template <typename DataType>
-BaseIter<DataType>::~BaseIter() {}
+template <typename T>
+BaseIter<T>::~BaseIter() {}
 
-template <typename DataType>
-bool BaseIter<DataType>::checkRange() const
+template <typename T>
+bool BaseIter<T>::checkRange() const
 {
-    return cur_.lock() != nullptr;
+    return this->cur_.lock() != nullptr;
 }
 
-template <typename DataType>
-bool BaseIter<DataType>::operator==(const BaseIter<DataType>& iter) const
+template <typename T>
+bool BaseIter<T>::operator==(const BaseIter<T>& iter) const
 {
-    return cur_.lock() == iter.cur_.lock();
+    return this->cur_.lock() == iter.cur_.lock();
 }
 
-template <typename DataType>
-bool BaseIter<DataType>::operator!=(const BaseIter<DataType>& iter) const
+template <typename T>
+bool BaseIter<T>::operator!=(const BaseIter<T>& iter) const
 {
-    return cur_.lock() != iter.cur_.lock();
+    return this->cur_.lock() != iter.cur_.lock();
 }
 
-template <typename DataType>
-BaseIter<DataType>& BaseIter<DataType>::operator=(const BaseIter<DataType>& iter)
+template <typename T>
+BaseIter<T>& BaseIter<T>::operator=(const BaseIter<T>& iter)
 {
     if (this != &iter)
-        cur__ = iter.cur__;
+        this->cur__ = iter.cur__;
     return *this;
 }
 
-template <typename DataType>
-BaseIter<DataType>& BaseIter<DataType>::next()
+template <typename T>
+BaseIter<T>& BaseIter<T>::next()
 {
-    cur_ = cur_.lock()->getNextNode();
+    this->cur_ = this->cur_.lock()->getNextNode();
     return *this;
 }
 
-template <typename DataType>
-BaseIter<DataType>& BaseIter<DataType>::operator++()
+template <typename T>
+BaseIter<T>& BaseIter<T>::operator++()
 {
-    next();
+    this->next();
     return *this;
 }
 
-template <typename DataType>
-BaseIter<DataType> BaseIter<DataType>::operator++(int)
+template <typename T>
+BaseIter<T> BaseIter<T>::operator++(int)
 {
-    BaseIter<DataType> tmpIterator(*this);
+    BaseIter<T> tmpIterator(*this);
     this->operator++;
     return tmpIterator;
 }
 
 // ListIter      /////////////////////////////////////////////////////////
 
-template <typename DataType>
-ListIter<DataType>::ListIter(const ListIter<DataType>& listIter) : 
+template <typename T>
+ListIter<T>::ListIter(const ListIter<T>& listIter) : 
     cur_(listIter.cur_) {}
 
-template <typename DataType>
-ListIter<DataType>& ListIter<DataType>::operator=(const ListIter<DataType>& listIter)
+template <typename T>
+ListIter<T>& ListIter<T>::operator=(const ListIter<T>& listIter)
 {
     if (this != &listIter)
-        cur__ = listIter.cur__;
+        this->cur__ = listIter.cur__;
     return *this;
 }
 
-template <typename DataType>
-DataType& ListIter<DataType>::getCur()
+template <typename T>
+T& ListIter<T>::getCur()
 {
-    return cur_.lock()->getPointer();
+    return this->cur_.lock()->getPointer();
 }
 
-template <typename DataType>
-const DataType& ListIter<DataType>::getCur() const
+template <typename T>
+const T& ListIter<T>::getCur() const
 {
-    return cur_.lock()->getPointer();
+    return this->cur_.lock()->getPointer();
 }
 
-template <typename DataType>
-DataType& ListIter<DataType>::operator*()
+template <typename T>
+T& ListIter<T>::operator*()
 {
-    return cur_.lock()->getPointer();
+    return this->cur_.lock()->getPointer();
 }
 
-template <typename DataType>
-const DataType& ListIter<DataType>::operator*() const
+template <typename T>
+const T& ListIter<T>::operator*() const
 {
-    return cur_.lock()->getPointer();
+    return this->cur_.lock()->getPointer();
 }
 
-template <typename DataType>
-DataType* ListIter<DataType>::operator->()
+template <typename T>
+T* ListIter<T>::operator->()
 {
-    return &cur_.lock()->getPointer();
+    return &this->cur_.lock()->getPointer();
 }
 
-template <typename DataType>
-const DataType* ListIter<DataType>::operator->() const
+template <typename T>
+const T* ListIter<T>::operator->() const
 {
-    return &cur_.lock()->getPointer();
+    return &this->cur_.lock()->getPointer();
 }
 
 // ConstListIter /////////////////////////////////////////////////////////
 
-template <typename DataType>
-ConstListIter<DataType>::ConstListIter(const ConstListIter<DataType>& listIter) : 
+template <typename T>
+ConstListIter<T>::ConstListIter(const ConstListIter<T>& listIter) : 
     cur_(listIter.cur_) {}
 
-template <typename DataType>
-ConstListIter<DataType>& ConstListIter<DataType>::operator=(const ConstListIter<DataType>& listIter)
+template <typename T>
+ConstListIter<T>& ConstListIter<T>::operator=(const ConstListIter<T>& listIter)
 {
     if (this != &listIter)
-        cur__ = listIter.cur__;
+        this->cur__ = listIter.cur__;
     return *this;
 }
 
-template <typename DataType>
-const DataType& ConstListIter<DataType>::getCur() const
+template <typename T>
+const T& ConstListIter<T>::getCur() const
 {
-    return cur_.lock()->getPointer();
+    return this->cur_.lock()->getPointer();
 }
-template <typename DataType>
-const DataType& ConstListIter<DataType>::operator*() const
+template <typename T>
+const T& ConstListIter<T>::operator*() const
 {
-    return cur_.lock()->getPointer();
+    return this->cur_.lock()->getPointer();
 }
 
-template <typename DataType>
-const DataType* ConstListIter<DataType>::operator->() const
+template <typename T>
+const T* ConstListIter<T>::operator->() const
 {
-    return &cur_.lock()->getPointer();
+    return &this->cur_.lock()->getPointer();
 }
 
 #endif // LISTITER_CPP

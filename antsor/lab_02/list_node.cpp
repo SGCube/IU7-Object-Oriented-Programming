@@ -3,94 +3,94 @@
 
 #include "list_node.h"
 
-template <typename DataType>
-ListNode<DataType>::ListNode() : data_(NULL), next_(nullptr) {}
+template <typename T>
+ListNode<T>::ListNode() : data_(NULL), next_(nullptr) {}
 
-template <typename DataType>
-ListNode<DataType>::ListNode(const DataType data) : data_(data), next_(nullptr) {}
+template <typename T>
+ListNode<T>::ListNode(const T data) : data_(data), next_(nullptr) {}
 
-template <typename DataType>
-ListNode<DataType>::ListNode(const shared_ptr<ListNode<DataType>> node) :
+template <typename T>
+ListNode<T>::ListNode(const shared_ptr<ListNode<T>> node) :
     data_(node->data),
     next_(node) {}
 
-template <typename DataType>
-ListNode<DataType>::ListNode(const DataType data,
-                             const shared_ptr<ListNode<DataType>> next) :
+template <typename T>
+ListNode<T>::ListNode(const T data,
+                             const shared_ptr<ListNode<T>> next) :
     data_(data),
     next_(next) {}
 
-template <typename DataType>
-ListNode<DataType>::~ListNode()
+template <typename T>
+ListNode<T>::~ListNode()
 {
-    data_ = NULL;
-    next_ = nullptr;
+    this->data_ = NULL;
+    this->next_ = nullptr;
 }
 
-template <typename DataType>
-void ListNode<DataType>::setData(const DataType data)
+template <typename T>
+void ListNode<T>::setData(const T data)
 {
-    data_ = data;
+    this->data_ = data;
 }
 
-template <typename DataType>
-DataType ListNode<DataType>::getData() const
+template <typename T>
+T ListNode<T>::getData() const
 {
-    return data_;
+    return this->data_;
 }
 
-template <typename DataType>
-DataType& ListNode<DataType>::getPointer()
+template <typename T>
+T& ListNode<T>::getPointer()
 {
-    return data_;
+    return this->data_;
 }
 
-template <typename DataType>
-void ListNode<DataType>::setNextNode(const shared_ptr<ListNode<DataType>> next)
+template <typename T>
+void ListNode<T>::setNextNode(const shared_ptr<ListNode<T>> next)
 {
-    next_ = next;
+    this->next_ = next;
 }
 
-template <typename DataType>
-shared_ptr<ListNode<DataType>> ListNode<DataType>::getNextNode()
+template <typename T>
+shared_ptr<ListNode<T>> ListNode<T>::getNextNode()
 {
-    return next_;
+    return this->next_;
 }
 
-template <typename DataType>
-bool ListNode<DataType>::operator==(const ListNode<DataType>& node) const
+template <typename T>
+bool ListNode<T>::operator==(const ListNode<T>& node) const
 {
-    return data_ == node->data;
+    return this->data_ == node->data;
 }
 
-template <typename DataType>
-bool ListNode<DataType>::operator!=(const ListNode<DataType>& node) const
+template <typename T>
+bool ListNode<T>::operator!=(const ListNode<T>& node) const
 {
-    return data_ != node->data;
+    return this->data_ != node->data;
 }
 
-template <typename DataType>
-bool ListNode<DataType>::operator<(const ListNode<DataType>& node) const
+template <typename T>
+bool ListNode<T>::operator<(const ListNode<T>& node) const
 {
-    return data_ < node->data;
+    return this->data_ < node->data;
 }
 
-template <typename DataType>
-bool ListNode<DataType>::operator>(const ListNode<DataType>& node) const
+template <typename T>
+bool ListNode<T>::operator>(const ListNode<T>& node) const
 {
-    return data_ > node->data;
+    return this->data_ > node->data;
 }
 
-template <typename DataType>
-bool ListNode<DataType>::operator<=(const ListNode<DataType>& node) const
+template <typename T>
+bool ListNode<T>::operator<=(const ListNode<T>& node) const
 {
-    return data_ <= node->data;
+    return this->data_ <= node->data;
 }
 
-template <typename DataType>
-bool ListNode<DataType>::operator>=(const ListNode<DataType>& node) const
+template <typename T>
+bool ListNode<T>::operator>=(const ListNode<T>& node) const
 {
-    return data_ >= node->data;
+    return this->data_ >= node->data;
 }
 
 #endif // LISTNODE_CPP

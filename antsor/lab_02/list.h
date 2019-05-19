@@ -17,47 +17,48 @@ protected:
     size_t size_;
 };
 
-template <typename DataType>
+template <typename T>
 class List : public ListBase
 {
+    friend class ListIter<T>;
 public:
     List();
-    explicit List(const List<DataType>& list);
-    List(List<DataType>&& list);
+    explicit List(const List<T>& list);
+    List(List<T>&& list);
     List(const size_t size, ...);
-    List(std::initializer_list<DataType>& list);
+    List(std::initializer_list<T>& list);
     virtual ~List();
 
-    List<DataType>& operator=(const List<DataType>& list);
-    List<DataType>& operator=(List<DataType>&& list);
+    List<T>& operator=(const List<T>& list);
+    List<T>& operator=(List<T>&& list);
 
-    bool operator==(const List<DataType>& someList) const;
-    bool operator!=(const List<DataType>& someList) const;
+    bool operator==(const List<T>& someList) const;
+    bool operator!=(const List<T>& someList) const;
 
-    List<DataType>& append(const DataType& data);
-    List<DataType>& operator+=(const DataType& data);
-    List<DataType> operator+(const DataType& data) const;
+    List<T>& append(const T& data);
+    List<T>& operator+=(const T& data);
+    List<T> operator+(const T& data) const;
 
-    List<DataType& insert(const DataType& data, const ListIterator<DataType>& iter);
-    friend List<DataType> operator+(const DataType& data, const List<DataType>& list);
+    List<T& insert(const T& data, const ListIterator<T>& iter);
+    friend List<T> operator+(const T& data, const List<T>& list);
 
-    List<DataType>& extend(const List<DataType>& list);
-    List<DataType>& operator+=(const List<DataType>& list);
-    List<DataType> operator+(const List<DataType>& list) const;
+    List<T>& extend(const List<T>& list);
+    List<T>& operator+=(const List<T>& list);
+    List<T> operator+(const List<T>& list) const;
 
-    const DataType pop();
-    const DataType remove(const ListIterator<DataType>& iter);
-    List<DataType>& clear();
+    const T pop();
+    const T remove(const ListIterator<T>& iter);
+    List<T>& clear();
 
-    ListIter<DataType> begin();
-    ListIter<DataType> end();
+    ListIter<T> begin();
+    ListIter<T> end();
 
-    ConstListIter<DataType> begin() const;
-    ConstListIter<DataType> end() const;
+    ConstListIter<T> begin() const;
+    ConstListIter<T> end() const;
 
 private:
-    std::shared_ptr<ListNode<DataType>> head;
-    std::shared_ptr<ListNode<DataType>> tail;
+    std::shared_ptr<ListNode<T>> head;
+    std::shared_ptr<ListNode<T>> tail;
 };
 
 #endif // LIST_H
