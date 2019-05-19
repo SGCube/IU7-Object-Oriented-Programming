@@ -383,4 +383,21 @@ void List<T>::addList(const List& ListToAdd)
     this->tail = nodeToAdd;
 }
 
+// print list
+template <typename T>
+std::ostream& operator<<(std::ostream& stream, List<T>& list)
+{
+    stream << "List: ";
+    
+    if (!list.isEmpty())
+        stream << "empty";
+    else
+    {
+        for (ListIter<T> iter = list.begin(); iter.checkRange(); iter.next())
+            stream << " " << iter.getCur();
+    }
+
+    return stream;
+}
+
 #endif // LIST_HPP
