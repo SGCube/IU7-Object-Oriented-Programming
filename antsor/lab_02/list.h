@@ -49,11 +49,11 @@ public:
     const DataType remove(const ListIterator<DataType>& iter);
     List<DataType>& clear();
 
-    ListIterator<DataType> begin();
-    ListIterator<DataType> end();
+    ListIter<DataType> begin();
+    ListIter<DataType> end();
 
-    ConstListIterator<DataType> begin() const;
-    ConstListIterator<DataType> end() const;
+    ConstListIter<DataType> begin() const;
+    ConstListIter<DataType> end() const;
 
 private:
     std::shared_ptr<ListNode<DataType>> head;
