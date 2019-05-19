@@ -1,6 +1,7 @@
 #ifndef LIST_CPP
 #define LIST_CPP
 
+#include "error.hpp"
 #include "list.h"
 
 ListBase::ListBase() :
@@ -95,4 +96,34 @@ List<T>& List<T>::operator=(List&& list)
     return *this;
 }
 
-#endif
+template <typename T>
+List<T>& List<T>::append(const T& data)
+{
+    std::shared_ptr<ListNode<T>> newNode = initNode(data);
+    if (this->isEmpty())
+        this->head = newNode;
+    else
+        this->tail->setNext(newNode);
+    this->tail = newNode;
+    return *this;
+}
+
+// protected
+
+template <typename T>
+std::shared_ptr<ListNode<T>> List<T>::initNode(const T& data, std::shared_ptr<ListNode<T>> nodePtr)
+{
+    std::shared_ptr<ListNode<typeData>> newNode;
+    newNode = std::make_shared<ListNode<typeData>>();
+    if (!newNode)
+    {
+        throw MemoryError(": method - initNode()");
+    }
+    newNode->setData(data);
+    newNode->setNext(ptrNode);
+    this->sizeList += 1;
+    
+    return newNode;
+}
+
+#endif // LIST_CPP

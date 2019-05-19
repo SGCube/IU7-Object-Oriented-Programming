@@ -7,71 +7,71 @@ using std::weak_ptr;
 
 #include "list_node.h"
 
-template <typename DataType>
+template <typename T>
 class BaseIter
 {
 public:
     // constuctor
     BaseIter();
-    BaseIter(const shared_ptr<ListNode<DataType>> node);
-    BaseIter(const BaseIter<DataType>& iter);
+    BaseIter(const shared_ptr<ListNode<T>> node);
+    BaseIter(const BaseIter<T>& iter);
 
     // destructor
     virtual ~BaseIter();
     
     // pointer compare
     bool checkRange() const;
-    bool operator==(const BaseIter<DataType>& iter) const;
-    bool operator!=(const BaseIter<DataType>& iter) const;
+    bool operator==(const BaseIter<T>& iter) const;
+    bool operator!=(const BaseIter<T>& iter) const;
 
     // equation operator
-    BaseIter<DataType>& operator=(const BaseIter<DataType>& iter);
+    BaseIter<T>& operator=(const BaseIter<T>& iter);
     
     // iteration
-    BaseIter<DataType>& next();
-    BaseIter<DataType>& operator++();
-    BaseIter<DataType> operator++(int);
+    BaseIter<T>& next();
+    BaseIter<T>& operator++();
+    BaseIter<T> operator++(int);
     
     
 protected:
-    weak_ptr<ListNode<DataType>> cur_;
+    weak_ptr<ListNode<T>> cur_;
 };
 
-template <typename DataType>
-class ListIter : public BaseIter<DataType>
+template <typename T>
+class ListIter : public BaseIter<T>
 {
 public:
     // constuctor
-    ListIter(const ListIter<DataType>& listIter);
+    ListIter(const ListIter<T>& listIter);
 
     // equation operator
-    ListIter<DataType>& operator=(const ListIter<DataType>& listIter);
+    ListIter<T>& operator=(const ListIter<T>& listIter);
     
     // access operators/functions
-    DataType& getCur();
-    const DataType& getCur() const;
+    T& getCur();
+    const T& getCur() const;
     
-    DataType& operator*();
-    const DataType& operator*() const;
+    T& operator*();
+    const T& operator*() const;
     
-    DataType* operator->();
-    const DataType* operator->() const;
+    T* operator->();
+    const T* operator->() const;
 };
 
-template <typename DataType>
-class ConstListIter : public BaseIter<DataType>
+template <typename T>
+class ConstListIter : public BaseIter<T>
 {
 public:
     // constuctor
-    ConstListIter(const ConstListIter<DataType>& listIter);
+    ConstListIter(const ConstListIter<T>& listIter);
 
     // equation operator
-    ConstListIter<DataType>& operator=(const ConstListIter<DataType>& listIter);
+    ConstListIter<T>& operator=(const ConstListIter<T>& listIter);
     
     // access operators/functions
-    const DataType& getCur() const;
-    const DataType& operator*() const;
-    const DataType* operator->() const;
+    const T& getCur() const;
+    const T& operator*() const;
+    const T* operator->() const;
 };
 
 #endif // LISTITER_H

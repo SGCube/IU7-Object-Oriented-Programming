@@ -56,6 +56,9 @@ public:
     ConstListIter<T> begin() const;
     ConstListIter<T> end() const;
 
+protected:
+    std::shared_ptr<ListNode<T>> initNode(const T& data, std::shared_ptr<ListNode<T>> nodePtr);
+
 private:
     std::shared_ptr<ListNode<T>> head;
     std::shared_ptr<ListNode<T>> tail;

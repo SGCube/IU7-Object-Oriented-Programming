@@ -4,39 +4,39 @@
 #include <memory>
 using std::shared_ptr;
 
-template <typename DataType>
+template <typename T>
 class ListNode
 {
 public:
     // constructor
     ListNode();
-    explicit ListNode(const DataType data);
-    explicit ListNode(const shared_ptr<ListNode<DataType>> node);
-    ListNode(const DataType data, const shared_ptr<ListNode<DataType>> next);
+    explicit ListNode(const T data);
+    explicit ListNode(const shared_ptr<ListNode<T>> node);
+    ListNode(const T data, const shared_ptr<ListNode<T>> next);
 
     // destructor
     virtual ~ListNode();
 
     // data access
-    void setData(const DataType data);
-    DataType getData() const;
-    DataType& getPointer();
+    void setData(const T data);
+    T getData() const;
+    T& getPointer();
 
     // next node access
-    void setNextNode(const shared_ptr<ListNode<DataType>> next);
-    shared_ptr<ListNode<DataType>> getNextNode();
+    void setNextNode(const shared_ptr<ListNode<T>> next);
+    shared_ptr<ListNode<T>> getNextNode();
 
     // data compare operators
-    bool operator==(const ListNode<DataType>& node) const;
-    bool operator!=(const ListNode<DataType>& node) const;
-    bool operator<(const ListNode<DataType>& node) const;
-    bool operator>(const ListNode<DataType>& node) const;
-    bool operator<=(const ListNode<DataType>& node) const;
-    bool operator>=(const ListNode<DataType>& node) const;
+    bool operator==(const ListNode<T>& node) const;
+    bool operator!=(const ListNode<T>& node) const;
+    bool operator<(const ListNode<T>& node) const;
+    bool operator>(const ListNode<T>& node) const;
+    bool operator<=(const ListNode<T>& node) const;
+    bool operator>=(const ListNode<T>& node) const;
 
 private:
-    DataType data_;
-    shared_ptr<ListNode<DataType>> next_;
+    T data_;
+    shared_ptr<ListNode<T>> next_;
 };
 
 #endif // LISTNODE_H
