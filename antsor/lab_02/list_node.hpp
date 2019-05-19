@@ -46,13 +46,13 @@ T& ListNode<T>::getPointer()
 }
 
 template <typename T>
-void ListNode<T>::setNextNode(const shared_ptr<ListNode<T>> next)
+void ListNode<T>::setNext(const shared_ptr<ListNode<T>> next)
 {
     this->next_ = next;
 }
 
 template <typename T>
-shared_ptr<ListNode<T>> ListNode<T>::getNextNode()
+shared_ptr<ListNode<T>> ListNode<T>::getNext()
 {
     return this->next_;
 }

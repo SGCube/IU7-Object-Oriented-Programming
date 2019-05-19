@@ -51,7 +51,7 @@ BaseIter<T>& BaseIter<T>::operator=(const BaseIter<T>& iter)
 template <typename T>
 BaseIter<T>& BaseIter<T>::next()
 {
-    this->cur_ = this->cur_.lock()->getNextNode();
+    this->cur_ = this->cur_.lock()->getNext();
     return *this;
 }
 
