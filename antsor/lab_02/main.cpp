@@ -1,33 +1,38 @@
+#include "pch.h"
+
 #include <iostream>
 using namespace std;
 
-#include "pch.h"
+#include "error.hpp"
+#include "list.hpp"
+#include "list_iter.hpp"
+#include "list_node.hpp"
 
 int main()
 {
-    cout << "Тестировние одностороннего списка" << endl;
+    cout << "List container test" << endl;
     try
     {
-        cout << "\n\nКонстуркторы" << endl;
+        cout << "\n\nConstructors" << endl;
         
         List <int> list0;
         List <int> list1(0, 10);
         List <int> list2(list1);
         List <double> list3(3, 0.1, 0.2, 0.4);
         
-        cout << "\n * Констурктор по умолчанию" << endl;
+        cout << "\n * Default constructor" << endl;
         cout << list0 << endl;
         
-        cout << "\n * Констуркторы с параметрами" << endl;
+        cout << "\n * Parameter constructor" << endl;
         cout << list1 << endl;
         cout << list2 << endl;
         cout << list3 << endl;
         
-        cout << "\n * Констурктор копирования" << endl;
+        cout << "\n * Copy constructor" << endl;
         list0 = list1;
         cout << list0 << endl;
         
-        cout << "\n\nДобавления элементов" << endl;
+        cout << "\n\nElements add" << endl;
         
         List <int> list4;
         List <int> list5;
@@ -66,7 +71,7 @@ int main()
         list6.extend(list5);
         List <int> list7(list6);
         
-        cout << "\n\nУдаление элементов" << endl;
+        cout << "\n\nElement remove" << endl;
         
         cout << "\n * remove(iter)" << endl;
         ListIter<int> iter3(list7.begin());
@@ -89,23 +94,26 @@ int main()
         
         cout << "\n * clear()" << endl;
         
-        cout << "\n\nДругие методы" << endl;
-        cout << list6.size() << endl;
-        cout << list7.size() << endl;
+        cout << "\n\nOther methods" << endl;
+		cout << "#6 " << list6 << endl;
+		cout << "#7 " << list7 << endl;
+		cout << "List 6 size: " << list6.size() << endl;
+        cout << "List 7 size: " << list7.size() << endl;
         if (list6 != list7)
-            cout << "list6 not equal list7" << endl;
+            cout << "list6 and list7 are not equal" << endl;
+		else
+			cout << "list6 and list7 are equal" << endl;
+
         list7 += list6;
         cout << list7 << endl;
         list7 += 15;
         cout << list7 << endl;
         
         list7.clear();
-        list7.pop();
     }
     catch(Error& error)
     {
         cout << error.what() << endl;
     }
-    
     return 0;
 }

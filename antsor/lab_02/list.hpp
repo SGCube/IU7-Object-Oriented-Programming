@@ -77,7 +77,7 @@ List<T>::~List() {}
 /// equation
 
 template <typename T>
-List<T>& List<T>::operator=(const List& list)
+List<T>& List<T>::operator=(const List<T>& list)
 {
     if (this != &list)
     {
@@ -88,7 +88,7 @@ List<T>& List<T>::operator=(const List& list)
 }
 
 template <typename T>
-List<T>& List<T>::operator=(List&& list)
+List<T>& List<T>::operator=(List<T>&& list)
 {
     if (this != list)
     {
@@ -181,15 +181,15 @@ List<T>& operator+(const T& data, const List<T>& list)
 /// extend / list + list
 
 template <typename T>
-List<T>& List<T>::extend(const List& list)
+List<T>& List<T>::extend(const List<T>& list)
 {
     if (list.isEmpty())
         return *this;
     
     if (this == &list)
     {
-        List<T> listCopy;
-        listCopy = List;
+		List<T> listCopy;
+		listCopy = list;
         addList(listCopy);
     }
     else
@@ -200,7 +200,7 @@ List<T>& List<T>::extend(const List& list)
 
 
 template <typename T>
-List<T>& List<T>::operator+=(const List& list)
+List<T>& List<T>::operator+=(const List<T>& list)
 {
     this->extend(list);
     return *this;
@@ -237,7 +237,7 @@ const T List<T>::remove(const ListIter<T>& iter)
     if (curNode == this->head)
         this->head = this->head->getNext();
     else
-        tmp->setNext(curNode->getNext());
+        prevNode->setNext(curNode->getNext());
 
     this->size_--;
     
@@ -287,25 +287,25 @@ bool List<T>::operator!=(const List& list) const
 template <typename T>
 ListIter<T> List<T>::begin()
 {
-    return ListIter<T>(head);
+    return ListIter<T>(this->head);
 }
 
 template <typename T>
 ListIter<T> List<T>::end()
 {
-    return ListIter<T>(tail);
+    return ListIter<T>(this->tail);
 }
 
 template <typename T>
 ConstListIter<T> List<T>::begin() const
 {
-    return ConstListIter<T>(head);
+    return ConstListIter<T>(this->head);
 }
 
 template <typename T>
 ConstListIter<T> List<T>::end() const
 {
-    return ConstListIter<T>(tail);
+    return ConstListIter<T>(this->tail);
 }
 
 // private ///////////////////////////////////////////////////////////////////
@@ -323,7 +323,7 @@ bool List<T>::isEqual(const List<T>& list) const
     std::shared_ptr<ListNode<T>> curNodeOther = list.head;
 
     while (curNodeThis && curNodeOther &&
-           curNodeThis->getData() == curNodeOther == getData())
+           curNodeThis->getData() == curNodeOther->getData())
     {
         curNodeThis = curNodeThis->getNext();
         curNodeOther = curNodeOther->getNext();
@@ -366,7 +366,7 @@ void List<T>::addList(const List& ListToAdd)
     {
         while(cur->getNext())
         {
-            cur = cur->getNext());
+            cur = cur->getNext();
         }
         cur->setNext(nodeToAdd);
         cur = cur->getNext();
@@ -384,16 +384,16 @@ void List<T>::addList(const List& ListToAdd)
 }
 
 // print list
-template <typename T>
-std::ostream& operator<<(std::ostream& stream, List<T>& list)
+template <typename T> std::ostream& operator<<(std::ostream& stream, const List<T>& list)
 {
-    stream << "List: ";
+    stream << "List:";
     
-    if (!list.isEmpty())
-        stream << "empty";
+	ConstListIter<T> iter = list.begin();
+    if (!iter.checkRange())
+        stream << " empty";
     else
     {
-        for (ListIter<T> iter = list.begin(); iter.checkRange(); iter.next())
+        for (; iter.checkRange(); iter.next())
             stream << " " << iter.getCur();
     }
 

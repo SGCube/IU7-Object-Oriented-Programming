@@ -2,8 +2,6 @@
 #define LISTITER_H
 
 #include <memory>
-using std::shared_ptr;
-using std::weak_ptr;
 
 #include "list_node.h"
 
@@ -13,7 +11,7 @@ class BaseIter
 public:
     // constuctor
     BaseIter();
-    BaseIter(const shared_ptr<ListNode<T>> node);
+    BaseIter(const std::shared_ptr<ListNode<T>> node);
     BaseIter(const BaseIter<T>& iter);
 
     // destructor
@@ -42,6 +40,7 @@ class ListIter : public BaseIter<T>
 {
 public:
     // constuctor
+	ListIter(const std::shared_ptr<ListNode<T>> node);
     ListIter(const ListIter<T>& listIter);
 
     // equation operator
@@ -63,6 +62,7 @@ class ConstListIter : public BaseIter<T>
 {
 public:
     // constuctor
+	ConstListIter(const std::shared_ptr<ListNode<T>> node);
     ConstListIter(const ConstListIter<T>& listIter);
 
     // equation operator

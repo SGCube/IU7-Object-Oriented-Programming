@@ -16,7 +16,7 @@ BaseIter<T>::BaseIter(const BaseIter <T>& iter) :
     cur_(iter.cur_) {}
 
 template <typename T>
-BaseIter<T>::BaseIter(const shared_ptr<ListNode<T>> node) :
+BaseIter<T>::BaseIter(const std::shared_ptr<ListNode<T>> node) :
     cur_(node) {}
 
 template <typename T>
@@ -66,15 +66,23 @@ template <typename T>
 BaseIter<T> BaseIter<T>::operator++(int)
 {
     BaseIter<T> tmpIterator(*this);
-    this->operator++;
+    this->operator++();
     return tmpIterator;
 }
 
 // ListIter      /////////////////////////////////////////////////////////
 
 template <typename T>
-ListIter<T>::ListIter(const ListIter<T>& listIter) : 
-    cur_(listIter.cur_) {}
+ListIter<T>::ListIter(const std::shared_ptr<ListNode<T>> node)
+{
+	this->cur_ = node;
+}
+
+template <typename T>
+ListIter<T>::ListIter(const ListIter<T>& listIter)
+{
+	this->cur_ = listIter.cur_;
+}
 
 template <typename T>
 ListIter<T>& ListIter<T>::operator=(const ListIter<T>& listIter)
@@ -123,8 +131,16 @@ const T* ListIter<T>::operator->() const
 // ConstListIter /////////////////////////////////////////////////////////
 
 template <typename T>
-ConstListIter<T>::ConstListIter(const ConstListIter<T>& listIter) : 
-    cur_(listIter.cur_) {}
+ConstListIter<T>::ConstListIter(const std::shared_ptr<ListNode<T>> node)
+{
+	this->cur_ = node;
+}
+
+template <typename T>
+ConstListIter<T>::ConstListIter(const ConstListIter<T>& listIter)
+{
+	this->cur_ = listIter.cur_;
+}
 
 template <typename T>
 ConstListIter<T>& ConstListIter<T>::operator=(const ConstListIter<T>& listIter)

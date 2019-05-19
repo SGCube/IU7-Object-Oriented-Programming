@@ -5,6 +5,7 @@
 #include "list_node.h"
 
 #include <stdarg.h>
+#include <iostream>
 
 class ListBase
 {
@@ -68,10 +69,11 @@ private:
     std::shared_ptr<ListNode<T>> head;
     std::shared_ptr<ListNode<T>> tail;
 
-    bool List<T>::isEmpty() const;
-    bool List<T>::isEqual(const List<T>& list) const;
-    std::shared_ptr<ListNode<T>> initNode(const T& data, std::shared_ptr<ListNode<T>> nodePtr);
-    void List<T>::addList(const List& ListToAdd);
+    bool isEmpty() const;
+    bool isEqual(const List<T>& list) const;
+    std::shared_ptr<ListNode<T>> initNode(const T& data,
+		std::shared_ptr<ListNode<T>> nodePtr=nullptr);
+    void addList(const List& ListToAdd);
 };
 
 #endif // LIST_H

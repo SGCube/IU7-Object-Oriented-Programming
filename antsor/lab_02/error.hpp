@@ -11,22 +11,22 @@ class Error : public std::exception
 {
 public:
     Error(std::chrono::time_point<std::chrono::system_clock> time,
-          std::string fileName, std::string className, std::string method, const std::string& msg):
-            timePoint(time),
-            filename(std::move(fileName)),
-            classname(std::move(className)),
-            method(std::move(method),
-            message(std::move(msg));
+		std::string fname, std::string cname, std::string mname, const std::string& msg):
+		timePoint(time),
+		fileName(std::move(fname)),
+		className(std::move(cname)),
+		method(std::move(mname)),
+			message(std::move(msg)) {}
 
     virtual const char* what() const noexcept override
     {
         return errorMsg().c_str();
     }
 
-protected:
+private:
     std::chrono::time_point<std::chrono::system_clock> timePoint;
-    std::string filename;
-    std::string classname;
+    std::string fileName;
+    std::string className;
     std::string method;
     std::string message;
 
@@ -35,22 +35,19 @@ protected:
         auto time = std::chrono::system_clock::to_time_t(timePoint);
         std::stringstream s;
         s << time;
-        return "List error!" +
-               "\nTime: " + s.str() +
-               "\nFile: " + fileName +
-               "\nClass: " + className +
-               "\nMethod: " + method +
-               "\nError: " + message;
+		std::string msg = "List error!\nTime: " + s.str() + "\nFile: " + fileName + "\nClass : " + className +
+			"\nMethod: " + method +
+			"\nError: " + message;
+        return msg;
     }
 };
 
 class ErrorMemory : public Error
 {
 public:
-    explicit ErrorMemory(std::chrono::time_point<std::chrono::system_clock> time,
-                         std::string fileName, std::string className,
-                         std::string method) :
-                         Error(time, fileName, className, method, msg) {}
+	explicit ErrorMemory(std::chrono::time_point<std::chrono::system_clock> time,
+		std::string fname, std::string cname, std::string mname) :
+		Error(time, fname, cname, mname, msg) {}
 private:
     static constexpr const char* msg = "Memory allocation error";
 };
@@ -58,21 +55,19 @@ private:
 class ErrorEmptyList : public Error
 {
 public:
-    explicit ErrorMemory(std::chrono::time_point<std::chrono::system_clock> time,
-                         std::string fileName, std::string className,
-                         std::string method) :
-                         Error(time, fileName, className, method, msg) {}
+	explicit ErrorEmptyList(std::chrono::time_point<std::chrono::system_clock> time,
+		std::string fname, std::string cname, std::string mname) :
+		Error(time, fname, cname, mname, msg) {}
 private:
-    static constexpr const char* msg = "List is empty";
+	static constexpr const char* msg = "Memory allocation error";
 };
 
 class ErrorOutOfListRange : public Error
 {
 public:
-    explicit ErrorMemory(std::chrono::time_point<std::chrono::system_clock> time,
-                         std::string fileName, std::string className,
-                         std::string method) :
-                         Error(time, fileName, className, method, msg) {}
+	explicit ErrorOutOfListRange(std::chrono::time_point<std::chrono::system_clock> time,
+		std::string fname, std::string cname, std::string mname) :
+		Error(time, fname, cname, mname, msg) {}
 private:
     static constexpr const char* msg = "Out of list range";
 };

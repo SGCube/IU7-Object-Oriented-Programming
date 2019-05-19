@@ -27,9 +27,6 @@
     <ClInclude Include="list_node.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="error.hpp">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="list.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -37,6 +34,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="list_node.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="error.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
