@@ -45,7 +45,7 @@ public:
     List<T> operator+(const T& data) const;
 
     // insert / data + list
-    List<T& insert(const T& data, const ListIterator<T>& iter);
+    List<T>& insert(const T& data, const ListIter<T>& iter);
     friend List<T> operator+(const T& data, const List<T>& list);
 
     // extend / list + list
@@ -54,8 +54,8 @@ public:
     List<T> operator+(const List<T>& list) const;
 
     // element remove / clear
+	const T remove(const ListIter<T>& iter);
     const T pop();
-    const T remove(const ListIterator<T>& iter);
     List<T>& clear();
 
     // iterator set
@@ -72,7 +72,6 @@ private:
     bool List<T>::isEqual(const List<T>& list) const;
     std::shared_ptr<ListNode<T>> initNode(const T& data, std::shared_ptr<ListNode<T>> nodePtr);
     void List<T>::addList(const List& ListToAdd);
-
 };
 
 #endif // LIST_H
