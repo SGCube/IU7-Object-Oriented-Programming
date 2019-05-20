@@ -226,7 +226,7 @@ const T List<T>::remove(const ListIter<T>& iter)
     if (!curNode)
         throw ErrorOutOfListRange(__FILE__, typeid(List).name(), __FUNCTION__);
     
-    T data = iter.getCur();
+    T data = *iter;
     
     if (curNode->getNext() == nullptr)
         this->tail = prevNode;

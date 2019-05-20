@@ -46,10 +46,7 @@ public:
     // equation operator
     ListIter<T>& operator=(const ListIter<T>& listIter);
     
-    // access operators/functions
-    T& getCur();
-    const T& getCur() const;
-    
+    // access operators
     T& operator*();
     const T& operator*() const;
     

@@ -11,8 +11,7 @@ public:
     // constructor
     ListNode();
     explicit ListNode(const T data);
-    explicit ListNode(const shared_ptr<ListNode<T>> node);
-    ListNode(const T data, const shared_ptr<ListNode<T>> next);
+    explicit ListNode(const T data, const shared_ptr<ListNode<T>> next);
 
     // destructor
     virtual ~ListNode();

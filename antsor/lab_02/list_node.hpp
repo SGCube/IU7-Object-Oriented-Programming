@@ -7,16 +7,12 @@ template <typename T>
 ListNode<T>::ListNode() : data_(NULL), next_(nullptr) {}
 
 template <typename T>
-ListNode<T>::ListNode(const T data) : data_(data), next_(nullptr) {}
+ListNode<T>::ListNode(const T data) :
+	data_(data),
+	next_(nullptr) {}
 
 template <typename T>
-ListNode<T>::ListNode(const shared_ptr<ListNode<T>> node) :
-    data_(node->data),
-    next_(node) {}
-
-template <typename T>
-ListNode<T>::ListNode(const T data,
-                             const shared_ptr<ListNode<T>> next) :
+ListNode<T>::ListNode(const T data, const shared_ptr<ListNode<T>> next) :
     data_(data),
     next_(next) {}
 

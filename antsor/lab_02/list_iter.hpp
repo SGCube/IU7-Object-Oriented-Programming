@@ -12,12 +12,12 @@ BaseIter<T>::BaseIter()
 }
 
 template <typename T>
-BaseIter<T>::BaseIter(const BaseIter <T>& iter) :
-    cur_(iter.cur_) {}
-
-template <typename T>
 BaseIter<T>::BaseIter(const std::shared_ptr<ListNode<T>> node) :
     cur_(node) {}
+
+template <typename T>
+BaseIter<T>::BaseIter(const BaseIter <T>& iter) :
+	cur_(iter.cur_) {}
 
 template <typename T>
 BaseIter<T>::~BaseIter() {}
@@ -90,18 +90,6 @@ ListIter<T>& ListIter<T>::operator=(const ListIter<T>& listIter)
     if (this != &listIter)
         this->cur__ = listIter.cur__;
     return *this;
-}
-
-template <typename T>
-T& ListIter<T>::getCur()
-{
-    return this->cur_.lock()->getPointer();
-}
-
-template <typename T>
-const T& ListIter<T>::getCur() const
-{
-    return this->cur_.lock()->getPointer();
 }
 
 template <typename T>
