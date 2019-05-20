@@ -157,8 +157,7 @@ List<T>& List<T>::insert(const T& data, const ListIter<T>& iter)
     }
     
     if (!curNode)
-        throw ErrorOutOfListRange(std::chrono::system_clock::now(), __FILE__,
-                                  typeid(List).name(), __FUNCTION__);
+        throw ErrorOutOfListRange(__FILE__, typeid(List).name(), __FUNCTION__);
     
     std::shared_ptr<ListNode<T>> newNode = initNode(data, curNode);
     
@@ -212,8 +211,7 @@ template <typename T>
 const T List<T>::remove(const ListIter<T>& iter)
 {
     if (this->isEmpty())
-        throw ErrorEmptyList(std::chrono::system_clock::now(), __FILE__,
-                             typeid(List).name(), __FUNCTION__);
+        throw ErrorEmptyList(__FILE__, typeid(List).name(), __FUNCTION__);
     
     std::shared_ptr<ListNode<T>> curNode = this->head, prevNode = nullptr;
     ListIter<T> cur = this->begin();
@@ -226,8 +224,7 @@ const T List<T>::remove(const ListIter<T>& iter)
     }
     
     if (!curNode)
-        throw ErrorOutOfListRange(std::chrono::system_clock::now(), __FILE__,
-                                  typeid(List).name(), __FUNCTION__);
+        throw ErrorOutOfListRange(__FILE__, typeid(List).name(), __FUNCTION__);
     
     T data = iter.getCur();
     
@@ -250,8 +247,7 @@ template <typename T>
 const T List<T>::pop()
 {
     if (this->isEmpty())
-        throw ErrorEmptyList(std::chrono::system_clock::now(), __FILE__,
-                             typeid(List).name(), __FUNCTION__);
+        throw ErrorEmptyList(__FILE__, typeid(List).name(), __FUNCTION__);
     
     ListIter<T> iter = this->end();
     return remove(iter);
@@ -340,8 +336,7 @@ std::shared_ptr<ListNode<T>> List<T>::initNode(const T& data,
     newNode = std::make_shared<ListNode<T>>();
     if (!newNode)
     {
-        throw ErrorMemory(std::chrono::system_clock::now(), __FILE__,
-                          typeid(List).name(), __FUNCTION__);
+        throw ErrorMemory(__FILE__, typeid(List).name(), __FUNCTION__);
     }
     newNode->setData(data);
     newNode->setNext(nodePtr);

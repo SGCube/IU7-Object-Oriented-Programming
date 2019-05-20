@@ -107,9 +107,10 @@ int main()
         list7 += list6;
         cout << list7 << endl;
         list7 += 15;
-        cout << list7 << endl;
+        cout << list7 << endl << endl;
         
         list7.clear();
+		list7.pop();
     }
     catch(Error& error)
     {
