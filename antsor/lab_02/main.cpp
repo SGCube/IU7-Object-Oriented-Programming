@@ -53,15 +53,19 @@ int main()
         
         cout << "\ninsert(data, iter)" << endl;
         cout << list5 << endl;
+
         ListIter<int> iter0(list5.begin());
         list5.insert(1, iter0);
         cout << list5 << endl;
+
         ListIter<int> iter1(list5.begin());
         list5.insert(2, iter1);
         cout << list5 << endl;
+
         ListIter<int> iter2(list5.end());
         list5.insert(3, iter2);
         cout << list5 << endl;
+
         list5.insert(4, iter2);
         cout << list5 << endl;
         

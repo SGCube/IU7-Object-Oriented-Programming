@@ -63,7 +63,7 @@ List<T>::List(const size_t size, ...) :
 }
 
 template <typename T>
-List<T>::List(std::initializer_list<T>& list)
+List<T>::List(std::initializer_list<T> list)
 {
     for (const auto& data : list)
         this->append(data);
@@ -208,7 +208,7 @@ List<T>& List<T>::operator+=(const List<T>& list)
 /// element remove
 
 template <typename T>
-const T List<T>::remove(const ListIter<T>& iter)
+T List<T>::remove(const ListIter<T>& iter)
 {
     if (this->isEmpty())
         throw ErrorEmptyList(__FILE__, typeid(List).name(), __FUNCTION__);
@@ -244,7 +244,7 @@ const T List<T>::remove(const ListIter<T>& iter)
 /// element remove from tail
 
 template <typename T>
-const T List<T>::pop()
+T List<T>::pop()
 {
     if (this->isEmpty())
         throw ErrorEmptyList(__FILE__, typeid(List).name(), __FUNCTION__);

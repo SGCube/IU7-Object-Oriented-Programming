@@ -28,7 +28,7 @@ public:
     explicit List(const List<T>& list);
     List(List<T>&& list);
     List(const size_t size, ...);
-    List(std::initializer_list<T>& list);
+    List(std::initializer_list<T> list);
     // destructor
     virtual ~List();
 
@@ -55,8 +55,8 @@ public:
     List<T> operator+(const List<T>& list) const;
 
     // element remove / clear
-	const T remove(const ListIter<T>& iter);
-    const T pop();
+	T remove(const ListIter<T>& iter);
+    T pop();
     List<T>& clear();
 
     // iterator set
