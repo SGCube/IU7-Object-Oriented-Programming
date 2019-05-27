@@ -1,79 +1,128 @@
-#ifndef __MATRIX__H__
-#define __MATRIX__H__
-
+﻿#ifndef MATRIX_H
+#define MATRIX_H
+#include <stdlib.h>
 #include <iostream>
-#include <cmath>
-#include "matrix_error.h"
+#include <memory>
+#include "exception.h"
+#include "basematrix.h"
+#include "miterator.h"
+template<typename T>
+class MIterator;
 
+template<typename T>
+class cMIterator;
 
-template<typename Type>
-class iterator;
-
-template<typename Type>
-class cIterator;
-
-
-template <typename Type>
+template <typename T>
 class Matrix: public BaseMatrix
 {
-	public:
-		Matrix(const size_t colNum, const size rowNum, Type** matrix = null_ptr);
-		virtual ~Matrix(); // деструктор
-		Matrix(std::initializer_list<std::initializer_list<Type>> array); // {}
-		explicit Matrix(const Matrix& matrix); // копирование
-		Matrix(Matrix&& matrix); //перенос
-		
-		Matrix<Type>& operator=(const Matrix<Type>& matrix); // перенос
-		Matrix<Type>& operator=(Matrix<Type>&& matrix) noexcept; // копирование
-		Matrix<Type>& operator=(std::initializer_list<std::initializer_list<T>> array); // {}
-		
-		const Type& at(size_t col, size_t row) const; // достать элемент матрицы по номеру столбца и строки
-		Type& at(size_t col, size_t row); // изменение элемента матрицы по номеру столбца и строки
-		
-		// сложение матриц
-		Matrix<Type> operator+(const Matrix<Type>& matrix) const;
-		Matrix<Type> add(const Matrix<Type>& matrix) const;
-		
-		// вычитание матриц
-		Matrix<Type> operator-(const Matrix<Type>& matrix) const;
-		Matrix<Type> sub(const Matrix<Type>& matrix) const;
-		
-		// умножение матриц
-		Matrix<Type> operator*(const Matrix<Type>& matrix) const;
-		Matrix<Type> multiply(const Matrix<Type>& matrix) const;
-		
-		// += 
-		Matrix<Type>& operator+=(const Matrix<Type>& matrix);
-		Matrix<Type>& addself(const Matrix<Type>& matrix);
-		
-		// -= 
-		Matrix<Type>& operator-=(const Matrix<Type>& matrix);
-		Matrix<Type>& subself(const Matrix<Type>& matrix);
-		
-		// нахождение детерминанта !!!!!!!!!!!
-		Matrix<Type> determinant(const Matrix<Type>& matrix) const;
-		
-		// проверка на равенство
-		bool operator ==(Matrix<Type>& matrix);
-		bool operator !=(Matrix<Type>& matrix);
+    class Roww;
+public:
+    Matrix(size_t row, size_t col, T** mat = nullptr);
+    Matrix(size_t row, size_t col, const T& init);
+    Matrix(std::initializer_list<std::initializer_list<T>> list);
+    explicit Matrix(const Matrix<T> &mtr);
+    Matrix(Matrix<T> &&mtr);
+    ~Matrix();
 
-		// обратная матрица
-		Matrix<Type> reverse() const;	//!
-		Matrix<Type> operator ~();	//!
+    // =
+    Matrix<T> operator =(const Matrix<T> &mtr);
+    Matrix<T> operator =(Matrix<T> &&mtr) noexcept;
+    Matrix<T> operator =(std::initializer_list<std::initializer_list<T>> list);
 
-		// транспонирование
-		Matrix<Type> transpose() const;	//!
-		const Matrix<Type> &self_transpose();	//!
-		
-		// итераторы
-		iterator<Type>   begin();	//!
-		iterator<Type>   end();	//!
+    void fill(const T& init) noexcept;
+    void swap(size_t roww1, size_t col1, size_t roww2, size_t col2);
 
-		// константные итераторы
-		cIterator<Type>  cbegin() const; //!
-		cIterator<Type>  cend() const;	//!
-	private:
-		std::shared_ptr<Type> data;
-		size_t colNum_; // кол-во столбцов
-		size_t rowNum_; //кол-во строк
+    // Операторы получения элемента
+    const T &operator() (size_t i, size_t j) const;
+    T &operator()(size_t i, size_t j);
+    Roww operator[] (size_t roww);
+    const Roww operator[] (size_t roww) const;
+    // функциональное получение элемента
+    const T &at(size_t i, size_t j) const;
+
+
+    // + -
+    Matrix<T> operator +(const Matrix<T> &mtr) const;
+    Matrix<T> operator -(const Matrix<T> &mtr) const;
+    // + - функциональные
+    Matrix<T> add(const Matrix<T> &mtr) const;
+    Matrix<T> sub(const Matrix<T> &mtr) const;
+
+    // += -=
+    const Matrix<T> & operator +=(const Matrix<T> &mtr);
+    const Matrix<T> & operator -=(const Matrix<T> &mtr);
+    // += -= функциональные
+    const Matrix<T> & selfAdd(const Matrix<T> &mtr);
+    const Matrix<T> & selfSub(const Matrix<T> &mtr);
+
+
+    // * el
+    Matrix<T> operator * (const T &el) const;
+    const Matrix<T> &operator *= (const T &el) noexcept;
+    // * num функциональные
+    Matrix<T> mult(const T &num);
+    const Matrix<T> & selfMult(const T &el) noexcept;
+
+
+    // * mtr
+    Matrix<T> operator * (const Matrix<T> &mtr);
+    const Matrix<T> &operator *=(const Matrix<T> &mtr);
+    // * mtr функциональные
+    Matrix<T> mult (const Matrix<T> &mtr);
+    const Matrix<T> selfMult(const Matrix<T> &mtr);
+
+    // ==
+    bool operator ==(Matrix<T> &mtr);
+    bool operator !=(Matrix<T> &mtr);
+
+    // Обратная матрица
+    Matrix<T> operator ~();
+    // Обратная матрица функцией
+    Matrix<T> revert();
+
+    double det() const;
+    Matrix<T> addMinor(size_t row, size_t col) const;
+
+    // Транспонирование
+    Matrix<T> transpose() const;
+    const Matrix<T> &self_transpese();
+
+
+    // Итераторы
+    MIterator<T>   begin();
+    MIterator<T>   end();
+
+    /* const */
+    cMIterator<T>  cbegin() const;
+    cMIterator<T>  cend() const;
+
+
+private:
+    std::shared_ptr<T> data;
+
+    size_t // Возвращает ранг мартрицы при инициалзизации списком
+    init_list_matrix_rate(std::initializer_list<std::initializer_list<T>> &list);
+
+    class Roww
+    {
+    private:
+        T *data = nullptr;
+        size_t curRoww, rowwNum, colNum;
+
+        size_t getCurRoww() { return curRoww; }
+        size_t getRowwNum() { return rowwNum; }
+        size_t getColNum() { return colNum; }
+
+    public:
+        Roww() = delete;
+        Roww(Roww &) = delete;
+        Roww(Roww &&);
+        Roww(T *data, size_t curRoww, size_t rowwNum, size_t colNum);
+
+        T &operator[](size_t index);
+        const T &operator[](size_t index) const
+            { return (*this)[index]; }
+    };
+
 };
+#endif //MATRIX_H
