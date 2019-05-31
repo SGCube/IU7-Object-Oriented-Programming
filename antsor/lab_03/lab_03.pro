@@ -26,15 +26,15 @@ CONFIG += c++11
 
 SOURCES += \
         cabine.cpp \
+        controller.cpp \
         doors.cpp \
-        elevator.cpp \
         main.cpp \
         window.cpp
 
 HEADERS += \
         cabine.h \
+        controller.h \
         doors.h \
-        elevator.h \
         window.h
 
 FORMS += \
@@ -48,6 +48,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
 	../../../../File Storage/Images/close.png \
 	../../../../File Storage/Images/open.png
-
-RESOURCES += \
-	resource.qrc
