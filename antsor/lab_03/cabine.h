@@ -41,7 +41,7 @@ private:
 signals:
 	void openDoors();
 	void closeDoors();
-	void floorReached();
+	void stopped();
 	
 	// message
 	void sendMessage(const char* msg);

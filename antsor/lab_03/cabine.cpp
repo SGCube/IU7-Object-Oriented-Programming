@@ -19,6 +19,8 @@ Cabine::Cabine(QObject *parent) :
 	connect(&doors, SIGNAL(doorsAreOpening()), this, SLOT(msgOpening()));
 	connect(&doors, SIGNAL(doorsAreClosed()), this, SLOT(msgClosed()));
 	connect(&doors, SIGNAL(doorsAreClosing()), this, SLOT(msgClosing()));
+	
+	emit sendCurFloor(currentFloor);
 }
 
 void Cabine::moving()
@@ -41,7 +43,7 @@ void Cabine::stop()
 	state = STAND_BY;
 	
 	moveTimer.stop();
-	emit floorReached();
+	emit stopped();
 	emit openDoors();
 }
 
@@ -52,7 +54,7 @@ void Cabine::setNextFloor(int floor)
 	nextFloor = floor;
 	if (nextFloor == floor)
 	{
-		emit floorReached();
+		emit stopped();
 		emit openDoors();
 	}
 	else
