@@ -52,7 +52,7 @@ void Cabine::setNextFloor(int floor)
 	state = SET;
 	
 	nextFloor = floor;
-	if (nextFloor == floor)
+	if (nextFloor == currentFloor)
 	{
 		emit stopped();
 		emit openDoors();
