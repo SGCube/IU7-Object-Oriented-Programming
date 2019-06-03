@@ -7,9 +7,12 @@
 # Autosave
 *.autosave
 
+# Qt Creator
+**/build*/**
+*.pro.user
+
 # Visual Studio / Visual Code
 **/.vscode/**
-**/build*/**
 **/.vs/**
 *.sln
 **/Debug/**
