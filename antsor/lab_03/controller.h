@@ -11,7 +11,8 @@ class ElevatorController : public QObject
 	Q_OBJECT
 	
 public:
-	ElevatorController(Cabine& cabine, int floors, QObject *parent = nullptr);
+	explicit ElevatorController(Cabine& cabine, int floors,
+								QObject *parent = nullptr);
 	~ElevatorController() {}
 	
 private:
@@ -31,21 +32,21 @@ private:
 	
 	std::vector<bool> requestedFloors;
 	
-	void defineNextFloor();
+	bool defineNextFloor();
 	int getNearestFloor();
 	int getHigherFloor();
 	int getLowerFloor();
 	
 signals:
-	void setNextFloor(int floor);
-	void pullButton(int floor);
+	void setFloorToReach(int floor);
+	void requestSatisfied(int floor);
 	
 	// messages
 	void showCurFloor(int floor);
 	void showMessage(const char* msg);
 	
 public slots:
-    void onPushButton(int floor);
+    void requestFloor(int floor);
 	void floorReached();
 	
 	// messages

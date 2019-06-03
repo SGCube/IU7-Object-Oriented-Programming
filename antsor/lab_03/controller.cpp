@@ -10,23 +10,19 @@ ElevatorController::ElevatorController(Cabine& cabine, int floors,
 	nextFloor(1),
 	floorsAmount(floors)
 {
-	connect(this, SIGNAL(setNextFloor(int)), &cabine, SLOT(setNextFloor(int)));
-	connect(&cabine, SIGNAL(floorReached()), this, SLOT(floorReached()));
+	for (int i = 0; i <= floorsAmount; i++)
+		requestedFloors.push_back(false);
+	
+	connect(this, SIGNAL(setFloorToReach(int)), &cabine, SLOT(setNextFloor(int)));
+	connect(&cabine, SIGNAL(stopped()), this, SLOT(floorReached()));
 	
 	// messages
 	connect(&cabine, SIGNAL(sendMessage(const char*)),
 			this, SLOT(getMessage(const char*)));
 	connect(&cabine, SIGNAL(sendCurFloor(int)), this, SLOT(getCurFloor(int)));
-	
-	
-	for (int i = 0; i <= floorsAmount; i++)
-		requestedFloors.push_back(false);
-	
-	emit showMessage("Двери открыты");
-	emit showCurFloor(1);
 }
 
-void ElevatorController::defineNextFloor()
+bool ElevatorController::defineNextFloor()
 {
 	if (prevFloor < currentFloor)
 		nextFloor = getHigherFloor();
@@ -43,10 +39,9 @@ void ElevatorController::defineNextFloor()
 	if (nextFloor == 0 || nextFloor == floorsAmount + 1)
 	{
 		nextFloor = currentFloor;
-		state = STAND_BY;
+		return false;
 	}
-	else
-		emit setNextFloor(nextFloor);
+	return true;
 }
 
 int ElevatorController::getNearestFloor()
@@ -81,29 +76,28 @@ int ElevatorController::getLowerFloor()
 	return i;
 }
 
-void ElevatorController::onPushButton(int floor)
+void ElevatorController::requestFloor(int floor)
 {
-	if (floor != currentFloor)
-	{
-		requestedFloors[floor] = true;
-		if (state == STAND_BY)
-		{
-			state = IN_PROCESS;
-			defineNextFloor();
-		}
-	}
-	else
-		emit pullButton(floor);
+	state = IN_PROCESS;
+	
+	requestedFloors[floor] = true;
+	defineNextFloor();
+	emit setFloorToReach(nextFloor);
 }
 
 void ElevatorController::floorReached()
 {
-	state = STAND_BY;
-	prevFloor = currentFloor;
-	currentFloor = nextFloor;
-	requestedFloors[currentFloor] = false;
-	
-	emit pullButton(currentFloor);
-	
-	defineNextFloor();
+	if (state == IN_PROCESS)
+	{
+		prevFloor = currentFloor;
+		currentFloor = nextFloor;
+		
+		requestedFloors[currentFloor] = false;
+		emit requestSatisfied(currentFloor);
+		
+		if (defineNextFloor())
+			emit setFloorToReach(nextFloor);
+		else
+			state = STAND_BY;
+	}
 }
