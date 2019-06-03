@@ -28,7 +28,7 @@ void Doors::startOpening()
 	
 	openTimer.start(openingTime - leftTime);
 	
-	emit msgOpening();
+	emit doorsAreOpening();
 }
 
 void Doors::startClosing()
@@ -38,7 +38,7 @@ void Doors::startClosing()
 	stayTimer.stop();
 	closeTimer.start();
 	
-	emit msgClosing();
+	emit doorsAreClosing();
 }
 
 void Doors::opened()
@@ -48,7 +48,7 @@ void Doors::opened()
     openTimer.stop();
     stayTimer.start();
 	
-	emit msgOpened();
+	emit doorsAreOpened();
 }
 
 void Doors::closed()

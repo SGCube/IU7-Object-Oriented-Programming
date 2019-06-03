@@ -34,9 +34,9 @@ signals:
     void doorsAreClosed();
 	
 	// messages
-	void msgOpened();
-	void msgClosing();
-	void msgOpening();
+	void doorsAreOpened();
+	void doorsAreClosing();
+	void doorsAreOpening();
 
 public slots:
 	void startOpening();
