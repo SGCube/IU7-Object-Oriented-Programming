@@ -9,26 +9,29 @@ class Doors : public QObject
     Q_OBJECT
 public:
 	Doors(QObject *parent = nullptr);
-	~Doors();
+	~Doors() {}
 
 private:
 	enum DoorsState
 	{
-		OPENING,
 		OPENED,
 		CLOSING,
-		CLOSED
+		CLOSED,
+		OPENING
 	};
 
 	DoorsState state;
-	QTimer* timer;
+	
+	QTimer openTimer;
+	QTimer closeTimer;
+	QTimer stayTimer;
 	
     static const size_t openingTime = 1000;
     static const size_t closingTime = 1000;
-    static const size_t standTime = 5000;
+    static const size_t stayTime = 5000;
 	
 signals:
-    void sendClosed();
+    void doorsAreClosed();
 	
 	// messages
 	void msgOpened();
@@ -36,10 +39,13 @@ signals:
 	void msgOpening();
 
 public slots:
-    void startOpening();
-	void opened();
+	void startOpening();
     void startClosing();
+	
+private slots:
+	void opened();
 	void closed();
+
 };
 
 #endif
