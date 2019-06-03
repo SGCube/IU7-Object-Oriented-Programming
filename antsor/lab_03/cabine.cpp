@@ -6,37 +6,19 @@ Cabine::Cabine(QObject *parent) :
 	state(STAND_BY),
 	moveDirection(UP),
 	currentFloor(1),
-	nextFloor(1),
-	timer(nullptr)
+	nextFloor(1)
 {
-	connect(this, SIGNAL(open()), &doors, SLOT(open()));
-	connect(&doors, SIGNAL(sendClosed()), this, SLOT(startMoving()));
+	connect(this, SIGNAL(openDoors()), &doors, SLOT(startOpening()));
+	connect(this, SIGNAL(closeDoors()), &doors, SLOT(startClosing()));
+	connect(&doors, SIGNAL(doorsAreClosed()), this, SLOT(startMoving()));
+	
+	connect(&moveTimer, SIGNAL(timeout()), this, SLOT(moving()));
 	
 	// messages
-	connect(&doors, SIGNAL(msgClosing()), this, SLOT(msgClosing()));
-	connect(&doors, SIGNAL(msgOpened()), this, SLOT(msgOpened()));
-	connect(&doors, SIGNAL(msgOpening()), this, SLOT(msgOpening()));
-	
-	timer = new QTimer;
-}
-
-Cabine::~Cabine()
-{
-	delete timer;
-}
-
-void Cabine::startMoving()
-{
-	state = START_MOVING;
-	
-	if (nextFloor < currentFloor)
-		moveDirection = DOWN;
-	else if (nextFloor > currentFloor)
-		moveDirection = UP;
-	
-	timer->setInterval(moveInterval);
-	connect(timer, SIGNAL(timeout()), this, SLOT(moving()));
-	timer->start();
+	connect(&doors, SIGNAL(doorsAreOpened()), this, SLOT(msgOpened()));
+	connect(&doors, SIGNAL(doorsAreOpening()), this, SLOT(msgOpening()));
+	connect(&doors, SIGNAL(doorsAreClosed()), this, SLOT(msgClosed()));
+	connect(&doors, SIGNAL(doorsAreClosing()), this, SLOT(msgClosing()));
 }
 
 void Cabine::moving()
@@ -54,40 +36,40 @@ void Cabine::moving()
 	emit sendCurFloor(currentFloor);
 }
 
-void Cabine::setNextFloor(int floor)
-{
-	if (state == STAND_BY)
-	{
-		state = SET;
-		nextFloor = floor;
-	}
-	else if (state == CLOSED_STAND_BY)
-	{
-		emit open();
-		emit sendMessage("Двери открываются");
-	}
-	else
-	{
-		if (floor < nextFloor && moveDirection == UP)
-			nextFloor = floor;
-		else if (floor > nextFloor && moveDirection == DOWN)
-			nextFloor = floor;
-	}
-}
-
 void Cabine::stop()
 {
 	state = STAND_BY;
-	timer->stop();
 	
-	emit open();
-	emit sendMessage("Двери открываются");
+	moveTimer.stop();
 	emit floorReached();
+	emit openDoors();
 }
 
-void Cabine::doorsClosed()
+void Cabine::setNextFloor(int floor)
 {
-	emit sendMessage("Двери закрыты");
-	if (state == SET)
-		startMoving();
+	state = SET;
+	
+	nextFloor = floor;
+	if (nextFloor == floor)
+	{
+		emit floorReached();
+		emit openDoors();
+	}
+	else
+	{
+		moveDirection = (nextFloor > currentFloor) ? UP : DOWN;
+		emit closeDoors();
+	}
+}
+
+void Cabine::startMoving()
+{
+	state = START_MOVING;
+	
+	if (nextFloor < currentFloor)
+		moveDirection = DOWN;
+	else if (nextFloor > currentFloor)
+		moveDirection = UP;
+	
+	moveTimer.start();
 }

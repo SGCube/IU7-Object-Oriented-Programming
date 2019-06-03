@@ -11,16 +11,15 @@ class Cabine : public QObject
 	Q_OBJECT
 public:
 	explicit Cabine(QObject *parent = nullptr);
-	~Cabine();
+	~Cabine() {}
 
 private:
 	enum CabineState
 	{
-		MOVING,
-		START_MOVING,
 		STAND_BY,
 		SET,
-		CLOSED_STAND_BY
+		START_MOVING,
+		MOVING
 	};
 	
 	enum Direction
@@ -36,31 +35,32 @@ private:
 	int currentFloor;
 	int nextFloor;
 	
-	QTimer* timer;
+	QTimer moveTimer;
     static const size_t moveInterval = 1500;
 	
-	void startMoving();
-	
 signals:
-	void open();
+	void openDoors();
+	void closeDoors();
+	void floorReached();
 	
+	// message
 	void sendMessage(const char* msg);
 	void sendCurFloor(int floor);
-	void floorReached();
 	
 private slots:
 	void moving();							// MOVING
+	void stop();							// STAND_BY
 
 public slots:
 	void setNextFloor(int floor);			// SET
-	void doorsClosed();						// START_MOVING / IDLE
-	void stop();							// STAND_BY
+	void startMoving();						// START_MOVING
 	
 	// messages
 	void msgOpened() { emit sendMessage("Двери открыты"); }
 	void msgOpening() { emit sendMessage("Двери открываются"); }
 	void msgClosing() { emit sendMessage("Двери закрываются"); }
 	void msgClosed() { emit sendMessage("Двери закрыты"); }
+
 };
 
 #endif
