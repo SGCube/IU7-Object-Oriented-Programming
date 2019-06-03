@@ -8,8 +8,9 @@ Window::Window(ElevatorController& ctrl, QWidget *parent) :
 {
 	ui->setupUi(this);
 	
-	connect(this, SIGNAL(pushButton(int)), &controller, SLOT(onPushButton(int)));
-	connect(&controller, SIGNAL(pullButton(int)), this, SLOT(pullButton(int)));
+	connect(this, SIGNAL(pushButton(int)), &controller, SLOT(requestFloor(int)));
+	connect(&controller, SIGNAL(requestSatisfied(int)),
+			this, SLOT(pullButton(int)));
 	
 	// messages
 	connect(&controller, SIGNAL(showCurFloor(int)),
