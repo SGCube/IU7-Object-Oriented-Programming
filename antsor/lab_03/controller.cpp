@@ -1,134 +1,109 @@
 #include "controller.h"
 
-ElevatorController::ElevatorController(Cabine& cabine, Doors& doors,
+ElevatorController::ElevatorController(Cabine& cabine, int floors,
 									   QObject *parent) :
 	QObject(parent),
 	cabine(cabine),
-	doors(doors),
 	state(STAND_BY),
-	currentFloor(1)
+	prevFloor(0),
+	currentFloor(1),
+	nextFloor(1),
+	floorsAmount(floors)
 {
-	connect(this, SIGNAL(doGoUp()), &cabine, SLOT(onGoUp()));
-    connect(this, SIGNAL(doGoDown()), &cabine, SLOT(onGoDown()));
-    connect(this, SIGNAL(doStop()), &cabine, SLOT(onStop()));
-    connect(this, SIGNAL(doOpen()), &doors, SLOT(onOpening()));
-	connect(this, SIGNAL(doClose()), &doors, SLOT(onClosing()));
-
-    connect(&cabine, SIGNAL(doGoUp()), this, SLOT(onGoingUp()));
-    connect(&cabine, SIGNAL(doGoDown()), this, SLOT(onGoingDown()));
-    connect(&cabine, SIGNAL(doStop()), this, SLOT(onStop()));
-
-    connect(&doors, SIGNAL(doOpening()), this, SLOT(onOpening()));
-    connect(&doors, SIGNAL(doOpened()), this, SLOT(onOpened()));
-    connect(&doors, SIGNAL(doClosing()), this, SLOT(onClosing()));
-	connect(&doors, SIGNAL(doClosed()), this, SLOT(onClosed()));
+	connect(this, SIGNAL(setNextFloor(int)), &cabine, SLOT(setNextFloor(int)));
+	connect(&cabine, SIGNAL(floorReached()), this, SLOT(floorReached()));
 	
-	emit doMsgShow("Двери открыты");
-	emit doFloorShow(1);
+	// messages
+	connect(&cabine, SIGNAL(sendMessage(const char*)),
+			this, SLOT(getMessage(const char*)));
+	connect(&cabine, SIGNAL(sendCurFloor(int)), this, SLOT(getCurFloor(int)));
+	
+	
+	for (int i = 0; i <= floorsAmount; i++)
+		requestedFloors.push_back(false);
+	
+	emit showMessage("Двери открыты");
+	emit showCurFloor(1);
+}
+
+void ElevatorController::defineNextFloor()
+{
+	if (prevFloor < currentFloor)
+		nextFloor = getHigherFloor();
+	else if (prevFloor > currentFloor)
+		nextFloor = getLowerFloor();
+	else
+		nextFloor = getNearestFloor();
+	
+	if (nextFloor == floorsAmount + 1)
+		nextFloor = getLowerFloor();
+	if (nextFloor == 0)
+		nextFloor = getHigherFloor();
+	
+	if (nextFloor == 0 || nextFloor == floorsAmount + 1)
+	{
+		nextFloor = currentFloor;
+		state = STAND_BY;
+	}
+	else
+		emit setNextFloor(nextFloor);
+}
+
+int ElevatorController::getNearestFloor()
+{
+	int nearestHigher = getHigherFloor();
+	int nearestLower = getLowerFloor();
+	
+	if (nearestHigher == floorsAmount + 1)
+		return nearestLower;
+	if (nearestLower == 0)
+		return nearestHigher;
+	
+	int distLower = currentFloor - nearestLower;
+	int distHigher = nearestHigher - currentFloor;
+	
+	return (distLower < distHigher) ? nearestLower : nearestHigher;
+}
+
+int ElevatorController::getHigherFloor()
+{
+	int i = currentFloor + 1;
+	while (i <= floorsAmount && !requestedFloors[i])
+		i++;
+	return i;
+}
+
+int ElevatorController::getLowerFloor()
+{
+	int i = currentFloor - 1;
+		while (i > 0 && !requestedFloors[i])
+			i--;
+	return i;
 }
 
 void ElevatorController::onPushButton(int floor)
 {
-    requestedFloors.insert(floor);
-    if (state == STAND_BY)
+	if (floor != currentFloor)
 	{
-		if (doors.isOpened())
-			emit doClose();
-		else
-			startMoving();
-	}
-	state = BUTTON_PUSHED;
-}
-
-void ElevatorController::onOpenButton()
-{
-	if (state == STAND_BY && !doors.isOpened())
-		emit doOpen();
-}
-
-void ElevatorController::onCloseButton()
-{
-	if (state == STAND_BY && doors.isOpened())
-		emit doClose();
-}
-
-void ElevatorController::onGoingUp()
-{
-    ++currentFloor;
-	emit doFloorShow(currentFloor);
-    if (requestedFloors.find(currentFloor) != requestedFloors.end())
-	{
-        emit doStop();
-		emit doOpen();
-	}
-    state = GO_UP;
-}
-
-void ElevatorController::onGoingDown()
-{
-    --currentFloor;
-    emit doFloorShow(currentFloor);
-    if (requestedFloors.find(currentFloor) != requestedFloors.end())
-	{
-        emit doStop();
-		emit doOpen();
-	}
-	state = GO_DOWN;
-}
-
-void ElevatorController::onStop()
-{
-	state = STAND_BY;
-}
-
-void ElevatorController::onOpening()
-{
-    emit doMsgShow("Двери открываются");
-}
-
-void ElevatorController::onOpened()
-{
-    emit doMsgShow("Двери открыты");
-    requestedFloors.erase(currentFloor);
-    state = STAND_BY;
-}
-
-void ElevatorController::onClosing()
-{
-    emit doMsgShow("Двери закрываются");
-}
-
-void ElevatorController::onClosed()
-{
-    emit doMsgShow("Двери закрыты");
-	state = STAND_BY;
-	startMoving();
-}
-
-int ElevatorController::getNearestLevel()
-{
-    int nearest = 0;
-    for (auto floor = requestedFloors.begin(); floor != requestedFloors.end();
-		 floor++)
-	{
-        if ((nearest == 0) || (abs(currentFloor - (*floor)) < abs(currentFloor - nearest)))
+		requestedFloors[floor] = true;
+		if (state == STAND_BY)
 		{
-            nearest = *floor;
-        }
-    }
-	return nearest;
+			state = IN_PROCESS;
+			defineNextFloor();
+		}
+	}
+	else
+		emit pullButton(floor);
 }
 
-void ElevatorController::startMoving()
+void ElevatorController::floorReached()
 {
-	int nearest = getNearestLevel();
-	if (nearest != 0)
-	{
-        if (nearest > currentFloor)
-            emit doGoUp();
-		else if (nearest < currentFloor)
-            emit doGoDown();
-        else
-            emit doOpen();
-    }
+	state = STAND_BY;
+	prevFloor = currentFloor;
+	currentFloor = nextFloor;
+	requestedFloors[currentFloor] = false;
+	
+	emit pullButton(currentFloor);
+	
+	defineNextFloor();
 }

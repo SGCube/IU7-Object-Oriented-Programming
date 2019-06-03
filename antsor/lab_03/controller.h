@@ -2,59 +2,55 @@
 #define CONTROLLER_H
 
 #include <QObject>
-#include <set>
+#include <vector>
 
 #include "cabine.h"
-#include "doors.h"
 
 class ElevatorController : public QObject
 {
 	Q_OBJECT
 	
 public:
-	ElevatorController(Cabine& cabine, Doors& doors, QObject *parent = nullptr);
+	ElevatorController(Cabine& cabine, int floors, QObject *parent = nullptr);
 	~ElevatorController() {}
 	
 private:
-	enum State
+	enum ControllerState
 	{
-		BUTTON_PUSHED,
-		GO_UP,
-		GO_DOWN,
-		STAND_BY
+		STAND_BY,
+		IN_PROCESS
 	};
 	
 	Cabine& cabine;
-	Doors& doors;
+	ControllerState state;
 	
-	State state;
+	int prevFloor;
 	int currentFloor;
-	std::set<int> requestedFloors;
+	int nextFloor;
+	int floorsAmount;
 	
-	int getNearestLevel();
-	void startMoving();
+	std::vector<bool> requestedFloors;
+	
+	void defineNextFloor();
+	int getNearestFloor();
+	int getHigherFloor();
+	int getLowerFloor();
 	
 signals:
-    void doGoUp();
-    void doGoDown();
-    void doOpen();
-    void doClose();
-    void doStop();
-	void doFloorShow(int floor);
-	void doMsgShow(const char* msg);
+	void setNextFloor(int floor);
+	void pullButton(int floor);
+	
+	// messages
+	void showCurFloor(int floor);
+	void showMessage(const char* msg);
 	
 public slots:
     void onPushButton(int floor);
-	void onOpenButton();
-	void onCloseButton();
+	void floorReached();
 	
-	void onGoingUp();
-    void onGoingDown();
-	void onStop();
-    void onOpening();
-    void onClosing();
-	void onOpened();
-	void onClosed();
+	// messages
+	void getMessage(const char* msg) { emit showMessage(msg); }
+	void getCurFloor(int floor) { emit showCurFloor(floor); }
 };
 
 #endif // CONTROLLER_H

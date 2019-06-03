@@ -9,11 +9,7 @@ class Doors : public QObject
     Q_OBJECT
 public:
 	Doors(QObject *parent = nullptr);
-	~Doors() {}
-
-	void open();
-	void close();
-	bool isOpened();
+	~Doors();
 
 private:
 	enum DoorsState
@@ -29,20 +25,21 @@ private:
 	
     static const size_t openingTime = 1000;
     static const size_t closingTime = 1000;
-    static const size_t standTime = 2000;
+    static const size_t standTime = 5000;
 	
 signals:
-    void doOpening();
-    void doOpened();
-    void doClosing();
-    void doClosed();
+    void sendClosed();
+	
+	// messages
+	void msgOpened();
+	void msgClosing();
+	void msgOpening();
 
 public slots:
-    void onOpening();
-    void onOpened();
-    void onClosing();
-    void onClosed();	
-
+    void startOpening();
+	void opened();
+    void startClosing();
+	void closed();
 };
 
 #endif

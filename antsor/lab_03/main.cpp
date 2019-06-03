@@ -10,8 +10,7 @@ int main(int argc, char *argv[])
 	QApplication a(argc, argv);
 	
 	Cabine cabine;
-	Doors doors;
-	ElevatorController controller(cabine, doors);
+	ElevatorController controller(cabine, 10);
 	
 	Window w(controller);
 	w.show();

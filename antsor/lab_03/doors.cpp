@@ -2,60 +2,55 @@
 
 Doors::Doors(QObject *parent) :
 	QObject(parent),
-	state(OPENED)
+	state(OPENED),
+	timer(nullptr)
 {
+	timer = new QTimer;
+	opened();
 }
 
-void Doors::open()
-{
-	if (state == CLOSED || state == CLOSING)
-		state = OPENING;
-}
-
-void Doors::close()
-{
-	if (state == OPENED || state == OPENING)
-		state = CLOSING;
-}
-
-bool Doors::isOpened()
-{
-	return state == OPENED;
-}
-
-void Doors::onOpening()
-{
-	emit doOpening();
-    timer = new QTimer;
-    timer->setInterval(openingTime);
-    connect(timer, SIGNAL(timeout()), this, SLOT(onOpened()));
-    timer->start();
-    state = OPENING;
-}
-
-void Doors::onOpened()
-{
-	emit doOpened();
-    timer = new QTimer;
-    timer->setInterval(standTime);
-    connect(timer, SIGNAL(timeout()), this, SLOT(onClosing()));
-    timer->start();
-    state = OPENING;
-}
-
-void Doors::onClosing()
-{
-	emit doClosing();
-    timer = new QTimer;
-    timer->setInterval(closingTime);
-    connect(timer, SIGNAL(timeout()), this, SLOT(onClosed()));
-    timer->start();
-    state = OPENING;
-}
-
-void Doors::onClosed()
+Doors::~Doors()
 {
 	delete timer;
-    emit doClosed();
-    state = CLOSED;
+}
+
+void Doors::startClosing()
+{
+	state = CLOSING;
+	emit msgClosing();
+	
+	timer->stop();
+	timer->setInterval(closingTime);
+	connect(timer, SIGNAL(timeout()), this, SLOT(closed()));
+	timer->start();
+}
+
+void Doors::closed()
+{
+	state = CLOSED;
+	timer->stop();
+	emit sendClosed();
+}
+
+void Doors::startOpening()
+{
+	state = OPENING;
+	emit msgOpening();
+	
+	int left = timer->remainingTime();
+	timer->stop();
+	timer->setInterval(openingTime - left);
+	connect(timer, SIGNAL(timeout()), this, SLOT(opened()));
+	timer->start();
+}
+
+void Doors::opened()
+{
+	state = OPENED;
+	emit msgOpened();
+	
+    timer->stop();
+    timer->setInterval(standTime);
+    connect(timer, SIGNAL(timeout()), this, SLOT(startClosing()));
+    timer->start();
 }

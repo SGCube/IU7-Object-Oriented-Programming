@@ -2,6 +2,8 @@
 #define WINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
+#include <vector>
 
 #include "controller.h"
 
@@ -17,9 +19,15 @@ public:
 	explicit Window(ElevatorController& ctrl, QWidget *parent = nullptr);
 	~Window();
 	
+signals:
+	void pushButton(int floor);
+	
 public slots:
-	void showCurrentFloor(int floor);
-	void showMsg(const char* msg);
+	void pullButton(int floor);
+	
+	// messages
+	void getCurrentFloor(int floor);
+	void getMsg(const char* msg);
 	
 private slots:
 	void on_pushButton_1_clicked();
@@ -42,13 +50,12 @@ private slots:
 	
 	void on_pushButton_10_clicked();
 	
-	void on_openButton_clicked();
-	
-	void on_closeButton_clicked();
-	
 private:
 	Ui::Window *ui;
 	ElevatorController& controller;
+	std::vector<QPushButton*> buttons;
+	
+	QPushButton* getButton(int floor);
 };
 
 #endif // WINDOW_H
