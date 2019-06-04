@@ -5,7 +5,7 @@ ElevatorController::ElevatorController(Cabine& cabine, int floors,
 	QObject(parent),
 	cabine(cabine),
 	state(STAND_BY),
-	prevFloor(0),
+	curDirection(STAND),
 	currentFloor(1),
 	nextFloor(1),
 	floorsAmount(floors)
@@ -16,64 +16,84 @@ ElevatorController::ElevatorController(Cabine& cabine, int floors,
 	connect(this, SIGNAL(setFloorToReach(int)), &cabine, SLOT(setNextFloor(int)));
 	connect(&cabine, SIGNAL(stopped()), this, SLOT(floorReached()));
 	
+	// data
+	connect(&cabine, SIGNAL(sendCurFloor(int)), this, SLOT(getCurFloor(int)));
+	connect(&cabine, SIGNAL(sendCurDir(Direction)), this, SLOT(getDirection(Direction)));
+	
 	// messages
 	connect(&cabine, SIGNAL(sendMessage(const char*)),
 			this, SLOT(getMessage(const char*)));
-	connect(&cabine, SIGNAL(sendCurFloor(int)), this, SLOT(getCurFloor(int)));
 }
 
 bool ElevatorController::defineNextFloor()
 {
-	if (prevFloor < currentFloor)
-		nextFloor = getHigherFloor();
-	else if (prevFloor > currentFloor)
-		nextFloor = getLowerFloor();
-	else
-		nextFloor = getNearestFloor();
+	if (curDirection == STAND)
+		return defineNearestFloor();
 	
-	if (nextFloor == floorsAmount + 1)
-		nextFloor = getLowerFloor();
-	if (nextFloor == 0)
-		nextFloor = getHigherFloor();
+	int step = 1;
+	if (curDirection == DOWN)
+		step = -1;
 	
-	if (nextFloor == 0 || nextFloor == floorsAmount + 1)
+	for (int i = currentFloor; 0 < i && i <= floorsAmount; i += step)
 	{
-		nextFloor = currentFloor;
-		return false;
+		if (requestedFloors[i])
+		{
+			nextFloor = i;
+			return true;
+		}
 	}
+	
+	step = -step;
+	for (int i = currentFloor; 0 < i && i <= floorsAmount; i+= step)
+	{
+		if (requestedFloors[i])
+		{
+			nextFloor = i;
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+bool ElevatorController::defineNearestFloor()
+{
+	bool lower = false, higher = false;
+	int nextLower = currentFloor, nextHigher = currentFloor;
+	
+	for (int i = currentFloor; 0 < i && !lower; i--)
+	{
+		if (requestedFloors[i])
+		{
+			nextLower = i;
+			lower = true;
+		}
+	}
+	
+	for (int i = currentFloor; i <= floorsAmount && !higher; i++)
+	{
+		if (requestedFloors[i])
+		{
+			nextHigher = i;
+			higher = true;
+		}
+	}
+	
+	if (!(lower || higher))
+		return false;
+	
+	if (lower && higher)
+	{
+		int distLower = currentFloor - nextLower;
+		int distHigher = nextHigher - currentFloor;
+		nextFloor = (distLower < distHigher) ? nextLower : nextHigher;
+	}
+	else if (lower)
+		nextFloor = nextLower;
+	else
+		nextFloor = nextHigher;
+		
 	return true;
-}
-
-int ElevatorController::getNearestFloor()
-{
-	int nearestHigher = getHigherFloor();
-	int nearestLower = getLowerFloor();
-	
-	if (nearestHigher == floorsAmount + 1)
-		return nearestLower;
-	if (nearestLower == 0)
-		return nearestHigher;
-	
-	int distLower = currentFloor - nearestLower;
-	int distHigher = nearestHigher - currentFloor;
-	
-	return (distLower < distHigher) ? nearestLower : nearestHigher;
-}
-
-int ElevatorController::getHigherFloor()
-{
-	int i = currentFloor + 1;
-	while (i <= floorsAmount && !requestedFloors[i])
-		i++;
-	return i;
-}
-
-int ElevatorController::getLowerFloor()
-{
-	int i = currentFloor - 1;
-		while (i > 0 && !requestedFloors[i])
-			i--;
-	return i;
 }
 
 void ElevatorController::requestFloor(int floor)
@@ -89,15 +109,22 @@ void ElevatorController::floorReached()
 {
 	if (state == IN_PROCESS)
 	{
-		prevFloor = currentFloor;
 		currentFloor = nextFloor;
-		
 		requestedFloors[currentFloor] = false;
 		emit requestSatisfied(currentFloor);
 		
 		if (defineNextFloor())
 			emit setFloorToReach(nextFloor);
 		else
+		{
 			state = STAND_BY;
+			curDirection = STAND;
+		}
 	}
+}
+
+void ElevatorController::getCurFloor(int floor)
+{
+	currentFloor = floor;
+	emit showCurFloor(floor);
 }

@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "cabine.h"
+#include "direction.h"
 
 class ElevatorController : public QObject
 {
@@ -24,8 +25,8 @@ private:
 	
 	Cabine& cabine;
 	ControllerState state;
+	Direction curDirection;
 	
-	int prevFloor;
 	int currentFloor;
 	int nextFloor;
 	int floorsAmount;
@@ -33,9 +34,7 @@ private:
 	std::vector<bool> requestedFloors;
 	
 	bool defineNextFloor();
-	int getNearestFloor();
-	int getHigherFloor();
-	int getLowerFloor();
+	bool defineNearestFloor();
 	
 signals:
 	void setFloorToReach(int floor);
@@ -49,9 +48,12 @@ public slots:
     void requestFloor(int floor);
 	void floorReached();
 	
+	// data
+	void getCurFloor(int floor);
+	void getDirection(Direction dir) { curDirection = dir; }
+	
 	// messages
 	void getMessage(const char* msg) { emit showMessage(msg); }
-	void getCurFloor(int floor) { emit showCurFloor(floor); }
 };
 
 #endif // CONTROLLER_H

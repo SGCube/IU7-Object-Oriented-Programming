@@ -5,6 +5,7 @@
 #include <QTimer>
 
 #include "doors.h"
+#include "direction.h"
 
 class Cabine : public QObject
 {
@@ -21,12 +22,7 @@ private:
 		START_MOVING,
 		MOVING
 	};
-	
-	enum Direction
-	{
-		UP,
-		DOWN
-	};
+
 	Doors doors;
 	
 	CabineState state;
@@ -43,9 +39,12 @@ signals:
 	void closeDoors();
 	void stopped();
 	
+	// data
+	void sendCurFloor(int floor);
+	void sendCurDir(Direction dir);
+	
 	// message
 	void sendMessage(const char* msg);
-	void sendCurFloor(int floor);
 	
 private slots:
 	void moving();							// MOVING

@@ -8,6 +8,8 @@ Cabine::Cabine(QObject *parent) :
 	currentFloor(1),
 	nextFloor(1)
 {
+	moveTimer.setInterval(moveInterval);
+	
 	connect(this, SIGNAL(openDoors()), &doors, SLOT(startOpening()));
 	connect(this, SIGNAL(closeDoors()), &doors, SLOT(startClosing()));
 	connect(&doors, SIGNAL(doorsAreClosed()), this, SLOT(startMoving()));
@@ -43,22 +45,18 @@ void Cabine::stop()
 	state = STAND_BY;
 	
 	moveTimer.stop();
-	emit stopped();
 	emit openDoors();
+	emit stopped();
 }
 
 void Cabine::setNextFloor(int floor)
 {
-	state = SET;
-	
 	nextFloor = floor;
 	if (nextFloor == currentFloor)
+		stop();
+	else if (state == STAND_BY)
 	{
-		emit stopped();
-		emit openDoors();
-	}
-	else
-	{
+		state = SET;
 		moveDirection = (nextFloor > currentFloor) ? UP : DOWN;
 		emit closeDoors();
 	}
@@ -66,12 +64,16 @@ void Cabine::setNextFloor(int floor)
 
 void Cabine::startMoving()
 {
-	state = START_MOVING;
-	
-	if (nextFloor < currentFloor)
-		moveDirection = DOWN;
-	else if (nextFloor > currentFloor)
-		moveDirection = UP;
-	
-	moveTimer.start();
+	if (state == SET)
+	{
+		state = START_MOVING;
+		
+		if (nextFloor < currentFloor)
+			moveDirection = DOWN;
+		else if (nextFloor > currentFloor)
+			moveDirection = UP;
+		
+		moveTimer.start();
+		emit sendCurDir(moveDirection);
+	}
 }

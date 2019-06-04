@@ -34,6 +34,7 @@ SOURCES += \
 HEADERS += \
         cabine.h \
         controller.h \
+        direction.h \
         doors.h \
         window.h
 
