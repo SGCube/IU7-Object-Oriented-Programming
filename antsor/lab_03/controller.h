@@ -37,14 +37,15 @@ private:
 	bool defineNearestFloor();
 	
 signals:
-	void setFloorToReach(int floor);
-	void requestSatisfied(int floor);
+	void setFloorToReach(int floor);	// to Cabine
+	void requestSatisfied(int floor);	// to Window/Button
 	
 	// messages
 	void showCurFloor(int floor);
 	void showMessage(const char* msg);
 	
 public slots:
+	// state
     void requestFloor(int floor);
 	void floorReached();
 	

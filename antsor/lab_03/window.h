@@ -20,7 +20,7 @@ public:
 	~Window();
 	
 signals:
-	void pushButton(int floor);
+	void pushButton(int floor);			// to Controller
 	
 public slots:
 	void pullButton(int floor);

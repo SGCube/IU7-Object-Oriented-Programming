@@ -35,9 +35,10 @@ private:
     static const size_t moveInterval = 1500;
 	
 signals:
-	void openDoors();
+	void openDoors();						// to Doors
 	void closeDoors();
-	void stopped();
+
+	void stopped();							// to Controller
 	
 	// data
 	void sendCurFloor(int floor);
@@ -47,10 +48,12 @@ signals:
 	void sendMessage(const char* msg);
 	
 private slots:
+	// state
 	void moving();							// MOVING
 	void stop();							// STAND_BY
 
 public slots:
+	// state
 	void setNextFloor(int floor);			// SET
 	void startMoving();						// START_MOVING
 	

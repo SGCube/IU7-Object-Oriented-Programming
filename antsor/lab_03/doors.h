@@ -31,7 +31,7 @@ private:
     static const size_t stayTime = 5000;
 	
 signals:
-    void doorsAreClosed();
+    void doorsAreClosed();					// to Cabine
 	
 	// messages
 	void doorsAreOpened();
@@ -39,10 +39,12 @@ signals:
 	void doorsAreOpening();
 
 public slots:
+	// state
 	void startOpening();
     void startClosing();
 	
 private slots:
+	// state
 	void opened();
 	void closed();
 
