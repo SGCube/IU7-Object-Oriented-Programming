@@ -9,7 +9,7 @@ private:
     static constexpr const char* ErrorMsg = "Error existence transforming object";
 public:
     explicit NoObjectToTransformException() : ExceptionBase(ErrorMsg) {}
-    explicit NoObjectToTransformException(const std::string& message) : \
+    explicit NoObjectToTransformException(const std::string& message) :
         ExceptionBase(ErrorMsg + message) {}
 };
 
@@ -19,7 +19,7 @@ private:
     static constexpr const char* ErrorMsg = "Error existence transforming vertices";
 public:
     explicit NoVerticesToTransformException() : ExceptionBase(ErrorMsg) {}
-    explicit NoVerticesToTransformException(const std::string& message) : \
+    explicit NoVerticesToTransformException(const std::string& message) :
         ExceptionBase(ErrorMsg + message) {}
 };
 

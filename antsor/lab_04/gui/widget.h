@@ -35,17 +35,14 @@ protected:
     void updateCanvas();
 
 private slots:
-    void on_AddButton_clicked();
-    void on_DeleteButton_clicked();
-    void on_LoadButton_clicked();
-    void on_CameraBox_currentIndexChanged(int index);
+    void on_addButton_clicked();
+    void on_deleteButton_clicked();
+    void on_loadButton_clicked();
+    void on_cameraBox_currentIndexChanged(int index);
 
 	void on_moveButton_clicked();
-	
 	void on_scaleButton_clicked();
-	
 	void on_rotateButton_clicked();
-	
 	void on_rotateCButton_clicked();
 	
 private:

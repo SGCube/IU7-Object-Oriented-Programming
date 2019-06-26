@@ -9,7 +9,7 @@ private:
     static constexpr const char* ErrorMsg = "Error existence building object";
 public:
     explicit NoObjectToBuildException() : ExceptionBase(ErrorMsg) {}
-    explicit NoObjectToBuildException(const std::string& message) : \
+    explicit NoObjectToBuildException(const std::string& message) :
         ExceptionBase(ErrorMsg + message) {}
 };
 

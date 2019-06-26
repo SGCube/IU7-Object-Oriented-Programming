@@ -9,7 +9,7 @@ private:
     static constexpr const char* ErrorMsg = "Error opening file";
 public:
     explicit OpenFileException() : ExceptionBase(ErrorMsg) {}
-    explicit OpenFileException(const std::string& message) : \
+    explicit OpenFileException(const std::string& message) :
         ExceptionBase(ErrorMsg + message) {}
 };
 
@@ -19,7 +19,7 @@ private:
     static constexpr const char* ErrorMsg = "Error closing file";
 public:
     explicit CloseFileException() : ExceptionBase(ErrorMsg) {}
-    explicit CloseFileException(const std::string& message) : \
+    explicit CloseFileException(const std::string& message) :
         ExceptionBase(ErrorMsg + message) {}
 };
 
@@ -29,7 +29,7 @@ private:
     static constexpr const char* ErrorMsg = "Error reading file";
 public:
     explicit ReadFileException() : ExceptionBase(ErrorMsg) {}
-    explicit ReadFileException(const std::string& message) : \
+    explicit ReadFileException(const std::string& message) :
         ExceptionBase(ErrorMsg + message) {}
 };
 

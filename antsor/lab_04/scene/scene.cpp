@@ -5,62 +5,52 @@
 
 void Scene::addModel(const std::shared_ptr<Object>& object)
 {
-    this->object.addModel(object);
+    this->composite.addModel(object);
 }
 
 void Scene::removeModel(const size_t index)
 {
-    this->object.removeModel(index);
+    this->composite.removeModel(index);
 }
 
 void Scene::addCamera(const std::shared_ptr<Object>& object)
 {
-    this->object.addCamera(object);
+    this->composite.addCamera(object);
 }
 
-void Scene::removeCamera(const size_t index)
+void Scene::removeCamera(size_t index)
 {
-    this->object.removeCamera(index);
+    this->composite.removeCamera(index);
 }
 
-std::shared_ptr<Object> Scene::getModel(const size_t index)
+std::shared_ptr<Object> Scene::getModel(size_t index)
 {
-    return this->object.getModel(index);
+    return this->composite.getModel(index);
 }
 
-std::shared_ptr<Object> Scene::getCamera(const size_t index)
+std::shared_ptr<Object> Scene::getCamera(size_t index)
 {
-    return this->object.getCamera(index);
+    return this->composite.getCamera(index);
 }
 
-ObjIter Scene::modelBegin()
+ObjIter Scene::objectBegin()
 {
-    return this->object.modelBegin();
+    return this->composite.objectBegin();
 }
 
-ObjIter Scene::modelEnd()
+ObjIter Scene::objectEnd()
 {
-    return this->object.modelEnd();
+    return this->composite.objectEnd();
 }
 
-ObjIter Scene::cameraBegin()
+ObjIter Scene::modelIndex(size_t index)
 {
-    return this->object.cameraBegin();
+    return this->composite.modelIndex(index);
 }
 
-ObjIter Scene::cameraEnd()
+ObjIter Scene::cameraIndex(size_t index)
 {
-    return this->object.cameraEnd();
-}
-
-ObjIter Scene::modelIndex(const size_t index)
-{
-    return this->object.modelIndex(index);
-}
-
-ObjIter Scene::cameraIndex(const size_t index)
-{
-    return this->object.cameraIndex(index);
+    return this->composite.cameraIndex(index);
 }
 
 #endif // SCENE_CPP

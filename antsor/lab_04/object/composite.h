@@ -15,26 +15,25 @@ public:
     ~CompositeObject() = default;
 
     void addModel(std::shared_ptr<Object> object);
-    void removeModel(const size_t index);
+    void removeModel(size_t index);
 
     void addCamera(std::shared_ptr<Object> object);
-    void removeCamera(const size_t index);
+    void removeCamera(size_t index);
 
-    std::shared_ptr<Object> getModel(const size_t index);
-    std::shared_ptr<Object> getCamera(const size_t index);
+    std::shared_ptr<Object> getModel(size_t index);
+    std::shared_ptr<Object> getCamera(size_t index);
 
-    ObjIter modelBegin();
-    ObjIter modelEnd();
+    ObjIter objectBegin();
+    ObjIter objectEnd();
 	
-	ObjIter cameraBegin();
-    ObjIter cameraEnd();
-	
-    ObjIter modelIndex(const size_t index);
-    ObjIter cameraIndex(const size_t index);
+    ObjIter modelIndex(size_t index);
+    ObjIter cameraIndex(size_t index);
 
 private:
-    std::vector<std::shared_ptr<Object>> models;
-	std::vector<std::shared_ptr<Object>> cameras;
+    std::vector<std::shared_ptr<Object>> objects;
+	std::vector<bool> isModel;
+	size_t modelsAmount;
+	size_t camerasAmount;
 };
 
 #endif // COMPOSITEOBJECT_H

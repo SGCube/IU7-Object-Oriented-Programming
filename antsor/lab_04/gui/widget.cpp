@@ -6,7 +6,7 @@ Widget::Widget(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setUpCanvas();
-    ui->ModelBox->addItem("Все модели");
+    ui->modelBox->addItem("Все модели");
 }
 
 Widget::~Widget()
@@ -19,7 +19,7 @@ void Widget::setUpCanvas()
     this->canvas = new QGraphicsScene;
     ui->Canvas->installEventFilter(this);
     ui->Canvas->setScene(canvas);
-    ui->AddButton->click();
+    ui->addButton->click();
 }
 
 void Widget::updateCanvas()
@@ -27,20 +27,20 @@ void Widget::updateCanvas()
     this->canvas->clear();
     ModelDrawer drawer(this->canvas);
 
-    size_t index = ui->CameraBox->currentIndex();
+    size_t index = ui->cameraBox->currentIndex();
     actions::ModelDrawAction action(drawer, index);
     actionController.executeAction(action);
 }
 
-void Widget::on_AddButton_clicked()
+void Widget::on_addButton_clicked()
 {
     try
     {
         actions::CameraAddAction action(0, 0, 0);
         actionController.executeAction(action);
 
-        ui->CameraBox->addItem("Камера " + QString::number(ui->CameraBox->count()));
-        ui->CameraBox->setCurrentIndex(ui->CameraBox->count() - 1);
+        ui->cameraBox->addItem("Камера " + QString::number(ui->cameraBox->count()));
+        ui->cameraBox->setCurrentIndex(ui->cameraBox->count() - 1);
     }
     catch (ExceptionBase& e)
     {
@@ -48,18 +48,18 @@ void Widget::on_AddButton_clicked()
     }
 }
 
-void Widget::on_DeleteButton_clicked()
+void Widget::on_deleteButton_clicked()
 {
     try
     {
-        if (ui->CameraBox->count() == 1)
+        if (ui->cameraBox->count() == 1)
             return;
 
-        actions::CameraRemoveAction action(ui->CameraBox->currentIndex());
+        actions::CameraRemoveAction action(ui->cameraBox->currentIndex());
         actionController.executeAction(action);
 
-        ui->CameraBox->removeItem(ui->CameraBox->currentIndex());
-        ui->CameraBox->setCurrentIndex(0);
+        ui->cameraBox->removeItem(ui->cameraBox->currentIndex());
+        ui->cameraBox->setCurrentIndex(0);
     }
     catch (ExceptionBase& e)
     {
@@ -67,11 +67,11 @@ void Widget::on_DeleteButton_clicked()
     }
 }
 
-void Widget::on_LoadButton_clicked()
+void Widget::on_loadButton_clicked()
 {
     try
     {
-        QString filePath = QFileDialog::getOpenFileName(this, "Загрузить", "", \
+        QString filePath = QFileDialog::getOpenFileName(this, "Загрузить", "",
                                                         "Текстовый файл (*.txt)");
         if (filePath.isEmpty())
         {
@@ -82,8 +82,8 @@ void Widget::on_LoadButton_clicked()
         actions::ModelUploadAction action(filePath.toStdString());
         actionController.executeAction(action);
 
-        ui->ModelBox->addItem("Модель " + QString::number(ui->ModelBox->count()));
-        ui->ModelBox->setCurrentIndex(ui->ModelBox->count() - 1);
+        ui->modelBox->addItem("Модель " + QString::number(ui->modelBox->count()));
+        ui->modelBox->setCurrentIndex(ui->modelBox->count() - 1);
 
         this->updateCanvas();
     }
@@ -93,7 +93,7 @@ void Widget::on_LoadButton_clicked()
     }
 }
 
-void Widget::on_CameraBox_currentIndexChanged(int index)
+void Widget::on_cameraBox_currentIndexChanged(int index)
 {
 	Q_UNUSED(index);
     this->updateCanvas();
@@ -101,7 +101,7 @@ void Widget::on_CameraBox_currentIndexChanged(int index)
 
 void Widget::on_moveButton_clicked()
 {
-	size_t index = ui->ModelBox->currentIndex() - 1;
+	size_t index = ui->modelBox->currentIndex() - 1;
 	actions::ModelMoveAction action(ui->dxBox->value(), 
 									 ui->dyBox->value(), 
 									 ui->dzBox->value(), index);
@@ -111,7 +111,7 @@ void Widget::on_moveButton_clicked()
 
 void Widget::on_scaleButton_clicked()
 {
-	size_t index = ui->ModelBox->currentIndex() - 1;
+	size_t index = ui->modelBox->currentIndex() - 1;
 	actions::ModelScaleAction action(ui->kxBox->value(), 
 									 ui->kyBox->value(),
 									 ui->kzBox->value(),
@@ -122,7 +122,7 @@ void Widget::on_scaleButton_clicked()
 
 void Widget::on_rotateButton_clicked()
 {
-	size_t index = ui->ModelBox->currentIndex() - 1;
+	size_t index = ui->modelBox->currentIndex() - 1;
 	actions::ModelRotateAction action(ui->axBox->value(), 
 									  ui->ayBox->value(),
 									  ui->azBox->value(),
@@ -133,7 +133,7 @@ void Widget::on_rotateButton_clicked()
 
 void Widget::on_rotateCButton_clicked()
 {
-	size_t index = ui->CameraBox->currentIndex();
+	size_t index = ui->cameraBox->currentIndex();
 	actions::CameraRotateAction action(ui->axBox->value(), 
 									  ui->ayBox->value(),
 									  ui->azBox->value(),

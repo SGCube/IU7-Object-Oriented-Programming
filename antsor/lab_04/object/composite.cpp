@@ -2,87 +2,97 @@
 
 void CompositeObject::addModel(std::shared_ptr<Object> object)
 {
-    models.push_back(std::static_pointer_cast<Model>(object));
+    objects.push_back(std::static_pointer_cast<Model>(object));
+	isModel.push_back(true);
+	modelsAmount++;
 }
 
-void CompositeObject::removeModel(const size_t index)
+void CompositeObject::removeModel(size_t index)
 {
-    if (index > models.size())
-    {
-        throw OutOfRangeObjectException(": removeModel");
-    }
-    else
-    {
-        models.erase(models.begin() + index);
-    }
+    objects.erase(modelIndex(index));
+	modelsAmount--;
 }
 
 void CompositeObject::addCamera(std::shared_ptr<Object> object)
 {
-    cameras.push_back(std::static_pointer_cast<Camera>(object));
+    objects.push_back(std::static_pointer_cast<Camera>(object));
+	isModel.push_back(false);
+	camerasAmount++;
 }
 
-void CompositeObject::removeCamera(const size_t index)
+void CompositeObject::removeCamera(size_t index)
 {
-    if (index > cameras.size())
-    {
-        throw OutOfRangeObjectException(": removeCamera");
-    }
-    else
-    {
-        cameras.erase(cameras.begin() + index);
-    }
+	objects.erase(cameraIndex(index));
+	camerasAmount--;
 }
 
-std::shared_ptr<Object> CompositeObject::getModel(const size_t index)
+std::shared_ptr<Object> CompositeObject::getModel(size_t index)
 {
-    if (index > models.size())
+	size_t iAll = 0, i = 0;
+	
+	for (; iAll < objects.size() && i != index + 1; iAll++)
+	{
+		if (isModel[iAll])
+			i++;
+	}
+	
+    if (i != index + 1)
         throw OutOfRangeObjectException(": getModel");
-    else
-        return models[index];
+    return objects[iAll];
 }
 
-std::shared_ptr<Object> CompositeObject::getCamera(const size_t index)
+std::shared_ptr<Object> CompositeObject::getCamera(size_t index)
 {
-    if (index > cameras.size())
+	size_t iAll = 0, i = 0;
+	
+	for (; iAll < objects.size() && i != index + 1; iAll++)
+	{
+		if (!isModel[iAll])
+			i++;
+	}
+	
+    if (i != index + 1)
         throw OutOfRangeObjectException(": getCamera");
-    else
-        return cameras[index];
+    return objects[iAll];
 }
 
-ObjIter CompositeObject::modelBegin()
+ObjIter CompositeObject::objectBegin()
 {
-    return models.begin();
+    return objects.begin();
 }
 
-ObjIter CompositeObject::modelEnd()
+ObjIter CompositeObject::objectEnd()
 {
-    return models.end();
+    return objects.end();
 }
 
-ObjIter CompositeObject::cameraBegin()
+ObjIter CompositeObject::modelIndex(size_t index)
 {
-    return cameras.begin();
-}
-
-ObjIter CompositeObject::cameraEnd()
-{
-    return cameras.end();
-}
-
-ObjIter CompositeObject::modelIndex(const size_t index)
-{
-    if (index > models.size())
+	size_t iAll = 0, i = 0;
+	
+	for (; iAll < objects.size() && i != index + 1; iAll++)
+	{
+		if (isModel[iAll])
+			i++;
+	}
+	
+    if (i != index + 1)
         throw OutOfRangeObjectException(": modelIndex");
-    else
-        return models.begin() + index;
+    return objects.begin() + iAll;
 }
 
-ObjIter CompositeObject::cameraIndex(const size_t index)
+ObjIter CompositeObject::cameraIndex(size_t index)
 {
-    if (index > cameras.size())
+	size_t iAll = 0, i = 0;
+	
+	for (; iAll < objects.size() && i != index + 1; iAll++)
+	{
+		if (!isModel[iAll])
+			i++;
+	}
+	
+    if (i != index + 1)
         throw OutOfRangeObjectException(": cameraIndex");
-    else
-        return cameras.begin() + index;
+    return objects.begin() + iAll;
 }
 

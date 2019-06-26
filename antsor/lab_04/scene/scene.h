@@ -14,25 +14,22 @@ public:
     ~Scene() = default;
 
     void addModel(const std::shared_ptr<Object>& model);
-    void removeModel(const size_t index);
+    void removeModel(size_t index);
 
     void addCamera(const std::shared_ptr<Object>& camera);
-    void removeCamera(const size_t index);
+    void removeCamera(size_t index);
 
-    std::shared_ptr<Object> getModel(const size_t index);
-    std::shared_ptr<Object> getCamera(const size_t index);
+    std::shared_ptr<Object> getModel(size_t index);
+    std::shared_ptr<Object> getCamera(size_t index);
 
-    ObjIter modelBegin();
-    ObjIter modelEnd();
+    ObjIter objectBegin();
+    ObjIter objectEnd();
 	
-	ObjIter cameraBegin();
-    ObjIter cameraEnd();
+    ObjIter modelIndex(size_t index);
+    ObjIter cameraIndex(size_t index);
 	
-    ObjIter modelIndex(const size_t index);
-    ObjIter cameraIndex(const size_t index);
-
 private:
-    CompositeObject object;
+	CompositeObject composite;
 };
 
 #endif // SCENE_H

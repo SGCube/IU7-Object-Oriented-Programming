@@ -34,73 +34,103 @@
       <property name="title">
        <string/>
       </property>
-      <widget class="QPushButton" name="LoadButton">
+      <widget class="QPushButton" name="loadButton">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>20</y>
-         <width>141</width>
+         <y>40</y>
+         <width>341</width>
          <height>27</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Загрузить</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="AddButton">
+      <widget class="QPushButton" name="addButton">
        <property name="geometry">
         <rect>
-         <x>200</x>
-         <y>20</y>
-         <width>141</width>
+         <x>10</x>
+         <y>160</y>
+         <width>171</width>
          <height>27</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Добавить камеру</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="DeleteButton">
+      <widget class="QPushButton" name="deleteButton">
        <property name="geometry">
         <rect>
-         <x>200</x>
-         <y>60</y>
-         <width>141</width>
+         <x>190</x>
+         <y>160</y>
+         <width>161</width>
          <height>27</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Удалить камеру</string>
        </property>
       </widget>
-      <widget class="QComboBox" name="ModelBox">
+      <widget class="QComboBox" name="modelBox">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>60</y>
-         <width>141</width>
+         <y>80</y>
+         <width>341</width>
          <height>27</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
       </widget>
-      <widget class="QComboBox" name="CameraBox">
+      <widget class="QComboBox" name="cameraBox">
        <property name="geometry">
         <rect>
-         <x>200</x>
-         <y>100</y>
-         <width>141</width>
+         <x>10</x>
+         <y>200</y>
+         <width>341</width>
          <height>27</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
       </widget>
       <widget class="QPushButton" name="moveButton">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>240</y>
+         <y>390</y>
          <width>341</width>
          <height>31</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Сдвинуть</string>
@@ -110,10 +140,15 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>210</y>
+         <y>360</y>
          <width>111</width>
          <height>22</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="minimum">
         <double>-400.000000000000000</double>
@@ -126,10 +161,15 @@
        <property name="geometry">
         <rect>
          <x>130</x>
-         <y>210</y>
+         <y>360</y>
          <width>111</width>
          <height>22</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="minimum">
         <double>-400.000000000000000</double>
@@ -142,10 +182,15 @@
        <property name="geometry">
         <rect>
          <x>250</x>
-         <y>210</y>
+         <y>360</y>
          <width>101</width>
          <height>22</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="minimum">
         <double>-400.000000000000000</double>
@@ -158,10 +203,15 @@
        <property name="geometry">
         <rect>
          <x>40</x>
-         <y>190</y>
+         <y>340</y>
          <width>47</width>
          <height>13</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>dX</string>
@@ -171,10 +221,15 @@
        <property name="geometry">
         <rect>
          <x>150</x>
-         <y>190</y>
+         <y>340</y>
          <width>47</width>
          <height>13</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>dY</string>
@@ -184,10 +239,15 @@
        <property name="geometry">
         <rect>
          <x>270</x>
-         <y>190</y>
+         <y>340</y>
          <width>47</width>
          <height>13</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>dZ</string>
@@ -197,10 +257,15 @@
        <property name="geometry">
         <rect>
          <x>150</x>
-         <y>300</y>
+         <y>450</y>
          <width>47</width>
          <height>13</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>kY</string>
@@ -210,10 +275,15 @@
        <property name="geometry">
         <rect>
          <x>130</x>
-         <y>320</y>
+         <y>470</y>
          <width>111</width>
          <height>22</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="minimum">
         <double>-100.000000000000000</double>
@@ -229,10 +299,15 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>320</y>
+         <y>470</y>
          <width>111</width>
          <height>22</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="minimum">
         <double>-100.000000000000000</double>
@@ -248,10 +323,15 @@
        <property name="geometry">
         <rect>
          <x>40</x>
-         <y>300</y>
+         <y>450</y>
          <width>47</width>
          <height>13</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>kX</string>
@@ -261,10 +341,15 @@
        <property name="geometry">
         <rect>
          <x>270</x>
-         <y>300</y>
+         <y>450</y>
          <width>47</width>
          <height>13</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>kZ</string>
@@ -274,10 +359,15 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>350</y>
+         <y>500</y>
          <width>341</width>
          <height>31</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Масштабировать</string>
@@ -287,10 +377,15 @@
        <property name="geometry">
         <rect>
          <x>250</x>
-         <y>320</y>
+         <y>470</y>
          <width>101</width>
          <height>22</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="minimum">
         <double>-100.000000000000000</double>
@@ -306,10 +401,15 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>450</y>
+         <y>600</y>
          <width>341</width>
          <height>31</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Повернуть</string>
@@ -319,10 +419,15 @@
        <property name="geometry">
         <rect>
          <x>270</x>
-         <y>400</y>
+         <y>550</y>
          <width>47</width>
          <height>13</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>aZ</string>
@@ -332,10 +437,15 @@
        <property name="geometry">
         <rect>
          <x>130</x>
-         <y>420</y>
+         <y>570</y>
          <width>111</width>
          <height>22</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="minimum">
         <double>0.000000000000000</double>
@@ -348,10 +458,15 @@
        <property name="geometry">
         <rect>
          <x>150</x>
-         <y>400</y>
+         <y>550</y>
          <width>47</width>
          <height>13</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>aY</string>
@@ -361,10 +476,15 @@
        <property name="geometry">
         <rect>
          <x>250</x>
-         <y>420</y>
+         <y>570</y>
          <width>101</width>
          <height>22</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="minimum">
         <double>0.000000000000000</double>
@@ -377,10 +497,15 @@
        <property name="geometry">
         <rect>
          <x>40</x>
-         <y>400</y>
+         <y>550</y>
          <width>47</width>
          <height>13</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>aX</string>
@@ -390,10 +515,15 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>420</y>
+         <y>570</y>
          <width>111</width>
          <height>22</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="minimum">
         <double>0.000000000000000</double>
@@ -406,10 +536,15 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>490</y>
+         <y>640</y>
          <width>341</width>
          <height>31</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Повернуть камеру</string>

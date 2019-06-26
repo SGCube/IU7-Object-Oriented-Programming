@@ -15,8 +15,8 @@ public:
 
     virtual std::shared_ptr<Model> getModel() const = 0;
     virtual void buildModel() = 0;
-    virtual void buildVertex(const double x, const double y, const double z) = 0;
-    virtual void buildEdge(const size_t src, const size_t purp) = 0;
+    virtual void buildVertex(double x, double y, double z) = 0;
+    virtual void buildEdge(size_t src, size_t purp) = 0;
 };
 
 class ModelBuilder : public BaseBuilder
@@ -27,8 +27,8 @@ public:
 
     std::shared_ptr<Model> getModel() const;
     void buildModel();
-    void buildVertex(const double x, const double y, const double z);
-    void buildEdge(const size_t src, const size_t purp);
+    void buildVertex(double x, double y, double z);
+    void buildEdge(size_t src, size_t purp);
 
 protected:
     bool isModelBuilt() const;

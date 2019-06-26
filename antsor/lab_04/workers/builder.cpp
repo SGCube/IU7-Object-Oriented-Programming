@@ -15,7 +15,7 @@ void ModelBuilder::buildModel()
     model = std::make_shared<Model>();
 }
 
-void ModelBuilder::buildVertex(const double x, const double y, const double z)
+void ModelBuilder::buildVertex(double x, double y, double z)
 {
     if (!isModelBuilt())
         throw NoObjectToBuildException();
@@ -24,7 +24,7 @@ void ModelBuilder::buildVertex(const double x, const double y, const double z)
     this->model->addVertex(vertex);
 }
 
-void ModelBuilder::buildEdge(const size_t src, const size_t purp)
+void ModelBuilder::buildEdge(size_t src, size_t purp)
 {
     if (!isModelBuilt())
         throw NoObjectToBuildException();
@@ -35,7 +35,7 @@ void ModelBuilder::buildEdge(const size_t src, const size_t purp)
 
 bool ModelBuilder::isModelBuilt() const
 {
-    return (this->model == nullptr) ? false : true;
+    return this->model != nullptr;
 }
 
 #endif // MODELBUILDER_HPP

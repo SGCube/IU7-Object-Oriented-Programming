@@ -1,6 +1,6 @@
 #include "drawmanager.h"
 
-void DrawManager::drawModel(BaseDrawer& drw, const ObjIter& b, const ObjIter& e, \
+void DrawManager::drawModel(BaseDrawer& drw, const ObjIter& b, const ObjIter& e,
                std::shared_ptr<Object> camera)
 {
     std::shared_ptr<Camera> cm = std::static_pointer_cast<Camera>(camera);

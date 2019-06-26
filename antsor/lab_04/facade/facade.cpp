@@ -29,9 +29,9 @@ void Facade::removeCamera(size_t index)
 
 void Facade::transformModel(BaseTransformator& tr, int modelIndex)
 {
-    ObjIter begin = (modelIndex == -1) ? this->scene.modelBegin() :
+    ObjIter begin = (modelIndex == -1) ? this->scene.objectBegin() :
                                          this->scene.modelIndex(modelIndex);
-    ObjIter end = (modelIndex == -1) ? this->scene.modelEnd() :
+    ObjIter end = (modelIndex == -1) ? this->scene.objectEnd() :
                                        this->scene.modelIndex(modelIndex + 1);
 
     this->modelManager.transform(tr, begin, end);
@@ -46,8 +46,8 @@ void Facade::transformCamera(BaseTransformator &tr, size_t cameraIndex)
 
 void Facade::draw(BaseDrawer& drw, size_t cameraIndex)
 {
-    ObjIter begin = this->scene.modelBegin();
-    ObjIter end = this->scene.modelEnd();
+    ObjIter begin = this->scene.objectBegin();
+    ObjIter end = this->scene.objectEnd();
     this->drawManager.drawModel(drw, begin, end, this->scene.getCamera(cameraIndex));
 }
 
