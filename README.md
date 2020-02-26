@@ -50,7 +50,7 @@
    <tr>
    <tr>
     <td colspan = "3">Экзамен</td>
-    <td>✔️</td>
+    <td>?</td>
    </tr>
    <tr>
     <th colspan = "3">Итог</th>
